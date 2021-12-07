@@ -23,12 +23,19 @@ export default function Topbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          {/* LEFT DRAWER MENU ICON */}
+          {/*
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
+          */}
+
+          {/* LOGO NAME */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            OpenTradeJournal
+            Libre Trader
           </Typography>
+
+          {/* TOGGLE DARK MODE */}
           <div>
             <Tooltip title={`switch to ${theme.mode === "dark" ? "light" : "dark"} mode`}>
               <IconButton size="large" onClick={theme.toggle} color="inherit">
@@ -39,6 +46,7 @@ export default function Topbar() {
               </IconButton>
             </Tooltip>
 
+            {/* RIGHT DROP DOWN MENU */}
             {/*
             <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
               <AccountCircle />
