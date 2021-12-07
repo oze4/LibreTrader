@@ -1,5 +1,18 @@
 import React from "react";
+import { Button, Typography, Paper } from "@mui/material";
 
-export default function App(props) {
-  return <h1>Hello, App!</h1>;
+import { ColorModeContext } from "./theme";
+
+export default function App() {
+  const theme = React.useContext(ColorModeContext);
+
+  return (
+    <div>
+      <Typography variant="h1">Hello, App!</Typography>
+      <Button onClick={theme.toggle}>Toggle Theme</Button>
+      <Paper>
+        <Typography variant="p">The current mode is {theme.mode} mode</Typography>
+      </Paper>
+    </div>
+  );
 }
