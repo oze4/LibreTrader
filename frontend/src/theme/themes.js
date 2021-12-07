@@ -1,29 +1,29 @@
 /**
- * 
+ *
  * This file contains light/dark mode themes.
- * 
+ *
  */
 
 export const lightMode = {
   palette: {
-    type: 'light',
+    type: "light",
     primary: {
-      main: '#779ecb',
+      main: "#779ecb",
     },
     secondary: {
-      main: '#9e465f',
-      light: '#e36588',
+      main: "#9e465f",
+      light: "#e36588",
     },
     background: {
-      default: '#faf8f6',
-      paper: '#f5f5f5',
+      default: "#faf8f6",
+      paper: "#f5f5f5",
     },
     text: {
-      primary: 'rgba(0,0,0,0.87)',
+      primary: "rgba(0,0,0,0.87)",
     },
   },
   typography: {
-    fontFamily: 'Roboto Condensed',
+    fontFamily: "Roboto Condensed",
   },
   overrides: {
     MuiSwitch: {
@@ -35,12 +35,12 @@ export const lightMode = {
       },
       switchBase: {
         padding: 1,
-        '&$checked, &$colorPrimary$checked, &$colorSecondary$checked': {
-          transform: 'translateX(16px)',
-          color: '#fff',
-          '& + $track': {
+        "&$checked, &$colorPrimary$checked, &$colorSecondary$checked": {
+          transform: "translateX(16px)",
+          color: "#fff",
+          "& + $track": {
             opacity: 1,
-            border: 'none',
+            border: "none",
           },
         },
       },
@@ -50,10 +50,11 @@ export const lightMode = {
       },
       track: {
         borderRadius: 13,
-        border: '1px solid #bdbdbd',
-        backgroundColor: '#fafafa',
+        border: "1px solid #bdbdbd",
+        backgroundColor: "#fafafa",
         opacity: 1,
-        transition: 'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        transition:
+          "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
       },
     },
   },
@@ -65,69 +66,69 @@ export const lightMode = {
       dense: true,
     },
     MuiTable: {
-      size: 'small',
+      size: "small",
     },
     MuiButton: {
-      size: 'small',
+      size: "small",
     },
     MuiButtonGroup: {
-      size: 'small',
+      size: "small",
     },
     MuiCheckbox: {
-      size: 'small',
+      size: "small",
     },
     MuiFab: {
-      size: 'small',
+      size: "small",
     },
     MuiFormControl: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
     MuiFormHelperText: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiIconButton: {
-      size: 'small',
+      size: "small",
     },
     MuiInputBase: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiInputLabel: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiRadio: {
-      size: 'small',
+      size: "small",
     },
     MuiSwitch: {
-      size: 'small',
+      size: "small",
     },
     MuiTextField: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
   },
 };
 
 export const darkMode = {
   palette: {
-    type: 'dark',
+    type: "dark",
     primary: {
-      main: '#434343',
+      main: "#434343",
     },
     secondary: {
-      main: '#9e465f',
-      light: '#e36588',
+      main: "#9e465f",
+      light: "#e36588",
     },
     background: {
-      default: '#141414',
-      paper: '#1b1b1b',
+      default: "#141414",
+      paper: "#1b1b1b",
     },
     text: {
-      primary: 'rgba(255,255,255,0.87)',
+      primary: "rgba(255,255,255,0.87)",
     },
   },
   typography: {
-    fontFamily: 'Roboto Condensed',
+    fontFamily: "Roboto Condensed",
   },
   overrides: {
     MuiSwitch: {
@@ -139,12 +140,12 @@ export const darkMode = {
       },
       switchBase: {
         padding: 1,
-        '&$checked, &$colorPrimary$checked, &$colorSecondary$checked': {
-          transform: 'translateX(16px)',
-          color: '#fff',
-          '& + $track': {
+        "&$checked, &$colorPrimary$checked, &$colorSecondary$checked": {
+          transform: "translateX(16px)",
+          color: "#fff",
+          "& + $track": {
             opacity: 1,
-            border: 'none',
+            border: "none",
           },
         },
       },
@@ -154,10 +155,11 @@ export const darkMode = {
       },
       track: {
         borderRadius: 13,
-        border: '1px solid #bdbdbd',
-        backgroundColor: '#fafafa',
+        border: "1px solid #bdbdbd",
+        backgroundColor: "#fafafa",
         opacity: 1,
-        transition: 'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        transition:
+          "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
       },
     },
   },
@@ -169,45 +171,45 @@ export const darkMode = {
       dense: true,
     },
     MuiTable: {
-      size: 'small',
+      size: "small",
     },
     MuiButton: {
-      size: 'small',
+      size: "small",
     },
     MuiButtonGroup: {
-      size: 'small',
+      size: "small",
     },
     MuiCheckbox: {
-      size: 'small',
+      size: "small",
     },
     MuiFab: {
-      size: 'small',
+      size: "small",
     },
     MuiFormControl: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
     MuiFormHelperText: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiIconButton: {
-      size: 'small',
+      size: "small",
     },
     MuiInputBase: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiInputLabel: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiRadio: {
-      size: 'small',
+      size: "small",
     },
     MuiSwitch: {
-      size: 'small',
+      size: "small",
     },
     MuiTextField: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
   },
 };

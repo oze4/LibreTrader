@@ -1,6 +1,23 @@
 import React, { useState, useContext } from "react";
-import { AppBar, Box, Typography, IconButton, Toolbar, Menu, MenuItem, Tooltip } from "@mui/material";
-import { DarkMode, LightMode, Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
+
+import {
+  AppBar,
+  Box,
+  Typography,
+  IconButton,
+  Toolbar,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
+
+import {
+  DarkMode,
+  LightMode,
+  Menu as MenuIcon,
+  AccountCircle,
+} from "@mui/icons-material";
+
 import { ColorModeContext } from "../../theme";
 
 export default function Topbar() {
@@ -37,7 +54,11 @@ export default function Topbar() {
 
           {/* TOGGLE DARK MODE */}
           <div>
-            <Tooltip title={`switch to ${theme.mode === "dark" ? "light" : "dark"} mode`}>
+            <Tooltip
+              title={`switch to ${
+                theme.mode === "dark" ? "light" : "dark"
+              } mode`}
+            >
               <IconButton size="large" onClick={theme.toggle} color="inherit">
                 {
                   // We want to show the light mode icon when dark mode is selected

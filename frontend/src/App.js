@@ -1,9 +1,9 @@
 import React, { Fragment, useContext } from "react";
 import { Container } from "@mui/material";
 
-import AppRouter from './router';
+import AppRouter from "./router";
 import { ColorModeContext } from "./theme";
-import { Topbar } from "./components";
+import { Topbar } from "@/components";
 
 export default function App() {
   const theme = useContext(ColorModeContext);

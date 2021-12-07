@@ -6,7 +6,7 @@ import ColorModeContext from "./context";
 /**
  * @notes
  *  - ColorModeProvider is React context that wraps our app which allows us to easily toggle between dark and light modes.
- *  - 
+ *  -
  */
 
 export default function ColorModeProvider({ children }) {
@@ -29,15 +29,15 @@ export default function ColorModeProvider({ children }) {
   );
 }
 
-//// INTERNAL FUNCTIONS 
+//// INTERNAL FUNCTIONS
 
 /**
  * @function handleSetMode state handler for color mode
- * @param {String} previousMode 
+ * @param {String} previousMode
  * @returns {String} either "light" or "dark". by default "light".
  */
 function handleSetMode(previousMode) {
-  return previousMode === "light" ? "dark" : "light"
+  return previousMode === "light" ? "dark" : "light";
 }
 
 /**
