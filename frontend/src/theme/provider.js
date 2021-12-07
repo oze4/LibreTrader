@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 
-import { darkMode, lightMode } from "./colorModes.js";
+import { darkMode, lightMode } from "./themes.js";
 import ColorModeContext from './context';
 
 export default function ColorModeProvider({ children }) {

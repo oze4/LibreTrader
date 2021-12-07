@@ -31,7 +31,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./public/index.ejs",
       filename: "./index.html",
-      title: "Open Trade Journal"
+      title: "OpenTradeJournal"
     })
   ]
 };
