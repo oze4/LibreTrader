@@ -35,14 +35,17 @@ export default function ColorModeProvider({ children }) {
 /**
  * @function handleSetMode state handler for color mode
  * @param {String} previousMode 
+ * @returns {String} either "light" or "dark". 
+ * by default "light".
  */
 function handleSetMode(previousMode) {
-  return previousMode === "dark" ? "light" : "dark"
+  return previousMode === "light" ? "dark" : "light"
 }
 
 /**
  * @function generateTheme wraps mui createTheme call in order to determine color mode.
  * @param {String} mode ("dark"|"light")
+ * @returns mui theme. it returns whatever `createTheme` returns.
  */
 function generateTheme(mode) {
   return mode === "dark" ? createTheme(darkMode) : createTheme(lightMode);
