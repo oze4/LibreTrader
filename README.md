@@ -1,3 +1,3 @@
 # LibreTrader
 
-An open source trading journal
+Open source trading journal
