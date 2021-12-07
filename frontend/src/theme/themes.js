@@ -77,16 +77,16 @@ export const lightMode = {
 
 export const darkMode = {
   palette: {
-    type: 'dark',
+    type: "dark",
     primary: {
-      main: '#90caf9',
+      main: "#90caf9",
     },
     secondary: {
-      main: '#f48fb1',
+      main: "#f48fb1",
     },
     background: {
-      default: '#212121',
-      paper: '#424242',
+      default: "#212121",
+      paper: "#424242",
     },
   },
   props: {
@@ -94,42 +94,42 @@ export const darkMode = {
       arrow: true,
     },
     MuiButton: {
-      size: 'small',
+      size: "small",
     },
     MuiButtonGroup: {
-      size: 'small',
+      size: "small",
     },
     MuiCheckbox: {
-      size: 'small',
+      size: "small",
     },
     MuiFab: {
-      size: 'small',
+      size: "small",
     },
     MuiFormControl: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
     MuiFormHelperText: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiIconButton: {
-      size: 'small',
+      size: "small",
     },
     MuiInputBase: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiInputLabel: {
-      margin: 'dense',
+      margin: "dense",
     },
     MuiRadio: {
-      size: 'small',
+      size: "small",
     },
     MuiSwitch: {
-      size: 'small',
+      size: "small",
     },
     MuiTextField: {
-      margin: 'dense',
-      size: 'small',
+      margin: "dense",
+      size: "small",
     },
     MuiList: {
       dense: true,
@@ -138,10 +138,10 @@ export const darkMode = {
       dense: true,
     },
     MuiTable: {
-      size: 'small',
+      size: "small",
     },
   },
   typography: {
-    fontFamily: 'Roboto Condensed',
+    fontFamily: "Roboto Condensed",
   },
 };
