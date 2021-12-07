@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AppBar, Box, Typography, IconButton, Toolbar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { DarkMode, LightMode, Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
-
 import { ColorModeContext } from "../../theme";
 
 export default function Topbar() {

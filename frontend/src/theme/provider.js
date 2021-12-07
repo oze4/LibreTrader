@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
-
 import { darkMode, lightMode } from "./themes.js";
 import ColorModeContext from "./context";
 
@@ -35,8 +34,7 @@ export default function ColorModeProvider({ children }) {
 /**
  * @function handleSetMode state handler for color mode
  * @param {String} previousMode 
- * @returns {String} either "light" or "dark". 
- * by default "light".
+ * @returns {String} either "light" or "dark". by default "light".
  */
 function handleSetMode(previousMode) {
   return previousMode === "light" ? "dark" : "light"
@@ -48,5 +46,5 @@ function handleSetMode(previousMode) {
  * @returns mui theme. it returns whatever `createTheme` returns.
  */
 function generateTheme(mode) {
-  return mode === "dark" ? createTheme(darkMode) : createTheme(lightMode);
+  return createTheme(mode === "dark" ? darkMode : lightMode);
 }
