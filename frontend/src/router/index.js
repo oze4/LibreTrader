@@ -1,13 +1,13 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Home, Planner, NotFound } from "../pages";
 
-function AppRouter() {
+export default function AppRouter() {
   return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/planner" component={Planner} />
-      <Route component={NotFound} />
-    </Switch>
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+      <Route exact path="/planner" element={<Planner />} />
+      <Route element={NotFound} />
+    </Routes>
   );
 }

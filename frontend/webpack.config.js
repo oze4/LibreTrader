@@ -33,5 +33,9 @@ module.exports = {
       filename: "./index.html",
       title: "Libre Trader"
     })
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true,
+    static: "./",
+  }
 };

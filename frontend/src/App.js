@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from "react";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import AppRouter from './router';
 import { ColorModeContext } from "./theme";
 import { Topbar } from "./components";
 
@@ -9,8 +10,8 @@ export default function App() {
   return (
     <Fragment>
       <Topbar />
-      <Container fluid>
-        <Typography variant="h1">Hello, App!</Typography>
+      <Container fluid="true">
+        <AppRouter />
       </Container>
     </Fragment>
   );
