@@ -48,3 +48,4 @@ function handleSetMode(previousMode) {
 function generateTheme(mode) {
   return createTheme(mode === "dark" ? darkMode : lightMode);
 }
+
