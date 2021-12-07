@@ -7,13 +7,13 @@ import App from "./App";
 import { ColorModeProvider } from "./theme";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <StyledEngineProvider injectFirst>
-      <ColorModeProvider>
-        <CssBaseline />
+  <StyledEngineProvider injectFirst>
+    <ColorModeProvider>
+      <BrowserRouter>
         <App />
-      </ColorModeProvider>
-    </StyledEngineProvider>
-  </BrowserRouter>,
+        <CssBaseline />
+      </BrowserRouter>
+    </ColorModeProvider>
+  </StyledEngineProvider>,
   document.querySelector("#root")
 );
