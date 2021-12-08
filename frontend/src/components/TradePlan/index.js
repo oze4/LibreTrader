@@ -25,8 +25,8 @@ TradePlan.propTypes = {
     demand: PropTypes.arrayOf(
       PropTypes.shape({
         timeframe: PropTypes.string, // (1min,5min,10min, etc...)
-        startPrice: PropTypes.string, // start of supply zone
-        endPrice: PropTypes.string, // end of supply zone
+        startPrice: PropTypes.string, // start of demand zone
+        endPrice: PropTypes.string, // end of demand zone
         screenshots: PropTypes.arrayOf(PropTypes.string), // array of screenshots for this zone.
       })
     ),

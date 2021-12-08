@@ -37,6 +37,7 @@
 ##### New Features
 
 * **frontend:**
+  *  work on trade planner page (2e75b98d)
   *  begin adding trade planner form (7b8291e0)
   *  add generate changelog (9ccd9b5d)
 *  add generate-changelog for frontend on each commit (08678a5d)
