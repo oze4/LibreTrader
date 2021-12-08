@@ -1,0 +1,27 @@
+{
+  "name": "libretrader",
+  "version": "0.0.1",
+  "description": "Open source trade journal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oze4/LibreTrader.git"
+  },
+  "author": "mattoestreich.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oze4/LibreTrader/issues"
+  },
+  "homepage": "https://github.com/oze4/LibreTrader#readme",
+  "devDependencies": {
+    "husky": "^7.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format --prefix frontend"
+    }
+  }
+}
