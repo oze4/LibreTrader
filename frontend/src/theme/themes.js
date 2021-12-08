@@ -89,7 +89,7 @@ export const darkMode = {
       paper: "#424242",
     },
     text: {
-      primary: "#fff"
+      primary: "#fff",
     },
   },
   props: {

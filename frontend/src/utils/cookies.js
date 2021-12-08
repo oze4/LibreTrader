@@ -14,14 +14,16 @@ export default class Cookies {
       let now = new Date();
       now.setTime(now.getTime() + hours * 3600 * 1000);
       let date = now.toUTCString();
-      document.cookie = name + `=${encodeURIComponent(value)}; expires=${date}; path=/`;
+      document.cookie =
+        name + `=${encodeURIComponent(value)}; expires=${date}; path=/`;
     } else {
       document.cookie = name + `=${encodeURIComponent(value)}; path=/`;
     }
   }
 
   static remove(name) {
-    if (name) document.cookie = name + `=''; expires=${new Date(1).toUTCString()}`;
+    if (name)
+      document.cookie = name + `=''; expires=${new Date(1).toUTCString()}`;
   }
 
   static getAll() {

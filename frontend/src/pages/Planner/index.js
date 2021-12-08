@@ -12,5 +12,5 @@ export default function Planner() {
         <Paper sx={{ minHeight: "70vh" }}>Helllllo</Paper>
       </Grid>
     </Grid>
-  )
+  );
 }

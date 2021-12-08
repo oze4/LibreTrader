@@ -4,7 +4,7 @@
   "description": "Open source trade journal",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "precommit": "echo 'ok' && npm run format --prefix frontend && npm run generate-changelog --prefix frontend"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo 'ok' && npm run format --prefix frontend && npm run generate-changelog --prefix frontend"
+      "pre-commit": "npm run precommit"
     }
   }
 }
