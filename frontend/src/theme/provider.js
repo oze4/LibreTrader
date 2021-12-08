@@ -1,16 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
+
 import { darkMode, lightMode } from "./themes.js";
 import ColorModeContext from "./context";
+import Cookies from "@/utils/cookies";
 
-/**
- * @notes
- *  - ColorModeProvider is React context that wraps our app which allows us to easily toggle between dark and light modes.
- *  -
- */
-
+// ColorModeProvider uses React Context to allow for switching of themes.
 export default function ColorModeProvider({ children }) {
-  const [mode, setMode] = useState(lightMode.palette.type);
+  const [mode, setMode] = useState(Cookies.get("colorMode"));
 
   const colorMode = useMemo(
     () => ({
@@ -37,7 +34,10 @@ export default function ColorModeProvider({ children }) {
  * @returns {String} either "light" or "dark". by default "light".
  */
 function handleSetMode(previousMode) {
-  return previousMode === "light" ? "dark" : "light";
+  const n = previousMode === "light" ? "dark" : "light";
+  // Persist selected theme as cookie
+  Cookies.set("colorMode", n, 720);
+  return n;
 }
 
 /**

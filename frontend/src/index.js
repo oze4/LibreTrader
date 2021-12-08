@@ -11,8 +11,8 @@ ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ColorModeProvider>
       <BrowserRouter>
-        <App />
         <CssBaseline />
+        <App />
       </BrowserRouter>
     </ColorModeProvider>
   </StyledEngineProvider>,

@@ -88,6 +88,9 @@ export const darkMode = {
       default: "#212121",
       paper: "#424242",
     },
+    text: {
+      primary: "#fff"
+    },
   },
   props: {
     MuiTooltip: {
