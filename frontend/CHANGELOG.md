@@ -3,6 +3,7 @@
 ##### Chores
 
 * **frontend:**
+  *  modify pre-commit (ca697f56)
   *  modify pre-commit (74b4abac)
   *  modify pre-commit (fc66e89d)
   *  modify pre-commit (2f418bd6)

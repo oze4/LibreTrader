@@ -1,43 +1,28 @@
 import React, { useState, useContext } from "react";
-import {
-  AppBar,
-  Box,
-  Typography,
-  IconButton,
-  Toolbar,
-  // Menu,
-  // MenuItem,
-  Tooltip,
-} from "@mui/material";
-import {
-  DarkMode,
-  LightMode,
-  Menu as MenuIcon,
-  AccountCircle,
-} from "@mui/icons-material";
+import { AppBar, Container, Button, Box, Grid, Typography, IconButton, Toolbar, Menu, MenuItem, Tooltip } from "@mui/material";
+import { DarkMode, LightMode, Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
 
 import { ColorModeContext } from "@/theme";
 
+const pages = ["Home", "Planner"];
+
 export default function Topbar() {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const theme = useContext(ColorModeContext);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
   };
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Container maxWidth="xl">
+        <Toolbar disableGutters>
           {/* LEFT DRAWER MENU ICON */}
           {/*
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
@@ -50,13 +35,17 @@ export default function Topbar() {
             Libre Trader
           </Typography>
 
+          <Box sx={{ float: "left" }}>
+            {pages.map((page) => (
+              <Button color="secondary" key={page} onClick={handleCloseNavMenu}>
+                {page}
+              </Button>
+            ))}
+          </Box>
+
           {/* TOGGLE DARK MODE */}
           <div>
-            <Tooltip
-              title={`switch to ${
-                theme.mode === "dark" ? "light" : "dark"
-              } mode`}
-            >
+            <Tooltip title={`switch to ${theme.mode === "dark" ? "light" : "dark"} mode`}>
               <IconButton size="large" onClick={theme.toggle} color="inherit">
                 {
                   // We want to show the light mode icon when dark mode is selected
@@ -91,6 +80,7 @@ export default function Topbar() {
             */}
           </div>
         </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   );
