@@ -4,7 +4,7 @@
   "description": "Open source trade journal",
   "main": "index.js",
   "scripts": {
-    "precommit": "echo 'ok' && npm run format --prefix frontend && npm run generate-changelog --prefix frontend"
+    "precommit": "echo 'ok' && npm run format --prefix frontend && npm run generate:changelog --prefix frontend" 
   },
   "repository": {
     "type": "git",
