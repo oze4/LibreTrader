@@ -1,2 +1,2 @@
 echo 'ok'
-npm run precommit --prefix ../
+npm run precommit --prefix ../ 
