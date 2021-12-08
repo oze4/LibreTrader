@@ -21,7 +21,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format --prefix frontend"
+      "pre-commit": "echo 'ok' && npm run format --prefix frontend && npm run generate-changelog --prefix frontend"
     }
   }
 }
