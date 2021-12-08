@@ -32,7 +32,7 @@ module.exports = {
         ],
       },
     ],
-  },
+  }, 
   plugins: [
     new HtmlWebPackPlugin({
       template: "./public/index.ejs",

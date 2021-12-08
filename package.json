@@ -19,10 +19,5 @@
   "homepage": "https://github.com/oze4/LibreTrader#readme",
   "devDependencies": {
     "husky": "^7.0.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run precommit"
-    }
   }
 }
