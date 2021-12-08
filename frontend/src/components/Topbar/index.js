@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-
 import {
   AppBar,
   Box,
@@ -10,7 +9,6 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-
 import {
   DarkMode,
   LightMode,
@@ -18,7 +16,7 @@ import {
   AccountCircle,
 } from "@mui/icons-material";
 
-import { ColorModeContext } from "../../theme";
+import { ColorModeContext } from "@/theme";
 
 export default function Topbar() {
   const [anchorEl, setAnchorEl] = useState(null);
