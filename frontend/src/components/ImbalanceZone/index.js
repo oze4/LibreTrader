@@ -1,6 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
 ImbalanceZone.propTypes = {
   timeframe: PropTypes.string, // (1min,5min,10min, etc...)
@@ -22,7 +29,10 @@ export default function ImbalanceZone(props) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+            <TableRow
+              key={row.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>

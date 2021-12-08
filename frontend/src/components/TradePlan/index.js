@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, Typography, List, ListItem, ListItemIcon, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 
 TradePlan.propTypes = {
   newsAndCatalysts: PropTypes.arrayOf(PropTypes.string),
