@@ -4,6 +4,7 @@
   "description": "Open source trade journal",
   "main": "index.js",
   "scripts": {
+    "git:push": "git push origin && git push origin --tags",
     "precommit": "echo 'ok' && npm run format --prefix frontend && npm run generate:changelog --prefix frontend" 
   },
   "repository": {
