@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate:changelog": "./node_modules/.bin/changelog --file CHANGELOG.md && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md'",
+    "generate:changelog": "./node_modules/.bin/changelog --file CHANGELOG.md",
     "start": "webpack-dev-server --open --mode=development",
     "start:prod": "webpack-dev-server --open --mode=production",
     "build": "webpack --mode=production",
