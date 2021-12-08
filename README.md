@@ -2,7 +2,7 @@
 
 Open source trading journal
 
-# Contributing
+## Contributing
 
 Thank you!!!
 
