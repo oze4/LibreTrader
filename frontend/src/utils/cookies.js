@@ -19,17 +19,22 @@ export default class Cookies {
 
   static set(name, value, hours = 0) {
     if (!name || !value) {
-      console.error("name or value param missing, name or value will be empty in cookie : got :", { name, param });
+      console.error(
+        "name or value param missing, name or value will be empty in cookie : got :",
+        { name, param }
+      );
     }
 
     if (hours <= 0) {
       document.cookie = name + `=${encodeURIComponent(value)}; path=/`;
       return;
     }
-    
+
     const now = new Date();
     now.setTime(now.getTime() + hours * 3600 * 1000);
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${now.toUTCString()}; path=/`;
+    document.cookie = `${name}=${encodeURIComponent(
+      value
+    )}; expires=${now.toUTCString()}; path=/`;
   }
 
   static remove(name = undefined) {

@@ -52,3 +52,7 @@
 *  see description (c49e49c8)
 *  set up dark mode context (76173987)
 
+##### Refactors
+
+* **fronted:**  clean up cookies class (6d0c5438)
+
