@@ -1,8 +1,23 @@
 import React, { useState, Fragment } from "react";
-import { Grid, Typography, InputAdornment, TextField, IconButton, List, ListItem, ListItemText, ListSubheader, Box, Paper, Divider } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  InputAdornment,
+  TextField,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  Box,
+  Paper,
+  Divider,
+} from "@mui/material";
 import { Add as AddIcon, IndeterminateCheckBox } from "@mui/icons-material";
 
-const TextFieldFilled = (props) => <TextField {...props} color="secondary" variant="filled" />;
+const TextFieldFilled = (props) => (
+  <TextField {...props} color="secondary" variant="filled" />
+);
 
 export default function TradePlan() {
   const [currentNewsCatalyst, setCurrentNewsCatalyst] = useState(undefined);
@@ -27,19 +42,34 @@ export default function TradePlan() {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" spacing={2} marginTop="3vh">
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+      marginTop="3vh"
+    >
       {/* DATE */}
       <Grid item xs={12} md={6}>
-        <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+        <TextField
+          fullWidth
+          onChange={(e) => handleTextFieldChange(e, "date")}
+          label="Date"
+        />
       </Grid>
 
       {/* TICKER SYMBOL */}
       <Grid item xs={12} md={6}>
-        <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "symbol")} label="Symbol" placeholder="TSLA" />
+        <TextField
+          fullWidth
+          onChange={(e) => handleTextFieldChange(e, "symbol")}
+          label="Symbol"
+          placeholder="TSLA"
+        />
       </Grid>
 
       {/* NEWS AND CATALYSTS */}
-      <Grid item xs={12} marginTop="4vh">
+      <Grid item xs={10} marginTop="4vh">
         <TextField
           fullWidth
           multiline
@@ -76,7 +106,10 @@ export default function TradePlan() {
                 <Fragment key={"" + news.length + index}>
                   <Divider />
                   <ListItem>
-                    <ListItemText primary={news} secondary={"" + news.length + index}/>
+                    <ListItemText
+                      primary={news}
+                      secondary={"" + news.length + index}
+                    />
                   </ListItem>
                 </Fragment>
               );
@@ -87,7 +120,9 @@ export default function TradePlan() {
 
       <Grid item xs={12}>
         <Typography variant="subtitle1">Bigger Picture</Typography>
-        <Typography variant="p">{state.biggerPicture ?? state.biggerPicture}</Typography>
+        <Typography variant="p">
+          {state.biggerPicture ?? state.biggerPicture}
+        </Typography>
       </Grid>
     </Grid>
   );
