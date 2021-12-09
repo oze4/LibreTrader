@@ -1,5 +1,18 @@
 import React, { useState, useRef, Fragment, useEffect } from "react";
-import { Grid, InputAdornment, TextField, IconButton, List, ListItem, ListItemText, ListSubheader, Paper, Divider, Button, Tooltip } from "@mui/material";
+import {
+  Grid,
+  InputAdornment,
+  TextField,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  Paper,
+  Divider,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
 export default function TradePlan({ onSubmit }) {
@@ -15,7 +28,7 @@ export default function TradePlan({ onSubmit }) {
   useEffect(() => {
     const newsRefEl = newsRef.current;
     if (newsRefEl) {
-      newsRefEl.scrollTop = newsRefEl.scrollHeight
+      newsRefEl.scrollTop = newsRefEl.scrollHeight;
     }
   }, [currentNewsCatalyst]);
 
@@ -38,18 +51,27 @@ export default function TradePlan({ onSubmit }) {
     const c = { ...state };
     c.newsAndCatalysts.splice(index, 1);
     setState(c);
-  }
+  };
 
   return (
     <Grid container spacing={2} marginTop="3vh">
       {/* DATE */}
       <Grid item xs={12} md={6}>
-        <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+        <TextField
+          fullWidth
+          onChange={(e) => handleTextFieldChange(e, "date")}
+          label="Date"
+        />
       </Grid>
 
       {/* TICKER SYMBOL */}
       <Grid item xs={12} md={6}>
-        <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "symbol")} label="Symbol" placeholder="TSLA" />
+        <TextField
+          fullWidth
+          onChange={(e) => handleTextFieldChange(e, "symbol")}
+          label="Symbol"
+          placeholder="TSLA"
+        />
       </Grid>
 
       {/* NEWS AND CATALYSTS */}
@@ -64,9 +86,9 @@ export default function TradePlan({ onSubmit }) {
           helperText="add news or catalyst, if any"
           InputProps={{
             endAdornment: (
-                <IconButton color="inherit" onClick={handleAddNewsOrCatalyst}>
-                  <AddIcon />
-                </IconButton>
+              <IconButton color="inherit" onClick={handleAddNewsOrCatalyst}>
+                <AddIcon />
+              </IconButton>
             ),
           }}
         />
@@ -74,7 +96,11 @@ export default function TradePlan({ onSubmit }) {
 
       {/* DISPLAY NEWS AND CATALYSTS */}
       <Grid item xs={6}>
-        <Paper ref={newsRef} elevation={1} sx={{ maxHeight: "300px", overflow: "auto" }}>
+        <Paper
+          ref={newsRef}
+          elevation={1}
+          sx={{ maxHeight: "300px", overflow: "auto" }}
+        >
           <List subheader={<ListSubheader>News and Catalysts:</ListSubheader>}>
             <Divider />
             {state.newsAndCatalysts.map((news, index) => {
@@ -84,7 +110,11 @@ export default function TradePlan({ onSubmit }) {
                   <ListItem
                     secondaryAction={
                       <Tooltip arrow title="remove">
-                        <IconButton color="inherit" edge="end" onClick={() => handleRemoveNews(index)}>
+                        <IconButton
+                          color="inherit"
+                          edge="end"
+                          onClick={() => handleRemoveNews(index)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </Tooltip>

@@ -13,7 +13,9 @@ export default function Planner() {
           <TradePlanForm onSubmit={(data) => alert(data)} />
         </Paper>
       </Grid>
-      {tradePlans && tradePlans.length && tradePlans.map((tradePlan, index) => {})}
+      {tradePlans &&
+        tradePlans.length &&
+        tradePlans.map((tradePlan, index) => {})}
     </Grid>
   );
 }
