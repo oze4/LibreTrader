@@ -1,8 +1,9 @@
-#### 1.0.0 (2021-12-08)
+#### 1.0.0 (2021-12-09)
 
 ##### Chores
 
 * **frontend:**
+  *  fix wrong info in comment (3df065c2)
   *  modify pre-commit (ca697f56)
   *  modify pre-commit (74b4abac)
   *  modify pre-commit (fc66e89d)
