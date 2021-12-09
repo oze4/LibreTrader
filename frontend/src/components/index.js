@@ -1,2 +1,2 @@
 export { default as Topbar } from "./Topbar";
-export { default as TradePlan } from "./TradePlan";
+export { default as TradePlanForm } from "./TradePlanForm";
