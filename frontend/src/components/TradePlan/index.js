@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import { Grid, Typography, InputAdornment, TextField, IconButton, List, ListItem, ListItemText, Box } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  InputAdornment,
+  TextField,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+} from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 
-const TextFieldFilled = (props) => <TextField {...props} color="secondary" variant="filled" />;
+const TextFieldFilled = (props) => (
+  <TextField {...props} color="secondary" variant="filled" />
+);
 
 export default function TradePlan() {
   const [state, setState] = useState({
@@ -31,12 +43,21 @@ export default function TradePlan() {
       <Grid container spacing={2} margin="3vh 0">
         {/* DATE */}
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+          <TextField
+            fullWidth
+            onChange={(e) => handleTextFieldChange(e, "date")}
+            label="Date"
+          />
         </Grid>
 
         {/* TICKER SYMBOL */}
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "symbol")} label="Symbol" placeholder="TSLA" />
+          <TextField
+            fullWidth
+            onChange={(e) => handleTextFieldChange(e, "symbol")}
+            label="Symbol"
+            placeholder="TSLA"
+          />
         </Grid>
       </Grid>
 
@@ -61,7 +82,12 @@ export default function TradePlan() {
         </Grid>
 
         <Grid item xs={6}>
-          <Box sx={{ bgcolor: "background.paper", borderColor: "background.paper" }}>
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              borderColor: "background.paper",
+            }}
+          >
             <List>
               <ListItem>
                 <ListItemText primary="Joe Mama" />
@@ -74,7 +100,9 @@ export default function TradePlan() {
 
       <Grid item xs={12}>
         <Typography variant="subtitle1">Bigger Picture</Typography>
-        <Typography variant="p">{state.biggerPicture ?? state.biggerPicture}</Typography>
+        <Typography variant="p">
+          {state.biggerPicture ?? state.biggerPicture}
+        </Typography>
       </Grid>
     </>
   );
