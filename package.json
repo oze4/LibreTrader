@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "git:push": "git push origin && git push origin --tags",
-    "precommit": "npm run format --prefix frontend && npm run generate:changelog --prefix frontend" 
+    "precommit": "npm run format --prefix frontend && npm run generate:changelog --prefix frontend"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/oze4/LibreTrader/issues"
   },
-  "homepage": "https://github.com/oze4/LibreTrader#readme",
-  "devDependencies": {
-    "husky": "^7.0.4"
-  }
+  "homepage": "https://github.com/oze4/LibreTrader#readme"
 }

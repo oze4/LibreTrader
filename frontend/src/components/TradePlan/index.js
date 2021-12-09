@@ -1,63 +1,81 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import {
-  Grid,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Grid, Typography, InputAdornment, TextField, IconButton, List, ListItem, ListItemText, Box } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 
-TradePlan.propTypes = {
-  newsAndCatalysts: PropTypes.arrayOf(PropTypes.string),
-  biggerPicture: PropTypes.string,
-  zones: PropTypes.shape({
-    supply: PropTypes.arrayOf(
-      PropTypes.shape({
-        timeframe: PropTypes.string, // (1min,5min,10min, etc...)
-        startPrice: PropTypes.string, // start of supply zone
-        endPrice: PropTypes.string, // end of supply zone
-        screenshots: PropTypes.arrayOf(PropTypes.string), // array of screenshots for this zone.
-      })
-    ),
-    demand: PropTypes.arrayOf(
-      PropTypes.shape({
-        timeframe: PropTypes.string, // (1min,5min,10min, etc...)
-        startPrice: PropTypes.string, // start of demand zone
-        endPrice: PropTypes.string, // end of demand zone
-        screenshots: PropTypes.arrayOf(PropTypes.string), // array of screenshots for this zone.
-      })
-    ),
-  }),
-};
+const TextFieldFilled = (props) => <TextField {...props} color="secondary" variant="filled" />;
 
-export default function TradePlan(props) {
-  const { newsAndCatalysts, biggerPicture } = props;
+export default function TradePlan() {
+  const [state, setState] = useState({
+    biggerPicture: "",
+    date: Date.now(),
+    symbol: "",
+    newsAndCatalysts: [],
+  });
 
   const isNewsAndCatalysts = () => newsAndCatalysts && newsAndCatalysts.length;
 
+  const handleNewsAndCatalystsChange = (event = () => {
+    const c = [...state];
+    c.newsAndCatalysts.push(event.target.value);
+    setState(c);
+  });
+
+  const handleTextFieldChange = (event, propertyName) => {
+    const c = [...state];
+    c[propertyName] = event.target.value;
+    setState(c);
+  };
+
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography variant="h2">News and Catalysts</Typography>
-        <List>
-          {isNewsAndCatalysts() &&
-            newsAndCatalysts.map((newscatalyst, index) => {
-              return (
-                <ListItem>
-                  {index + 1}. {newscatalyst}
-                </ListItem>
-              );
-            })}
-        </List>
+    <>
+      <Grid container spacing={2} margin="3vh 0">
+        {/* DATE */}
+        <Grid item xs={12} md={6}>
+          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+        </Grid>
+
+        {/* TICKER SYMBOL */}
+        <Grid item xs={12} md={6}>
+          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "symbol")} label="Symbol" placeholder="TSLA" />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} justifyContent="center">
+        {/* NEWS AND CATALYSTS */}
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            onChange={handleNewsAndCatalystsChange}
+            label="News/Catalyst"
+            helperText="add news or catalyst, if any"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <AddIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <Box sx={{ bgcolor: "background.paper", borderColor: "background.paper" }}>
+            <List>
+              <ListItem>
+                <ListItemText primary="Joe Mama" />
+              </ListItem>
+              <ListItem />
+            </List>
+          </Box>
+        </Grid>
       </Grid>
 
       <Grid item xs={12}>
-        <Typography variant="h2">Bigger Picture</Typography>
-        <Typography variant="p">{biggerPicture}</Typography>
+        <Typography variant="subtitle1">Bigger Picture</Typography>
+        <Typography variant="p">{state.biggerPicture ?? state.biggerPicture}</Typography>
       </Grid>
-    </Grid>
+    </>
   );
 }
