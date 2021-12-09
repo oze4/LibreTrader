@@ -12,6 +12,7 @@ import {
   Divider,
   Button,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
@@ -54,84 +55,112 @@ export default function TradePlan({ onSubmit }) {
   };
 
   return (
-    <Grid container spacing={2} marginTop="3vh">
-      {/* DATE */}
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          onChange={(e) => handleTextFieldChange(e, "date")}
-          label="Date"
-        />
-      </Grid>
+    <>
+      <Typography variant="h3">Trade Planner</Typography>
+      <Grid container spacing={2} marginTop="3vh">
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">General</Typography>
+        </Grid>
 
-      {/* TICKER SYMBOL */}
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          onChange={(e) => handleTextFieldChange(e, "symbol")}
-          label="Symbol"
-          placeholder="TSLA"
-        />
-      </Grid>
+        {/* DATE */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            onChange={(e) => handleTextFieldChange(e, "date")}
+            label="Date"
+          />
+        </Grid>
 
-      {/* NEWS AND CATALYSTS */}
-      <Grid item xs={6}>
-        <TextField
-          fullWidth
-          multiline
-          rows={2}
-          value={currentNewsCatalyst}
-          onChange={(e) => setCurrentNewsCatalyst(e.target.value)}
-          label="Add News/Catalyst"
-          helperText="add news or catalyst, if any"
-          InputProps={{
-            endAdornment: (
-              <IconButton color="inherit" onClick={handleAddNewsOrCatalyst}>
-                <AddIcon />
-              </IconButton>
-            ),
-          }}
-        />
-      </Grid>
+        {/* TICKER SYMBOL */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            onChange={(e) => handleTextFieldChange(e, "symbol")}
+            label="Symbol"
+            placeholder="TSLA"
+          />
+        </Grid>
 
-      {/* DISPLAY NEWS AND CATALYSTS */}
-      <Grid item xs={6}>
-        <Paper
-          ref={newsRef}
-          elevation={1}
-          sx={{ maxHeight: "300px", overflow: "auto" }}
-        >
-          <List subheader={<ListSubheader>News and Catalysts:</ListSubheader>}>
-            <Divider />
-            {state.newsAndCatalysts.map((news, index) => {
-              return (
-                <Fragment key={"" + news.length + index}>
-                  <Divider />
-                  <ListItem
-                    secondaryAction={
-                      <Tooltip arrow title="remove">
-                        <IconButton
-                          color="inherit"
-                          edge="end"
-                          onClick={() => handleRemoveNews(index)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                    }
-                  >
-                    <ListItemText primary={news} />
-                  </ListItem>
-                </Fragment>
-              );
-            })}
-          </List>
-        </Paper>
-      </Grid>
+        <Grid item xs={12} marginTop="1vh">
+          <Typography variant="subtitle1">Context</Typography>
+        </Grid>
 
-      <Grid item marginTop="2vh">
-        <Button onClick={() => onSubmit(state)}>Add Trade Plan</Button>
+        {/* MARKET CONTEXT/BIGGER PICTURE */}
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
+            label="Bigger Picture"
+            placeholder="market context/bigger picture"
+          />
+        </Grid>
+
+        {/* NEWS AND CATALYSTS */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            multiline
+            rows={2}
+            value={currentNewsCatalyst}
+            onChange={(e) => setCurrentNewsCatalyst(e.target.value)}
+            label="News or Catalysts"
+            placeholder="add news or catalyst, if any"
+            InputProps={{
+              endAdornment: (
+                <IconButton color="inherit" onClick={handleAddNewsOrCatalyst}>
+                  <AddIcon />
+                </IconButton>
+              ),
+            }}
+          />
+        </Grid>
+        {/* DISPLAY NEWS AND CATALYSTS */}
+        <Grid item xs={12} md={6}>
+          <Paper
+            ref={newsRef}
+            elevation={1}
+            sx={{ maxHeight: "300px", overflow: "auto" }}
+          >
+            <List
+              subheader={<ListSubheader>News and Catalysts:</ListSubheader>}
+            >
+              <Divider />
+              {state.newsAndCatalysts.map((news, index) => {
+                return (
+                  <Fragment key={"" + news.length + index}>
+                    <Divider />
+                    <ListItem
+                      secondaryAction={
+                        <Tooltip arrow title="remove">
+                          <IconButton
+                            color="inherit"
+                            edge="end"
+                            onClick={() => handleRemoveNews(index)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      }
+                    >
+                      <ListItemText primary={news} />
+                    </ListItem>
+                  </Fragment>
+                );
+              })}
+            </List>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} marginTop="1vh">
+          <Typography variant="subtitle1">Supply and Demand Zones</Typography>
+        </Grid>
+
+        <Grid item xs={12} marginTop="2vh">
+          <Button onClick={() => onSubmit(state)}>Add Trade Plan</Button>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }

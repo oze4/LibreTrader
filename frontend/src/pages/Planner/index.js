@@ -10,7 +10,9 @@ export default function Planner() {
     <Grid container>
       <Grid item xs={12}>
         <Paper sx={{ padding: "1.75%", marginTop: "1%" }}>
-          <TradePlanForm onSubmit={(data) => alert(data)} />
+          <TradePlanForm
+            onSubmit={(data) => alert(JSON.stringify(data, null, 2))}
+          />
         </Paper>
       </Grid>
       {tradePlans &&
