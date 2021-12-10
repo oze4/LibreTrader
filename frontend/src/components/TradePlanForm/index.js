@@ -16,65 +16,56 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  AddAPhotoOutlined as AddAPhotoOutlinedIcon,
+} from "@mui/icons-material";
 
 import { FileUploadButton } from "@/components";
 
 export default function TradePlan({ onSubmit }) {
-  const newsRef = useRef(null);
-
-  // const [currentNewsCatalyst, setCurrentNewsCatalyst] = useState(undefined);
-  const [currentFormData, setCurrentFormData] = useState({
-    newsAndCatalysts: "",
-    zoneStart: "",
-    zoneEnd: "",
-    zoneType: "supply",
-    zoneScreenshots: [],
-  });
-
+  // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
+  const newsAndCatalystsListRef = useRef(null);
+  // Currently entered form data state
+  const [newsCatalyst, setNewsCatalyst] = useState("");
+  const [zoneType, setZoneType] = useState("");
+  const [zoneStart, setZoneStart] = useState("");
+  const [zoneEnd, setZoneEnd] = useState("");
+  const [zoneScreenshots, setZoneScreenshots] = useState([]);
+  // State that is passed to `onSubmit(state)`
   const [state, setState] = useState({
     biggerPicture: "",
     date: Date.now(),
     symbol: "",
+    zones: {
+      supply: [],
+      demand: [],
+    },
     newsAndCatalysts: [],
   });
 
+  // When a new news or catalyst is added, scroll to bottom of list element.
   useEffect(() => {
-    const newsRefEl = newsRef.current;
-    if (newsRefEl) {
-      newsRefEl.scrollTop = newsRefEl.scrollHeight;
+    const el = newsAndCatalystsListRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
     }
-  }, [currentFormData.newsAndCatalysts]);
+  }, [newsCatalyst]);
 
   const handleAddNewsOrCatalyst = () => {
-    if (currentFormData.newsAndCatalysts) {
+    if (newsCatalyst) {
       const c = { ...state };
-      c.newsAndCatalysts.push(currentFormData.newsAndCatalysts);
+      c.newsAndCatalysts.push(newsCatalyst);
       // Since we added the currently typed news/catalyst we need to clear the text field
-      handleCurrentFormDataChange("newsAndCatalysts", "");
+      setNewsCatalyst("");
       setState(c);
     }
   };
 
   const handleAddZone = () => {
-    if (
-      currentFormData.zoneStart &&
-      currentFormData.zoneEnd &&
-      currentFormData.zoneType
-    ) {
+    if (zoneStart && zoneEnd && zoneType) {
     }
-  };
-
-  const handleCurrentFormDataChange = (propertyName, propertyValue) => {
-    const fd = { ...currentFormData };
-    fd[propertyName] = propertyValue;
-    setCurrentFormData(fd);
-  };
-
-  const handleTextFieldChange = (event, propertyName) => {
-    const c = { ...state };
-    c[propertyName] = event.target.value;
-    setState(c);
   };
 
   const handleRemoveNews = (index) => {
@@ -86,11 +77,14 @@ export default function TradePlan({ onSubmit }) {
   return (
     <>
       <Typography variant="h3">Trade Planner</Typography>
+
+      {/**
+       * GENERAL INFO
+       */}
       <Grid container spacing={2} marginTop="3vh">
         <Grid item xs={12}>
           <Typography variant="subtitle1">General</Typography>
         </Grid>
-
         {/* DATE */}
         <Grid item xs={12} md={6}>
           <TextField
@@ -99,7 +93,6 @@ export default function TradePlan({ onSubmit }) {
             label="Date"
           />
         </Grid>
-
         {/* TICKER SYMBOL */}
         <Grid item xs={12} md={6}>
           <TextField
@@ -109,13 +102,18 @@ export default function TradePlan({ onSubmit }) {
             placeholder="TSLA"
           />
         </Grid>
+        {/* END GENERAL INFO */}
 
+        {/**
+         * THESIS
+         */}
         <Grid item xs={12} marginTop="1vh">
           <Typography variant="subtitle1">Thesis</Typography>
-          <Typography variant="subtitle2">overall market context and conditions</Typography>
+          <Typography variant="subtitle2">
+            overall market context and conditions
+          </Typography>
         </Grid>
-
-        {/* MARKET CONTEXT/BIGGER PICTURE */}
+        {/* bigger picture */}
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -126,32 +124,29 @@ export default function TradePlan({ onSubmit }) {
             placeholder="market context/bigger picture"
           />
         </Grid>
-
-        {/* ENTER NEW NEWS OR CATALYSTS */}
+        {/* add news or catalyst */}
         <Grid item xs={12} md={6}>
           <TextField
             fullWidth
             multiline
             rows={2}
-            value={currentFormData.newsAndCatalysts}
-            onChange={(e) =>
-              handleCurrentFormDataChange("newsAndCatalysts", e.target.value)
-            }
+            value={newsCatalyst}
+            onChange={(e) => setNewsCatalyst(e.target.value)}
             label="News or Catalysts"
             placeholder="add news or catalyst, if any"
             InputProps={{
               endAdornment: (
-                <IconButton color="inherit" onClick={handleAddNewsOrCatalyst}>
+                <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
                   <AddIcon />
                 </IconButton>
               ),
             }}
           />
         </Grid>
-        {/* DISPLAY NEWS AND CATALYSTS */}
+        {/* display news and catalysts */}
         <Grid item xs={12} md={6}>
           <Paper
-            ref={newsRef}
+            ref={newsAndCatalystsListRef}
             elevation={1}
             sx={{ minHeight: "200px", maxHeight: "200px", overflow: "auto" }}
           >
@@ -167,7 +162,7 @@ export default function TradePlan({ onSubmit }) {
                       secondaryAction={
                         <Tooltip arrow title="remove">
                           <IconButton
-                            color="inherit"
+                            color="primary"
                             edge="end"
                             onClick={() => handleRemoveNews(index)}
                           >
@@ -184,61 +179,79 @@ export default function TradePlan({ onSubmit }) {
             </List>
           </Paper>
         </Grid>
+        {/* END THESIS */}
 
+        {/**
+         * SUPPLY AND DEMAND ZONES
+         */}
+        {/* add supply or demand zone */}
         <Grid item xs={12} marginTop="1vh">
-          <Typography variant="subtitle1">Supply and Demand Zones</Typography>
-          <Typography variant="subtitle2">fill out the info below to add a supply or demand zone</Typography>
+          <Typography variant="subtitle1">Imbalance</Typography>
+          <Typography variant="subtitle2">
+            supply &amp; demand zones aid in determining market imbalance
+          </Typography>
         </Grid>
-
-        <Grid item xs={4} md={2}>
+        <Grid item xs={4} md={3} container justifyContent="flex-end">
           <ToggleButtonGroup
-            color={currentFormData.zoneType === "supply" ? "error" : "success"}
-            value={currentFormData.zoneType}
+            color={zoneType === "supply" ? "error" : "success"}
+            value={zoneType}
             exclusive
-            onChange={(e, newZone) => handleCurrentFormDataChange("zoneType", newZone)}
+            onChange={(_, selected) => setZoneType(selected)}
           >
             <ToggleButton value="supply">Supply</ToggleButton>
             <ToggleButton value="demand">Demand</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
-
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={3}>
           <TextField
-            value={currentFormData.zone}
-            onChange={(e) =>
-              handleCurrentFormDataChange("zoneStart", e.target.value)
-            }
+            fullWidth
+            value={zoneStart}
+            onChange={(e) => setZoneStart(e.target.value)}
             label="Zone Start"
             placeholder="zone start price"
           />
         </Grid>
-
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={3}>
           <TextField
-            value={currentFormData.zone}
-            onChange={(e) =>
-              handleCurrentFormDataChange("zoneEnd", e.target.value)
-            }
+            fullWidth
+            value={zoneEnd}
+            onChange={(e) => setZoneEnd(e.target.value)}
             label="Zone End"
             placeholder="zone end price"
           />
         </Grid>
-
-        <Grid item xs={12}>
+        <Grid item xs={12} md={3} container justifyContent="left">
           <FileUploadButton
-            buttonProps={{
-              variant: "filled",
+            title="ADD IMAGE"
+            ButtonProps={{
+              variant: "text",
+              size: "small",
+              startIcon: <AddAPhotoOutlinedIcon />,
             }}
-            inputProps={{
+            InputProps={{
               accept: "image/png, image/jpeg",
               type: "file",
             }}
             onChange={(e) => console.log(e)}
           />
         </Grid>
+        <Grid item xs={12} container justifyContent="center">
+          <Grid item>
+            <Button variant="contained" fullWidth startIcon={<AddIcon />}>
+              Add Zone
+            </Button>
+          </Grid>
+        </Grid>
+        {/* END SUPPLY AND DEMAND ZONES */}
 
-        <Grid item xs={12} marginTop="2vh">
-          <Button variant="contained" size="large" onClick={() => onSubmit(state)}>Add To Trade Plan</Button>
+        <Grid item xs={12} marginTop="7vh">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => onSubmit(state)}
+          >
+            Add To Trade Plan
+          </Button>
         </Grid>
       </Grid>
     </>
