@@ -8,13 +8,13 @@ import App from "@/App";
 import { ColorModeProvider } from "@/theme";
 
 ReactDOM.render(
-    <StyledEngineProvider injectFirst>
-        <ColorModeProvider>
-            <BrowserRouter>
-                <CssBaseline />
-                <App />
-            </BrowserRouter>
-        </ColorModeProvider>
-    </StyledEngineProvider>,
-    document.querySelector("#root"),
+  <StyledEngineProvider injectFirst>
+    <ColorModeProvider>
+      <BrowserRouter>
+        <CssBaseline />
+        <App />
+      </BrowserRouter>
+    </ColorModeProvider>
+  </StyledEngineProvider>,
+  document.querySelector("#root"),
 );
