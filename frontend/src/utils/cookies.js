@@ -25,9 +25,9 @@ export default class Cookies {
       document.cookie = name + `=${encodeURIComponent(value)}; path=/`;
       return;
     }
-    const now = new Date();
-    now.setTime(now.getTime() + hours * 3600 * 1000);
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${now.toUTCString()}; path=/`;
+    const expiresAt = new Date();
+    expiresAt.setTime(expiresAt.getTime() + hours * 3600 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expiresAt.toUTCString()}; path=/`;
   }
 
   static remove(name = undefined) {
@@ -49,6 +49,6 @@ export default class Cookies {
 
   static check(name = undefined) {
     const n = this.get(name);
-    return n && n !== "" ? true : false;
+    return n && n !== "";
   }
 }
