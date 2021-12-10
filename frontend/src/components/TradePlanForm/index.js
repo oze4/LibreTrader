@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment, useEffect } from 'react';
+import React, { useState, useRef, Fragment, useEffect } from "react";
 import {
     Grid,
     InputAdornment,
@@ -15,29 +15,29 @@ import {
     Typography,
     ToggleButton,
     ToggleButtonGroup,
-} from '@mui/material';
+} from "@mui/material";
 import {
     Add as AddIcon,
     Delete as DeleteIcon,
     AddAPhotoOutlined as AddAPhotoOutlinedIcon,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
-import { FileUploadButton } from '@/components';
+import { FileUploadButton } from "@/components";
 
 export default function TradePlan({ onSubmit }) {
     // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
     const newsAndCatalystsListRef = useRef(null);
     // Currently entered form data state
-    const [newsCatalyst, setNewsCatalyst] = useState('');
-    const [zoneType, setZoneType] = useState('');
-    const [zoneStart, setZoneStart] = useState('');
-    const [zoneEnd, setZoneEnd] = useState('');
+    const [newsCatalyst, setNewsCatalyst] = useState("");
+    const [zoneType, setZoneType] = useState("");
+    const [zoneStart, setZoneStart] = useState("");
+    const [zoneEnd, setZoneEnd] = useState("");
     const [zoneScreenshots, setZoneScreenshots] = useState([]);
     // State that is passed to `onSubmit(state)`
     const [state, setState] = useState({
-        biggerPicture: '',
+        biggerPicture: "",
         date: Date.now(),
-        symbol: '',
+        symbol: "",
         zones: {
             supply: [],
             demand: [],
@@ -58,7 +58,7 @@ export default function TradePlan({ onSubmit }) {
             const c = { ...state };
             c.newsAndCatalysts.push(newsCatalyst);
             // Since we added the currently typed news/catalyst we need to clear the text field
-            setNewsCatalyst('');
+            setNewsCatalyst("");
             setState(c);
         }
     };
@@ -89,7 +89,7 @@ export default function TradePlan({ onSubmit }) {
                 <Grid item xs={12} md={6}>
                     <TextField
                         fullWidth
-                        onChange={(e) => handleTextFieldChange(e, 'date')}
+                        onChange={(e) => handleTextFieldChange(e, "date")}
                         label="Date"
                     />
                 </Grid>
@@ -97,7 +97,7 @@ export default function TradePlan({ onSubmit }) {
                 <Grid item xs={12} md={6}>
                     <TextField
                         fullWidth
-                        onChange={(e) => handleTextFieldChange(e, 'symbol')}
+                        onChange={(e) => handleTextFieldChange(e, "symbol")}
                         label="Symbol"
                         placeholder="TSLA"
                     />
@@ -119,7 +119,7 @@ export default function TradePlan({ onSubmit }) {
                         fullWidth
                         multiline
                         rows={3}
-                        onChange={(e) => handleTextFieldChange(e, 'biggerPicture')}
+                        onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
                         label="Bigger Picture"
                         placeholder="market context/bigger picture"
                     />
@@ -148,13 +148,13 @@ export default function TradePlan({ onSubmit }) {
                     <Paper
                         ref={newsAndCatalystsListRef}
                         elevation={1}
-                        sx={{ minHeight: '200px', maxHeight: '200px', overflow: 'auto' }}
+                        sx={{ minHeight: "200px", maxHeight: "200px", overflow: "auto" }}
                     >
                         <List subheader={<ListSubheader>News and Catalysts:</ListSubheader>}>
                             <Divider />
                             {state.newsAndCatalysts.map((news, index) => {
                                 return (
-                                    <Fragment key={'' + news.length + index}>
+                                    <Fragment key={"" + news.length + index}>
                                         <Divider />
                                         <ListItem
                                             secondaryAction={
@@ -191,7 +191,7 @@ export default function TradePlan({ onSubmit }) {
                 </Grid>
                 <Grid item xs={4} md={3} container justifyContent="flex-end">
                     <ToggleButtonGroup
-                        color={zoneType === 'supply' ? 'error' : 'success'}
+                        color={zoneType === "supply" ? "error" : "success"}
                         value={zoneType}
                         exclusive
                         onChange={(_, selected) => setZoneType(selected)}
@@ -222,13 +222,13 @@ export default function TradePlan({ onSubmit }) {
                     <FileUploadButton
                         title="ADD IMAGE"
                         ButtonProps={{
-                            variant: 'text',
-                            size: 'small',
+                            variant: "text",
+                            size: "small",
                             startIcon: <AddAPhotoOutlinedIcon />,
                         }}
                         InputProps={{
-                            accept: 'image/png, image/jpeg',
-                            type: 'file',
+                            accept: "image/png, image/jpeg",
+                            type: "file",
                         }}
                         onChange={(e) => console.log(e)}
                     />

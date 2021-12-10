@@ -1,13 +1,13 @@
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        bundle: path.resolve(__dirname, './src/index.js'),
+        bundle: path.resolve(__dirname, "./src/index.js"),
     },
     output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: 'libre-trader-fe-bundle.js',
+        path: path.resolve(__dirname, "../dist"),
+        filename: "libre-trader-fe-bundle.js",
         clean: true,
     },
     performance: {
@@ -18,16 +18,16 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                resolve: { extensions: ['.js', '.jsx'] },
+                resolve: { extensions: [".js", ".jsx"] },
                 use: {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                 },
             },
             {
                 test: /\.html$/,
                 use: [
                     {
-                        loader: 'html-loader',
+                        loader: "html-loader",
                     },
                 ],
             },
@@ -35,13 +35,13 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: './public/index.ejs',
-            filename: './index.html',
-            title: 'Libre Trader',
+            template: "./public/index.ejs",
+            filename: "./index.html",
+            title: "Libre Trader",
         }),
     ],
     devServer: {
         historyApiFallback: true,
-        static: './',
+        static: "./",
     },
 };

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { Home, Planner, NotFound } from '@/pages';
+import { Home, Planner, NotFound } from "@/pages";
 
 export default function AppRouter() {
     return (

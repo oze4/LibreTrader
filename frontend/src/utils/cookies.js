@@ -9,9 +9,9 @@ export default class Cookies {
             return null;
         }
 
-        const end = document.cookie.indexOf(';', start);
+        const end = document.cookie.indexOf(";", start);
         const prefix = start + name.length + 1;
-        const suffix = end == -1 ? document.cookie.length : '';
+        const suffix = end == -1 ? document.cookie.length : "";
         const rawcookie = document.cookie.substring(prefix, suffix);
 
         return decodeURIComponent(rawcookie);
@@ -20,7 +20,7 @@ export default class Cookies {
     static set(name, value, hours = 0) {
         if (!name || !value) {
             console.error(
-                'name or value param missing, name or value will be empty in cookie : got :',
+                "name or value param missing, name or value will be empty in cookie : got :",
                 { name, param },
             );
         }
@@ -48,15 +48,15 @@ export default class Cookies {
             return null;
         }
 
-        return document.cookie.split(';').reduce((cookies, pairs) => {
-            const pair = pairs.split('=');
-            cookies[(pair[0] + '').trim()] = decodeURIComponent(pair[1]);
+        return document.cookie.split(";").reduce((cookies, pairs) => {
+            const pair = pairs.split("=");
+            cookies[(pair[0] + "").trim()] = decodeURIComponent(pair[1]);
             return cookies;
         }, {});
     }
 
     static check(name = undefined) {
         const n = this.get(name);
-        return n && n !== '' ? true : false;
+        return n && n !== "" ? true : false;
     }
 }

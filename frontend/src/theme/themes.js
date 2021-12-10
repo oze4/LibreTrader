@@ -6,62 +6,62 @@
 
 export const lightMode = {
     palette: {
-        type: 'light',
+        type: "light",
         primary: {
-            main: '#1976d2',
+            main: "#1976d2",
         },
         secondary: {
-            main: 'rgb(220, 0, 78)',
+            main: "rgb(220, 0, 78)",
         },
         background: {
-            default: '#fff',
-            paper: '#fff',
+            default: "#fff",
+            paper: "#fff",
         },
     },
     typography: {
-        fontFamily: 'Roboto Condensed',
+        fontFamily: "Roboto Condensed",
     },
     props: {
         MuiTooltip: {
             arrow: true,
         },
         MuiButton: {
-            size: 'small',
+            size: "small",
         },
         MuiButtonGroup: {
-            size: 'small',
+            size: "small",
         },
         MuiCheckbox: {
-            size: 'small',
+            size: "small",
         },
         MuiFab: {
-            size: 'small',
+            size: "small",
         },
         MuiFormControl: {
-            margin: 'dense',
-            size: 'small',
+            margin: "dense",
+            size: "small",
         },
         MuiFormHelperText: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiIconButton: {
-            size: 'small',
+            size: "small",
         },
         MuiInputBase: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiInputLabel: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiRadio: {
-            size: 'small',
+            size: "small",
         },
         MuiSwitch: {
-            size: 'small',
+            size: "small",
         },
         MuiTextField: {
-            margin: 'dense',
-            size: 'small',
+            margin: "dense",
+            size: "small",
         },
         MuiList: {
             dense: true,
@@ -70,72 +70,72 @@ export const lightMode = {
             dense: true,
         },
         MuiTable: {
-            size: 'small',
+            size: "small",
         },
     },
 };
 
 export const darkMode = {
     palette: {
-        type: 'dark',
+        type: "dark",
         primary: {
-            main: '#90caf9',
-            secondary: 'rgba(255, 255, 255, 0.7)',
+            main: "#90caf9",
+            secondary: "rgba(255, 255, 255, 0.7)",
         },
         secondary: {
-            main: '#f48fb1',
+            main: "#f48fb1",
         },
         background: {
-            default: '#212121',
-            paper: '#424242',
+            default: "#212121",
+            paper: "#424242",
         },
         text: {
-            primary: '#fff',
-            secondary: 'rgba(255, 255, 255, 0.7)',
+            primary: "#fff",
+            secondary: "rgba(255, 255, 255, 0.7)",
         },
-        divider: 'rgba(255,255,255,0.12)',
+        divider: "rgba(255,255,255,0.12)",
     },
     props: {
         MuiTooltip: {
             arrow: true,
         },
         MuiButton: {
-            size: 'small',
+            size: "small",
         },
         MuiButtonGroup: {
-            size: 'small',
+            size: "small",
         },
         MuiCheckbox: {
-            size: 'small',
+            size: "small",
         },
         MuiFab: {
-            size: 'small',
+            size: "small",
         },
         MuiFormControl: {
-            margin: 'dense',
-            size: 'small',
+            margin: "dense",
+            size: "small",
         },
         MuiFormHelperText: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiIconButton: {
-            size: 'small',
+            size: "small",
         },
         MuiInputBase: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiInputLabel: {
-            margin: 'dense',
+            margin: "dense",
         },
         MuiRadio: {
-            size: 'small',
+            size: "small",
         },
         MuiSwitch: {
-            size: 'small',
+            size: "small",
         },
         MuiTextField: {
-            margin: 'dense',
-            size: 'small',
+            margin: "dense",
+            size: "small",
         },
         MuiList: {
             dense: true,
@@ -144,10 +144,10 @@ export const darkMode = {
             dense: true,
         },
         MuiTable: {
-            size: 'small',
+            size: "small",
         },
     },
     typography: {
-        fontFamily: 'Roboto Condensed',
+        fontFamily: "Roboto Condensed",
     },
 };
