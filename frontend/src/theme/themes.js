@@ -72,7 +72,7 @@ export const lightMode = {
     MuiTable: {
       size: "small",
     },
-  },
+  }
 };
 
 export const darkMode = {
@@ -149,5 +149,22 @@ export const darkMode = {
   },
   typography: {
     fontFamily: "Roboto Condensed",
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: "white"
+        }
+      }
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#424242",
+          color: "#fff",
+        },
+      },
+    },
   },
 };

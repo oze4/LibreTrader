@@ -168,8 +168,9 @@ export default function TradePlan({ onSubmit }) {
           <Typography variant="subtitle1">Imbalance</Typography>
           <Typography variant="subtitle2">supply &amp; demand zones aid in determining market imbalance</Typography>
         </Grid>
-        <Grid item xs={4} md={3} container justifyContent="flex-end">
+        <Grid item xs={12} md={2} container>
           <ToggleButtonGroup
+            fullWidth
             color={zoneType === "supply" ? "error" : "success"}
             value={zoneType}
             exclusive
@@ -179,7 +180,7 @@ export default function TradePlan({ onSubmit }) {
             <ToggleButton value="demand">Demand</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={6} md={4}>
           <TextField
             fullWidth
             value={zoneStart}
@@ -188,7 +189,7 @@ export default function TradePlan({ onSubmit }) {
             placeholder="zone start price"
           />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={6} md={4}>
           <TextField
             fullWidth
             value={zoneEnd}
@@ -197,12 +198,14 @@ export default function TradePlan({ onSubmit }) {
             placeholder="zone end price"
           />
         </Grid>
-        <Grid item xs={12} md={3} container justifyContent="left">
+        <Grid item xs={6} md={2} container>
           <FileUploadButton
             title="ADD IMAGE"
             ButtonProps={{
+              fullWidth: true,
               variant: "text",
               size: "small",
+              color: "inherit",
               startIcon: <AddAPhotoOutlinedIcon />,
             }}
             InputProps={{
@@ -214,16 +217,16 @@ export default function TradePlan({ onSubmit }) {
         </Grid>
         <Grid item xs={12} container justifyContent="center">
           <Grid item>
-            <Button variant="contained" fullWidth startIcon={<AddIcon />}>
-              Add Zone
+            <Button color="inherit" variant="outlined" fullWidth startIcon={<AddIcon />}>
+              ADD TO ZONES
             </Button>
           </Grid>
         </Grid>
         {/* END SUPPLY AND DEMAND ZONES */}
 
-        <Grid item xs={12} marginTop="7vh">
-          <Button variant="contained" size="large" onClick={() => onSubmit(state)}>
-            Add To Trade Plan
+        <Grid item xs={12} marginTop="7vh" container justifyContent="flex-end">
+          <Button variant="contained" size="large" sx={{ padding: "1.5rem" }} onClick={() => onSubmit(state)}>
+            ADD TO TRADE PLAN
           </Button>
         </Grid>
       </Grid>

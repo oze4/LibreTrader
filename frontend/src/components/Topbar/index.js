@@ -89,7 +89,7 @@ export default function TopbarResponsive(props) {
               ))}
             </Menu>
           </Box>
-          {/* HIDDEN UNLESS ON SMALL SCREEN */}
+
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             LibreTrader
           </Typography>
