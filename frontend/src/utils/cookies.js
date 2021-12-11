@@ -27,7 +27,9 @@ export default class Cookies {
     }
     const expiresAt = new Date();
     expiresAt.setTime(expiresAt.getTime() + hours * 3600 * 1000);
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expiresAt.toUTCString()}; path=/`;
+    document.cookie = `${name}=${encodeURIComponent(
+      value,
+    )}; expires=${expiresAt.toUTCString()}; path=/`;
   }
 
   static remove(name = undefined) {

@@ -16,7 +16,11 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import { Add as AddIcon, Delete as DeleteIcon, AddAPhotoOutlined as AddAPhotoOutlinedIcon } from "@mui/icons-material";
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  AddAPhotoOutlined as AddAPhotoOutlinedIcon,
+} from "@mui/icons-material";
 
 import { FileUploadButton } from "@/components";
 
@@ -81,13 +85,16 @@ export default function TradePlan({ onSubmit }) {
         <Grid item xs={12}>
           <Typography variant="subtitle1">General</Typography>
         </Grid>
-        {/* DATE */}
         <Grid item xs={12} md={6}>
           <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
         </Grid>
-        {/* TICKER SYMBOL */}
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "symbol")} label="Symbol" placeholder="TSLA" />
+          <TextField
+            fullWidth
+            onChange={(e) => handleTextFieldChange(e, "symbol")}
+            label="Symbol"
+            placeholder="TSLA"
+          />
         </Grid>
         {/* END GENERAL INFO */}
 
@@ -121,9 +128,11 @@ export default function TradePlan({ onSubmit }) {
             placeholder="add news or catalyst, if any"
             InputProps={{
               endAdornment: (
-                <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
-                  <AddIcon />
-                </IconButton>
+                <Tooltip title="add news/catalyst">
+                  <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
+                    <AddIcon />
+                  </IconButton>
+                </Tooltip>
               ),
             }}
           />
@@ -144,7 +153,11 @@ export default function TradePlan({ onSubmit }) {
                     <ListItem
                       secondaryAction={
                         <Tooltip arrow title="remove">
-                          <IconButton color="primary" edge="end" onClick={() => handleRemoveNews(index)}>
+                          <IconButton
+                            color="primary"
+                            edge="end"
+                            onClick={() => handleRemoveNews(index)}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>
@@ -166,7 +179,9 @@ export default function TradePlan({ onSubmit }) {
         {/* add supply or demand zone */}
         <Grid item xs={12} marginTop="1vh">
           <Typography variant="subtitle1">Imbalance</Typography>
-          <Typography variant="subtitle2">supply &amp; demand zones aid in determining market imbalance</Typography>
+          <Typography variant="subtitle2">
+            supply &amp; demand zones aid in determining market imbalance
+          </Typography>
         </Grid>
         <Grid item xs={12} md={2} container>
           <ToggleButtonGroup
@@ -225,7 +240,12 @@ export default function TradePlan({ onSubmit }) {
         {/* END SUPPLY AND DEMAND ZONES */}
 
         <Grid item xs={12} marginTop="7vh" container justifyContent="flex-end">
-          <Button variant="contained" size="large" sx={{ padding: "1.5rem" }} onClick={() => onSubmit(state)}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ padding: "1.5rem" }}
+            onClick={() => onSubmit(state)}
+          >
             ADD TO TRADE PLAN
           </Button>
         </Grid>

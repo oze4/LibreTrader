@@ -47,7 +47,12 @@ export default function TopbarResponsive(props) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          >
             LibreTrader
           </Typography>
 
@@ -83,14 +88,24 @@ export default function TopbarResponsive(props) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem component={RouterLink} to={page.path} key={page.name} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  component={RouterLink}
+                  to={page.path}
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
             LibreTrader
           </Typography>
 

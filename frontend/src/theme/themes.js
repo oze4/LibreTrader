@@ -72,7 +72,7 @@ export const lightMode = {
     MuiTable: {
       size: "small",
     },
-  }
+  },
 };
 
 export const darkMode = {
@@ -154,9 +154,9 @@ export const darkMode = {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          color: "white"
-        }
-      }
+          color: "white",
+        },
+      },
     },
     MuiAppBar: {
       styleOverrides: {
