@@ -77,100 +77,112 @@ export default function TradePlan({ onSubmit }) {
   return (
     <>
       <Typography variant="h3">Trade Planner</Typography>
-
       {/**
        * GENERAL INFO
        */}
-      <Grid container spacing={2} marginTop="3vh">
-        <Grid item xs={12}>
-          <Typography variant="subtitle1">General</Typography>
+      <Paper sx={{ padding: "1rem" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="subtitle1">General</Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              onChange={(e) => handleTextFieldChange(e, "symbol")}
+              label="Symbol"
+              placeholder="TSLA"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            onChange={(e) => handleTextFieldChange(e, "symbol")}
-            label="Symbol"
-            placeholder="TSLA"
-          />
-        </Grid>
-        {/* END GENERAL INFO */}
+      </Paper>
+      {/* END GENERAL INFO */}
 
+      <Paper sx={{ padding: "1rem", margin: "1rem 0" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} marginTop="1vh">
+            <Typography variant="subtitle1">Thesis</Typography>
+            <Typography variant="subtitle2">overall market context and conditions</Typography>
+          </Grid>
+          {/* bigger picture */}
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
+              label="Summary"
+              placeholder="market context &amp; conditions/bigger picture"
+            />
+          </Grid>
+          {/* add news or catalyst */}
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              multiline
+              value={newsCatalyst}
+              onChange={(e) => setNewsCatalyst(e.target.value)}
+              label="News or Catalyst"
+              placeholder="add news or catalyst, if any"
+              InputProps={{
+                endAdornment: (
+                  <Tooltip title="add news/catalyst">
+                    <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
+                      <AddIcon />
+                    </IconButton>
+                  </Tooltip>
+                ),
+              }}
+            />
+          </Grid>
+          {/* display news and catalysts */}
+          <Grid item xs={12} md={6}>
+            <Paper
+              ref={newsAndCatalystsListRef}
+              elevation={1}
+              sx={{ minHeight: "130px", maxHeight: "200px", overflow: "auto" }}
+            >
+              <List
+                subheader={
+                  <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
+                }
+              >
+                <Divider />
+                {state.newsAndCatalysts.map((news, index) => {
+                  return (
+                    <Fragment key={"" + news.length + index}>
+                      <Divider />
+                      <ListItem
+                        secondaryAction={
+                          <Tooltip arrow title="remove">
+                            <IconButton
+                              color="primary"
+                              edge="end"
+                              onClick={() => handleRemoveNews(index)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Tooltip>
+                        }
+                      >
+                        <ListItemText primary={news} />
+                      </ListItem>
+                    </Fragment>
+                  );
+                })}
+              </List>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      <Grid container spacing={2} marginTop="3vh">
         {/**
          * THESIS
          */}
-        <Grid item xs={12} marginTop="1vh">
-          <Typography variant="subtitle1">Thesis</Typography>
-          <Typography variant="subtitle2">overall market context and conditions</Typography>
-        </Grid>
-        {/* bigger picture */}
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={3}
-            onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
-            label="Bigger Picture"
-            placeholder="market context/bigger picture"
-          />
-        </Grid>
-        {/* add news or catalyst */}
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            multiline
-            rows={2}
-            value={newsCatalyst}
-            onChange={(e) => setNewsCatalyst(e.target.value)}
-            label="News or Catalysts"
-            placeholder="add news or catalyst, if any"
-            InputProps={{
-              endAdornment: (
-                <Tooltip title="add news/catalyst">
-                  <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              ),
-            }}
-          />
-        </Grid>
-        {/* display news and catalysts */}
-        <Grid item xs={12} md={6}>
-          <Paper
-            ref={newsAndCatalystsListRef}
-            elevation={1}
-            sx={{ minHeight: "200px", maxHeight: "200px", overflow: "auto" }}
-          >
-            <List subheader={<ListSubheader>News and Catalysts:</ListSubheader>}>
-              <Divider />
-              {state.newsAndCatalysts.map((news, index) => {
-                return (
-                  <Fragment key={"" + news.length + index}>
-                    <Divider />
-                    <ListItem
-                      secondaryAction={
-                        <Tooltip arrow title="remove">
-                          <IconButton
-                            color="primary"
-                            edge="end"
-                            onClick={() => handleRemoveNews(index)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </Tooltip>
-                      }
-                    >
-                      <ListItemText primary={news} />
-                    </ListItem>
-                  </Fragment>
-                );
-              })}
-            </List>
-          </Paper>
-        </Grid>
+
         {/* END THESIS */}
 
         {/**
@@ -179,9 +191,7 @@ export default function TradePlan({ onSubmit }) {
         {/* add supply or demand zone */}
         <Grid item xs={12} marginTop="1vh">
           <Typography variant="subtitle1">Imbalance</Typography>
-          <Typography variant="subtitle2">
-            supply &amp; demand zones aid in determining market imbalance
-          </Typography>
+          <Typography variant="subtitle2">add supply and demand zones below</Typography>
         </Grid>
         <Grid item xs={12} md={2} container>
           <ToggleButtonGroup
@@ -194,8 +204,9 @@ export default function TradePlan({ onSubmit }) {
             <ToggleButton value="supply">Supply</ToggleButton>
             <ToggleButton value="demand">Demand</ToggleButton>
           </ToggleButtonGroup>
+          <Typography variant="subtitle2">select one</Typography>
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid item xs={6} md={3}>
           <TextField
             fullWidth
             value={zoneStart}
@@ -204,7 +215,7 @@ export default function TradePlan({ onSubmit }) {
             placeholder="zone start price"
           />
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid item xs={6} md={3}>
           <TextField
             fullWidth
             value={zoneEnd}
@@ -213,13 +224,11 @@ export default function TradePlan({ onSubmit }) {
             placeholder="zone end price"
           />
         </Grid>
-        <Grid item xs={6} md={2} container>
+        <Grid item xs={6} md={2}>
           <FileUploadButton
-            title="ADD IMAGE"
+            title="add image"
             ButtonProps={{
-              fullWidth: true,
               variant: "text",
-              size: "small",
               color: "inherit",
               startIcon: <AddAPhotoOutlinedIcon />,
             }}
