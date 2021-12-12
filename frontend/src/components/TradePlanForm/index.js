@@ -21,8 +21,14 @@ import {
   Delete as DeleteIcon,
   AddAPhotoOutlined as AddAPhotoOutlinedIcon,
 } from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 import { FileUploadButton } from "@/components";
+
+const Section = styled(Paper, (props) => ({ ...props }))`
+  padding: 1rem;
+  margin: 1rem 0;
+`;
 
 export default function TradePlan({ onSubmit }) {
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
@@ -80,7 +86,7 @@ export default function TradePlan({ onSubmit }) {
       {/**
        * GENERAL INFO
        */}
-      <Paper sx={{ padding: "1rem" }}>
+      <Section>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="subtitle1">General</Typography>
@@ -97,10 +103,13 @@ export default function TradePlan({ onSubmit }) {
             />
           </Grid>
         </Grid>
-      </Paper>
+      </Section>
       {/* END GENERAL INFO */}
 
-      <Paper sx={{ padding: "1rem", margin: "1rem 0" }}>
+      {/**
+       * THESIS
+       */}
+      <Section>
         <Grid container spacing={2}>
           <Grid item xs={12} marginTop="1vh">
             <Typography variant="subtitle1">Thesis</Typography>
@@ -176,88 +185,93 @@ export default function TradePlan({ onSubmit }) {
             </Paper>
           </Grid>
         </Grid>
-      </Paper>
+      </Section>
+      {/* END THESIS */}
 
-      <Grid container spacing={2} marginTop="3vh">
-        {/**
-         * THESIS
-         */}
-
-        {/* END THESIS */}
-
-        {/**
-         * SUPPLY AND DEMAND ZONES
-         */}
-        {/* add supply or demand zone */}
-        <Grid item xs={12} marginTop="1vh">
-          <Typography variant="subtitle1">Imbalance</Typography>
-          <Typography variant="subtitle2">add supply and demand zones below</Typography>
-        </Grid>
-        <Grid item xs={12} md={2} container>
-          <ToggleButtonGroup
-            fullWidth
-            color={zoneType === "supply" ? "error" : "success"}
-            value={zoneType}
-            exclusive
-            onChange={(_, selected) => setZoneType(selected)}
-          >
-            <ToggleButton value="supply">Supply</ToggleButton>
-            <ToggleButton value="demand">Demand</ToggleButton>
-          </ToggleButtonGroup>
-          <Typography variant="subtitle2">select one</Typography>
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextField
-            fullWidth
-            value={zoneStart}
-            onChange={(e) => setZoneStart(e.target.value)}
-            label="Zone Start"
-            placeholder="zone start price"
-          />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <TextField
-            fullWidth
-            value={zoneEnd}
-            onChange={(e) => setZoneEnd(e.target.value)}
-            label="Zone End"
-            placeholder="zone end price"
-          />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <FileUploadButton
-            title="add image"
-            ButtonProps={{
-              variant: "text",
-              color: "inherit",
-              startIcon: <AddAPhotoOutlinedIcon />,
-            }}
-            InputProps={{
-              accept: "image/png, image/jpeg",
-              type: "file",
-            }}
-            onChange={(e) => console.log(e)}
-          />
-        </Grid>
-        <Grid item xs={12} container justifyContent="center">
-          <Grid item>
-            <Button color="inherit" variant="outlined" fullWidth startIcon={<AddIcon />}>
-              ADD TO ZONES
-            </Button>
+      {/**
+       * SUPPLY AND DEMAND ZONES
+       */}
+      <Section>
+        <Grid container spacing={2}>
+          <Grid item xs={12} marginTop="1vh">
+            <Typography variant="subtitle1">Imbalance</Typography>
+            <Typography variant="subtitle2">add supply and demand zones below</Typography>
+          </Grid>
+          {/* add supply or demand zone */}
+          <Grid item xs={12} md={6} container spacing={2}>
+            <Grid item xs={6}>
+              <ToggleButtonGroup
+                color={zoneType === "supply" ? "error" : "success"}
+                value={zoneType}
+                exclusive
+                onChange={(_, selected) => setZoneType(selected)}
+              >
+                <ToggleButton value="supply">Supply</ToggleButton>
+                <ToggleButton value="demand">Demand</ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={6}>
+              <FileUploadButton
+                title="add image"
+                ButtonProps={{
+                  variant: "text",
+                  color: "inherit",
+                  startIcon: <AddAPhotoOutlinedIcon />,
+                }}
+                InputProps={{
+                  accept: "image/png, image/jpeg",
+                  type: "file",
+                }}
+                onChange={(e) => console.log(e)}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                value={zoneStart}
+                onChange={(e) => setZoneStart(e.target.value)}
+                label="Zone Start"
+                placeholder="zone start price"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                value={zoneEnd}
+                onChange={(e) => setZoneEnd(e.target.value)}
+                label="Zone End"
+                placeholder="zone end price"
+              />
+            </Grid>
+            <Grid item xs={12} container justifyContent="center">
+              <Grid item>
+                <Button color="inherit" variant="outlined" fullWidth startIcon={<AddIcon />}>
+                  ADD TO ZONES
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <List
+              subheader={
+                <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
+              }
+            >
+              <Divider />
+            </List>
           </Grid>
         </Grid>
-        {/* END SUPPLY AND DEMAND ZONES */}
-
-        <Grid item xs={12} marginTop="7vh" container justifyContent="flex-end">
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ padding: "1.5rem" }}
-            onClick={() => onSubmit(state)}
-          >
-            ADD TO TRADE PLAN
-          </Button>
-        </Grid>
+      </Section>
+      {/* END SUPPLY AND DEMAND ZONES */}
+      <Grid item xs={12} justifyContent="flex-end">
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ padding: "1.5rem" }}
+          onClick={() => onSubmit(state)}
+        >
+          ADD TO TRADE PLAN
+        </Button>
       </Grid>
     </>
   );

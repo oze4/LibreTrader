@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   MenuItem,
@@ -16,7 +16,7 @@ import {
 
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { ColorModeContext } from "@/theme";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import HideOnScroll from "./HideOnScroll";
 
@@ -26,6 +26,10 @@ const pages = [
 ];
 
 export default function TopbarResponsive(props) {
+  const locaton = useLocation();
+  const [selectedPage, setSelectedPage] = useState(
+    pages.find((p) => p.path === location.pathname).name,
+  );
   const theme = useContext(ColorModeContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -114,8 +118,14 @@ export default function TopbarResponsive(props) {
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Button variant="filled" key={page.name} component={RouterLink} to={page.path}>
-                  {page.name}
+                <Button
+                  variant={selectedPage === page.name ? "outlined" : "filled"}
+                  key={page.name}
+                  component={RouterLink}
+                  to={page.path}
+                  onClick={(e) => setSelectedPage(page.name)}
+                >
+                  <Typography>{page.name}</Typography>
                 </Button>
               ))}
             </Box>
