@@ -287,23 +287,21 @@ export default function TradePlan({ onSubmit }) {
             >
               {zoneScreenshots.map((file, index) => {
                 return (
-                  <Fragment key={index}>
-                    <ImageListItem key={`${index}-${file.name}`}>
-                      <Link rel="noopener" target="_blank" href={file.blob}>
-                        <img height="100px" src={file.blob} />
-                      </Link>
-                      <ImageListItemBar
-                        actionIcon={
-                          <IconButton
-                            sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                            onClick={() => handleRemoveZoneScreenshot(index)}
-                          >
-                            <Close />
-                          </IconButton>
-                        }
-                      />
-                    </ImageListItem>
-                  </Fragment>
+                  <ImageListItem key={`${index}-${file.name}`}>
+                    <Link rel="noopener" target="_blank" href={file.blob}>
+                      <img height="100px" src={file.blob} />
+                    </Link>
+                    <ImageListItemBar
+                      actionIcon={
+                        <IconButton
+                          sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                          onClick={() => handleRemoveZoneScreenshot(index)}
+                        >
+                          <Close />
+                        </IconButton>
+                      }
+                    />
+                  </ImageListItem>
                 );
               })}
             </ImageList>
