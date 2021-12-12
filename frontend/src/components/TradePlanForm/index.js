@@ -15,15 +15,26 @@ import {
   Typography,
   ToggleButton,
   ToggleButtonGroup,
+  ImageList,
+  ImageListItem,
+  Box,
+  Avatar,
+  Link,
+  Badge,
+  Stack,
+  ImageListItemBar,
 } from "@mui/material";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
   AddAPhotoOutlined as AddAPhotoOutlinedIcon,
+  Close,
+  Info,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
 import { FileUploadButton } from "@/components";
+import SimpleTable from "../SimpleTable";
 
 const Section = styled(Paper, (props) => ({ ...props }))`
   padding: 1rem;
@@ -67,6 +78,23 @@ export default function TradePlan({ onSubmit }) {
       setNewsCatalyst("");
       setState(c);
     }
+  };
+
+  const handleZoneImageUpload = (event) => {
+    const file = event.target.files[0];
+    const uploadedImage = {
+      name: file.name,
+      blob: URL.createObjectURL(file),
+    };
+    const c = [...zoneScreenshots];
+    c.push(uploadedImage);
+    setZoneScreenshots(c);
+  };
+
+  const handleRemoveZoneScreenshot = (index) => {
+    const c = [...zoneScreenshots];
+    c.splice(index, 1);
+    setZoneScreenshots(c);
   };
 
   const handleAddZone = () => {
@@ -200,69 +228,99 @@ export default function TradePlan({ onSubmit }) {
             <Typography variant="subtitle2">add supply and demand zones below</Typography>
           </Grid>
           {/* add supply or demand zone */}
-          <Grid item xs={12} md={6} container spacing={2}>
-            <Grid item xs={6}>
-              <ToggleButtonGroup
-                color={zoneType === "supply" ? "error" : "success"}
-                value={zoneType}
-                exclusive
-                onChange={(_, selected) => setZoneType(selected)}
-              >
-                <ToggleButton value="supply">Supply</ToggleButton>
-                <ToggleButton value="demand">Demand</ToggleButton>
-              </ToggleButtonGroup>
-            </Grid>
-            <Grid item xs={6}>
-              <FileUploadButton
-                title="add image"
-                ButtonProps={{
-                  variant: "text",
-                  color: "inherit",
-                  startIcon: <AddAPhotoOutlinedIcon />,
-                }}
-                InputProps={{
-                  accept: "image/png, image/jpeg",
-                  type: "file",
-                }}
-                onChange={(e) => console.log(e)}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                value={zoneStart}
-                onChange={(e) => setZoneStart(e.target.value)}
-                label="Zone Start"
-                placeholder="zone start price"
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                value={zoneEnd}
-                onChange={(e) => setZoneEnd(e.target.value)}
-                label="Zone End"
-                placeholder="zone end price"
-              />
-            </Grid>
-            <Grid item xs={12} container justifyContent="center">
-              <Grid item>
-                <Button color="inherit" variant="outlined" fullWidth startIcon={<AddIcon />}>
-                  ADD TO ZONES
-                </Button>
-              </Grid>
-            </Grid>
+          <Grid item xs={12} md={2} container>
+            <ToggleButtonGroup
+              fullWidth
+              color={zoneType === "supply" ? "error" : "success"}
+              value={zoneType}
+              exclusive
+              onChange={(_, selected) => setZoneType(selected)}
+            >
+              <ToggleButton value="supply">Supply</ToggleButton>
+              <ToggleButton value="demand">Demand</ToggleButton>
+            </ToggleButtonGroup>
           </Grid>
-          <Grid item xs={12} md={6} container spacing={2}>
-            <Grid item xs={12}>
-              <List subheader={<ListSubheader sx={{ textAlign: "center" }}>Images</ListSubheader>}>
-                <Divider />
-              </List>
-            </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              value={zoneStart}
+              onChange={(e) => setZoneStart(e.target.value)}
+              label="Zone Start"
+              placeholder="zone start price"
+            />
           </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              value={zoneEnd}
+              onChange={(e) => setZoneEnd(e.target.value)}
+              label="Zone End"
+              placeholder="zone end price"
+            />
+          </Grid>
+          <Grid item xs={12} md={2} container>
+            <FileUploadButton
+              onChange={(e) => handleZoneImageUpload(e)}
+              title="add image"
+              ButtonProps={{
+                fullWidth: true,
+                variant: "text",
+                color: "inherit",
+                startIcon: <AddAPhotoOutlinedIcon />,
+              }}
+              InputProps={{
+                accept: "image/*",
+                type: "file",
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="outlined" startIcon={<AddIcon />}>
+              ADD TO ZONES
+            </Button>
+          </Grid>
+          {/* display uploaded zone images */}
+          <Grid item xs={12}>
+            <ImageList
+              cols={12}
+              sx={{ overflow: "scroll", maxHeight: "100px", textAlign: "center" }}
+            >
+              {zoneScreenshots.map((file, index) => {
+                return (
+                  <Fragment key={index}>
+                    <ImageListItem key={`${index}-${file.name}`}>
+                      <Link rel="noopener" target="_blank" href={file.blob}>
+                        <img height="100px" src={file.blob} />
+                      </Link>
+                      <ImageListItemBar
+                        actionIcon={
+                          <IconButton
+                            sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                            onClick={() => handleRemoveZoneScreenshot(index)}
+                          >
+                            <Close />
+                          </IconButton>
+                        }
+                      />
+                    </ImageListItem>
+                  </Fragment>
+                );
+              })}
+            </ImageList>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} marginTop="2em">
+          <SimpleTable
+            data={[{ name: "joe", age: 1 }]}
+            columns={[
+              { key: "name", display: "Name" },
+              { key: "age", display: "Age" },
+            ]}
+          />
         </Grid>
       </Section>
       {/* END SUPPLY AND DEMAND ZONES */}
+
       <Grid item xs={12} justifyContent="flex-end">
         <Button
           variant="contained"
