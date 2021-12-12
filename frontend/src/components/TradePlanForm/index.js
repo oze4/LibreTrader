@@ -149,8 +149,8 @@ export default function TradePlan({ onSubmit }) {
           {/* display news and catalysts */}
           <Grid item xs={12} md={6}>
             <Paper
+              elevation={0}
               ref={newsAndCatalystsListRef}
-              elevation={1}
               sx={{ minHeight: "130px", maxHeight: "200px", overflow: "auto" }}
             >
               <List
@@ -251,14 +251,12 @@ export default function TradePlan({ onSubmit }) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <List
-              subheader={
-                <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
-              }
-            >
-              <Divider />
-            </List>
+          <Grid item xs={12} md={6} container spacing={2}>
+            <Grid item xs={12}>
+              <List subheader={<ListSubheader sx={{ textAlign: "center" }}>Images</ListSubheader>}>
+                <Divider />
+              </List>
+            </Grid>
           </Grid>
         </Grid>
       </Section>

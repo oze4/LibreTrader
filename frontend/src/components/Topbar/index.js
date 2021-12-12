@@ -120,6 +120,7 @@ export default function TopbarResponsive(props) {
               {pages.map((page) => (
                 <Button
                   variant={selectedPage === page.name ? "outlined" : "filled"}
+                  color="secondary"
                   key={page.name}
                   component={RouterLink}
                   to={page.path}
