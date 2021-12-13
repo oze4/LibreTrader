@@ -17,24 +17,15 @@ export default {
       newsAndCatalysts: [],
       // Notes on this plan. "Market picture" relative to this symbol.
       biggerPicture: "",
-      zones: {
-        supply: [
-          {
-            timeframe: "", // (1min,5min,10min, etc...)
-            startPrice: "", // start of supply zone
-            endPrice: "", // end of supply zone
-            screenshots: [], // array of screenshots for this zone.
-          },
-        ],
-        demand: [
-          {
-            timeframe: "", // (1min,5min,10min, etc...)
-            startPrice: "", // start of demand zone
-            endPrice: "", // end of demand zone
-            screenshots: [], // array of screenshots for this zone.
-          },
-        ],
-      },
+      zones: [
+        {
+          type: "", // "supply" | "demand"
+          timeframe: "", // (1min,5min,10min, etc...)
+          startPrice: "", // start of supply zone
+          endPrice: "", // end of supply zone
+          screenshots: [], // array of screenshots for this zone.
+        },
+      ],
     },
   ],
 };

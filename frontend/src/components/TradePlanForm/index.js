@@ -1,7 +1,6 @@
 import React, { useState, useRef, Fragment, useEffect } from "react";
 import {
   Grid,
-  InputAdornment,
   TextField,
   IconButton,
   List,
@@ -18,24 +17,19 @@ import {
   ImageList,
   ImageListItem,
   Box,
-  Avatar,
   Link,
-  Badge,
-  Stack,
-  BottomNavigation,
+  Chip,
   ImageListItemBar,
 } from "@mui/material";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
   AddAPhotoOutlined as AddAPhotoOutlinedIcon,
-  Close,
-  Info,
+  Close as CloseIcon,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
-import { FileUploadButton } from "@/components";
-import SimpleTable from "../SimpleTable";
+import { FileUploadButton, SimpleTable } from "@/components";
 
 const Section = styled(Paper, (props) => ({ ...props }))`
   padding: 1rem;
@@ -45,10 +39,12 @@ const Section = styled(Paper, (props) => ({ ...props }))`
 export default function TradePlan({ onSubmit }) {
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
   const newsAndCatalystsListRef = useRef(null);
+  const formBoxRef = useRef(null);
   // Currently entered form data state
   const [newsCatalyst, setNewsCatalyst] = useState("");
   const [zoneType, setZoneType] = useState("");
   const [zoneStart, setZoneStart] = useState("");
+  const [zoneTimeFrame, setZoneTimeFrame] = useState("");
   const [zoneEnd, setZoneEnd] = useState("");
   const [zoneScreenshots, setZoneScreenshots] = useState([]);
   // State that is passed to `onSubmit(state)`
@@ -56,10 +52,9 @@ export default function TradePlan({ onSubmit }) {
     biggerPicture: "",
     date: Date.now(),
     symbol: "",
-    zones: {
-      supply: [],
-      demand: [],
-    },
+    // a zone has the following shape:
+    //// { type: ("supply"|"demand"), timeFrame: String, start: String, end: String, images: [String] }
+    zones: [],
     newsAndCatalysts: [],
   });
 
@@ -75,10 +70,18 @@ export default function TradePlan({ onSubmit }) {
     if (newsCatalyst) {
       const c = { ...state };
       c.newsAndCatalysts.push(newsCatalyst);
-      // Since we added the currently typed news/catalyst we need to clear the text field
-      setNewsCatalyst("");
-      setState(c);
+      setState(() => {
+        // Since we added the currently typed news/catalyst we need to clear the text field
+        setNewsCatalyst("");
+        return c;
+      });
     }
+  };
+
+  const handleRemoveZone = (_event, zoneIndex) => {
+    const c = { ...state };
+    c.zones.splice(zoneIndex, 1);
+    setState(c);
   };
 
   const handleZoneImageUpload = (event) => {
@@ -99,13 +102,19 @@ export default function TradePlan({ onSubmit }) {
   };
 
   const handleAddZone = () => {
-    if (!zoneType) {
-      alert("Zone Type is required! Please select supply or demand.");
-      return;
-    }
+    const zone = {
+      type: zoneType,
+      timeFrame: zoneTimeFrame,
+      start: zoneStart,
+      end: zoneEnd,
+      images: zoneScreenshots,
+    };
     const c = { ...state };
-    c.zones[zoneType].push({
-    })
+    c.zones.push(zone);
+    setState(() => {
+      clearZoneInput();
+      return c;
+    });
   };
 
   const handleRemoveNews = (index) => {
@@ -114,10 +123,18 @@ export default function TradePlan({ onSubmit }) {
     setState(c);
   };
 
+  const clearZoneInput = () => {
+    setZoneType(null);
+    setZoneStart("");
+    setZoneEnd("");
+    setZoneTimeFrame("");
+    setZoneScreenshots([]);
+  };
+
   return (
     <Fragment>
       <Typography variant="h3">Trade Planner</Typography>
-      <Box sx={{ maxHeight: "75vh", overflow: "scroll" }}>
+      <Box ref={formBoxRef} sx={{ maxHeight: "75vh", overflow: "scroll" }}>
         {/**
          * GENERAL INFO
          */}
@@ -253,7 +270,16 @@ export default function TradePlan({ onSubmit }) {
                 <ToggleButton value="demand">Demand</ToggleButton>
               </ToggleButtonGroup>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={2}>
+              <TextField
+                fullWidth
+                value={zoneTimeFrame}
+                onChange={(e) => setZoneTimeFrame(e.target.value)}
+                label="Time Frame"
+                placeholder="5min/1hr/etc.."
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
               <TextField
                 fullWidth
                 value={zoneStart}
@@ -262,7 +288,7 @@ export default function TradePlan({ onSubmit }) {
                 placeholder="zone start price"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={2}>
               <TextField
                 fullWidth
                 value={zoneEnd}
@@ -287,8 +313,13 @@ export default function TradePlan({ onSubmit }) {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Button variant="outlined" startIcon={<AddIcon />} onClick={() => handleAddZone()}>
+            <Grid item xs={12} md={2} container>
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => handleAddZone()}
+              >
                 ADD TO ZONES
               </Button>
             </Grid>
@@ -310,7 +341,7 @@ export default function TradePlan({ onSubmit }) {
                             sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                             onClick={() => handleRemoveZoneScreenshot(index)}
                           >
-                            <Close />
+                            <CloseIcon />
                           </IconButton>
                         }
                       />
@@ -321,16 +352,34 @@ export default function TradePlan({ onSubmit }) {
             </Grid>
           </Grid>
           <Grid item xs={12} container>
-            {state.zones.supply.length || state.zones.demand.length ? (
+            {state.zones && state.zones.length > 0 ? (
               <Fragment>
                 <Grid item xs={12} margin="1rem">
                   <Typography variant="subheader2">Zones</Typography>
                 </Grid>
                 <SimpleTable
-                  data={[...state.zones.supply, ...state.zones.demand]}
+                  data={state.zones.map((z, zoneIndex) => ({
+                    ...z,
+                    // override example
+                    type: (
+                      <Chip
+                        color={
+                          z.type === "supply"
+                            ? "error"
+                            : z.type === "demand"
+                            ? "success"
+                            : "default"
+                        }
+                        onDelete={(e) => handleRemoveZone(e, zoneIndex)}
+                        label={z.type}
+                      />
+                    ),
+                  }))}
                   columns={[
-                    { key: "name", display: "Name" },
-                    { key: "age", display: "Age" },
+                    { key: "type", display: "Zone Type" },
+                    { key: "timeFrame", display: "Time Frame" },
+                    { key: "start", display: "Zone Start" },
+                    { key: "end", display: "Zone End" },
                   ]}
                 />
               </Fragment>
