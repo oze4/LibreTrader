@@ -30,6 +30,8 @@ import {
 import styled from "@emotion/styled";
 
 import { FileUploadButton, SimpleTable } from "@/components";
+import GeneralInfo from "./GeneralInfo";
+import Thesis from "./Thesis";
 
 const Section = styled(Paper, (props) => ({ ...props }))`
   padding: 1rem;
@@ -40,23 +42,25 @@ export default function TradePlan({ onSubmit }) {
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
   const newsAndCatalystsListRef = useRef(null);
   const formBoxRef = useRef(null);
+
   // Currently entered form data state
-  const [newsCatalyst, setNewsCatalyst] = useState("");
-  const [zoneType, setZoneType] = useState("");
-  const [zoneStart, setZoneStart] = useState("");
-  const [zoneTimeFrame, setZoneTimeFrame] = useState("");
-  const [zoneEnd, setZoneEnd] = useState("");
-  const [zoneScreenshots, setZoneScreenshots] = useState([]);
+  // const [newsCatalyst, setNewsCatalyst] = useState("");
+  // const [zoneType, setZoneType] = useState("");
+  // const [zoneStart, setZoneStart] = useState("");
+  // const [zoneTimeFrame, setZoneTimeFrame] = useState("");
+  // const [zoneEnd, setZoneEnd] = useState("");
+  // const [zoneScreenshots, setZoneScreenshots] = useState([]);
+
   // State that is passed to `onSubmit(state)`
-  const [state, setState] = useState({
-    biggerPicture: "",
-    date: Date.now(),
-    symbol: "",
-    // a zone has the following shape:
-    //// { type: ("supply"|"demand"), timeFrame: String, start: String, end: String, images: [String] }
-    zones: [],
-    newsAndCatalysts: [],
-  });
+  // const [state, setState] = useState({
+  //   biggerPicture: "",
+  //   date: Date.now(),
+  //   symbol: "",
+  //   // a zone has the following shape:
+  //   //// { type: ("supply"|"demand"), timeFrame: String, start: String, end: String, images: [String] }
+  //   zones: [],
+  //   newsAndCatalysts: [],
+  // });
 
   // When a new news or catalyst is added, scroll to bottom of list element.
   useEffect(() => {
@@ -138,6 +142,10 @@ export default function TradePlan({ onSubmit }) {
         {/**
          * GENERAL INFO
          */}
+         <Section>
+           <GeneralInfo />
+         </Section>
+         {/*
         <Section>
           <Grid item xs={12} container spacing={2}>
             <Grid item xs={12}>
@@ -160,11 +168,16 @@ export default function TradePlan({ onSubmit }) {
             </Grid>
           </Grid>
         </Section>
+         */}
         {/* END GENERAL INFO */}
 
         {/**
          * THESIS
          */}
+         <Section>
+           <Thesis />
+         </Section>
+         {/*
         <Section>
           <Grid container spacing={2}>
             <Grid item xs={12} marginTop="1vh">
@@ -173,7 +186,6 @@ export default function TradePlan({ onSubmit }) {
             </Grid>
             <Grid item xs={12} container spacing={2}>
               <Grid item xs={12} md={6} container spacing={2}>
-                {/* bigger picture */}
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
@@ -184,7 +196,6 @@ export default function TradePlan({ onSubmit }) {
                     placeholder="market context &amp; conditions/bigger picture"
                   />
                 </Grid>
-                {/* add news or catalyst */}
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
@@ -206,7 +217,6 @@ export default function TradePlan({ onSubmit }) {
                 </Grid>
               </Grid>
               <Grid item xs={12} md={6} container spacing={2}>
-                {/* display news and catalysts */}
                 <Grid item xs={12}>
                   <List
                     ref={newsAndCatalystsListRef}
@@ -246,6 +256,7 @@ export default function TradePlan({ onSubmit }) {
             </Grid>
           </Grid>
         </Section>
+                  */}
         {/* END THESIS */}
 
         {/**
