@@ -22,6 +22,7 @@ import {
   Link,
   Badge,
   Stack,
+  BottomNavigation,
   ImageListItemBar,
 } from "@mui/material";
 import {
@@ -98,8 +99,13 @@ export default function TradePlan({ onSubmit }) {
   };
 
   const handleAddZone = () => {
-    if (zoneStart && zoneEnd && zoneType) {
+    if (!zoneType) {
+      alert("Zone Type is required! Please select supply or demand.");
+      return;
     }
+    const c = { ...state };
+    c.zones[zoneType].push({
+    })
   };
 
   const handleRemoveNews = (index) => {
@@ -109,217 +115,233 @@ export default function TradePlan({ onSubmit }) {
   };
 
   return (
-    <>
+    <Fragment>
       <Typography variant="h3">Trade Planner</Typography>
-      {/**
-       * GENERAL INFO
-       */}
-      <Section>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1">General</Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              onChange={(e) => handleTextFieldChange(e, "symbol")}
-              label="Symbol"
-              placeholder="TSLA"
-            />
-          </Grid>
-        </Grid>
-      </Section>
-      {/* END GENERAL INFO */}
-
-      {/**
-       * THESIS
-       */}
-      <Section>
-        <Grid container spacing={2}>
-          <Grid item xs={12} marginTop="1vh">
-            <Typography variant="subtitle1">Thesis</Typography>
-            <Typography variant="subtitle2">overall market context and conditions</Typography>
-          </Grid>
+      <Box sx={{ maxHeight: "75vh", overflow: "scroll" }}>
+        {/**
+         * GENERAL INFO
+         */}
+        <Section>
           <Grid item xs={12} container spacing={2}>
-            <Grid item xs={12} md={6} container spacing={2}>
-              {/* bigger picture */}
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={3}
-                  onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
-                  label="Summary"
-                  placeholder="market context &amp; conditions/bigger picture"
-                />
-              </Grid>
-              {/* add news or catalyst */}
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  value={newsCatalyst}
-                  onChange={(e) => setNewsCatalyst(e.target.value)}
-                  label="News or Catalyst"
-                  placeholder="add news or catalyst, if any"
-                  InputProps={{
-                    endAdornment: (
-                      <Tooltip title="add news/catalyst">
-                        <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
-                          <AddIcon />
-                        </IconButton>
-                      </Tooltip>
-                    ),
-                  }}
-                />
-              </Grid>
+            <Grid item xs={12}>
+              <Typography variant="subtitle1">General</Typography>
             </Grid>
-            <Grid item xs={12} md={6} container spacing={2}>
-              {/* display news and catalysts */}
-              <Grid item xs={12}>
-                <List
-                  ref={newsAndCatalystsListRef}
-                  sx={{ maxHeight: "180px", overflow: "scroll" }}
-                  subheader={
-                    <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
-                  }
-                >
-                  <Divider />
-                  {state.newsAndCatalysts.map((news, index) => {
-                    return (
-                      <Fragment key={"" + news.length + index}>
-                        <Divider />
-                        <ListItem
-                          secondaryAction={
-                            <Tooltip arrow title="remove">
-                              <IconButton
-                                color="primary"
-                                edge="end"
-                                onClick={() => handleRemoveNews(index)}
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                          }
-                        >
-                          <ListItemText primary={news} />
-                        </ListItem>
-                      </Fragment>
-                    );
-                  })}
-                </List>
-              </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                onChange={(e) => handleTextFieldChange(e, "date")}
+                label="Date"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                onChange={(e) => handleTextFieldChange(e, "symbol")}
+                label="Symbol"
+                placeholder="TSLA"
+              />
             </Grid>
           </Grid>
-        </Grid>
-      </Section>
-      {/* END THESIS */}
+        </Section>
+        {/* END GENERAL INFO */}
 
-      {/**
-       * SUPPLY AND DEMAND ZONES
-       */}
-      <Section>
-        <Grid container spacing={2}>
-          <Grid item xs={12} marginTop="1vh">
-            <Typography variant="subtitle1">Imbalance</Typography>
-            <Typography variant="subtitle2">add supply and demand zones below</Typography>
+        {/**
+         * THESIS
+         */}
+        <Section>
+          <Grid container spacing={2}>
+            <Grid item xs={12} marginTop="1vh">
+              <Typography variant="subtitle1">Thesis</Typography>
+              <Typography variant="subtitle2">overall market context and conditions</Typography>
+            </Grid>
+            <Grid item xs={12} container spacing={2}>
+              <Grid item xs={12} md={6} container spacing={2}>
+                {/* bigger picture */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={3}
+                    onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
+                    label="Summary"
+                    placeholder="market context &amp; conditions/bigger picture"
+                  />
+                </Grid>
+                {/* add news or catalyst */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    value={newsCatalyst}
+                    onChange={(e) => setNewsCatalyst(e.target.value)}
+                    label="News or Catalyst"
+                    placeholder="add news or catalyst, if any"
+                    InputProps={{
+                      endAdornment: (
+                        <Tooltip title="add news/catalyst">
+                          <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
+                            <AddIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ),
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item xs={12} md={6} container spacing={2}>
+                {/* display news and catalysts */}
+                <Grid item xs={12}>
+                  <List
+                    ref={newsAndCatalystsListRef}
+                    sx={{ maxHeight: "180px", overflow: "scroll" }}
+                    subheader={
+                      <ListSubheader sx={{ textAlign: "center" }}>
+                        News &amp; Catalysts
+                      </ListSubheader>
+                    }
+                  >
+                    <Divider />
+                    {state.newsAndCatalysts.map((news, index) => {
+                      return (
+                        <Fragment key={"" + news.length + index}>
+                          <Divider />
+                          <ListItem
+                            secondaryAction={
+                              <Tooltip arrow title="remove">
+                                <IconButton
+                                  color="primary"
+                                  edge="end"
+                                  onClick={() => handleRemoveNews(index)}
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                            }
+                          >
+                            <ListItemText primary={news} />
+                          </ListItem>
+                        </Fragment>
+                      );
+                    })}
+                  </List>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-          {/* add supply or demand zone */}
-          <Grid item xs={12} md={2} container>
-            <ToggleButtonGroup
-              fullWidth
-              color={zoneType === "supply" ? "error" : "success"}
-              value={zoneType}
-              exclusive
-              onChange={(_, selected) => setZoneType(selected)}
-            >
-              <ToggleButton value="supply">Supply</ToggleButton>
-              <ToggleButton value="demand">Demand</ToggleButton>
-            </ToggleButtonGroup>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              value={zoneStart}
-              onChange={(e) => setZoneStart(e.target.value)}
-              label="Zone Start"
-              placeholder="zone start price"
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              value={zoneEnd}
-              onChange={(e) => setZoneEnd(e.target.value)}
-              label="Zone End"
-              placeholder="zone end price"
-            />
-          </Grid>
-          <Grid item xs={12} md={2} container>
-            <FileUploadButton
-              onChange={(e) => handleZoneImageUpload(e)}
-              title="add image"
-              ButtonProps={{
-                fullWidth: true,
-                variant: "text",
-                color: "inherit",
-                startIcon: <AddAPhotoOutlinedIcon />,
-              }}
-              InputProps={{
-                accept: "image/*",
-                type: "file",
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="outlined" startIcon={<AddIcon />}>
-              ADD TO ZONES
-            </Button>
-          </Grid>
-          {/* display uploaded zone images */}
-          <Grid item xs={12}>
-            <ImageList
-              cols={12}
-              sx={{ overflow: "scroll", maxHeight: "100px", textAlign: "center" }}
-            >
-              {zoneScreenshots.map((file, index) => {
-                return (
-                  <ImageListItem key={`${index}-${file.name}`}>
-                    <Link rel="noopener" target="_blank" href={file.blob}>
-                      <img height="100px" src={file.blob} />
-                    </Link>
-                    <ImageListItemBar
-                      actionIcon={
-                        <IconButton
-                          sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                          onClick={() => handleRemoveZoneScreenshot(index)}
-                        >
-                          <Close />
-                        </IconButton>
-                      }
-                    />
-                  </ImageListItem>
-                );
-              })}
-            </ImageList>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} marginTop="2em">
-          <SimpleTable
-            data={[{ name: "joe", age: 1 }]}
-            columns={[
-              { key: "name", display: "Name" },
-              { key: "age", display: "Age" },
-            ]}
-          />
-        </Grid>
-      </Section>
-      {/* END SUPPLY AND DEMAND ZONES */}
+        </Section>
+        {/* END THESIS */}
 
-      <Grid item xs={12} justifyContent="flex-end">
+        {/**
+         * SUPPLY AND DEMAND ZONES
+         */}
+        <Section>
+          <Grid container spacing={2}>
+            <Grid item xs={12} marginTop="1vh">
+              <Typography variant="subtitle1">Imbalance</Typography>
+              <Typography variant="subtitle2">add supply and demand zones below</Typography>
+            </Grid>
+            {/* add supply or demand zone */}
+            <Grid item xs={12} md={2} container>
+              <ToggleButtonGroup
+                fullWidth
+                color={zoneType === "supply" ? "error" : "success"}
+                value={zoneType}
+                exclusive
+                onChange={(_, selected) => setZoneType(selected)}
+              >
+                <ToggleButton value="supply">Supply</ToggleButton>
+                <ToggleButton value="demand">Demand</ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                value={zoneStart}
+                onChange={(e) => setZoneStart(e.target.value)}
+                label="Zone Start"
+                placeholder="zone start price"
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                value={zoneEnd}
+                onChange={(e) => setZoneEnd(e.target.value)}
+                label="Zone End"
+                placeholder="zone end price"
+              />
+            </Grid>
+            <Grid item xs={12} md={2} container>
+              <FileUploadButton
+                onChange={(e) => handleZoneImageUpload(e)}
+                title="add image"
+                ButtonProps={{
+                  fullWidth: true,
+                  variant: "text",
+                  color: "inherit",
+                  startIcon: <AddAPhotoOutlinedIcon />,
+                }}
+                InputProps={{
+                  accept: "image/*",
+                  type: "file",
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="outlined" startIcon={<AddIcon />} onClick={() => handleAddZone()}>
+                ADD TO ZONES
+              </Button>
+            </Grid>
+            {/* display uploaded zone images */}
+            <Grid item xs={12}>
+              <ImageList
+                cols={12}
+                sx={{ overflow: "scroll", maxHeight: "100px", textAlign: "center" }}
+              >
+                {zoneScreenshots.map((file, index) => {
+                  return (
+                    <ImageListItem key={`${index}-${file.name}`}>
+                      <Link rel="noopener" target="_blank" href={file.blob}>
+                        <img height="100px" src={file.blob} />
+                      </Link>
+                      <ImageListItemBar
+                        actionIcon={
+                          <IconButton
+                            sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                            onClick={() => handleRemoveZoneScreenshot(index)}
+                          >
+                            <Close />
+                          </IconButton>
+                        }
+                      />
+                    </ImageListItem>
+                  );
+                })}
+              </ImageList>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} container>
+            {state.zones.supply.length || state.zones.demand.length ? (
+              <Fragment>
+                <Grid item xs={12} margin="1rem">
+                  <Typography variant="subheader2">Zones</Typography>
+                </Grid>
+                <SimpleTable
+                  data={[...state.zones.supply, ...state.zones.demand]}
+                  columns={[
+                    { key: "name", display: "Name" },
+                    { key: "age", display: "Age" },
+                  ]}
+                />
+              </Fragment>
+            ) : (
+              <Fragment />
+            )}
+          </Grid>
+        </Section>
+        {/* END SUPPLY AND DEMAND ZONES */}
+      </Box>
+      <Grid item xs={12} container justifyContent="flex-end" margin="1rem">
         <Button
           variant="contained"
           size="large"
@@ -329,6 +351,6 @@ export default function TradePlan({ onSubmit }) {
           ADD TO TRADE PLAN
         </Button>
       </Grid>
-    </>
+    </Fragment>
   );
 }
