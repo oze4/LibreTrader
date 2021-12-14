@@ -24,10 +24,21 @@ export default function GeneralInfo(props) {
           <Typography variant="subtitle1">General</Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={handleDateChange} label="Date" />
+          <TextField
+            fullWidth
+            onChange={handleDateChange}
+            value={formData.current.date}
+            label="Date"
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={handleSymbolChange} label="Symbol" placeholder="TSLA" />
+          <TextField
+            fullWidth
+            onChange={handleSymbolChange}
+            value={formData.current.symbol}
+            label="Symbol"
+            placeholder="TSLA"
+          />
         </Grid>
       </Grid>
     </Fragment>

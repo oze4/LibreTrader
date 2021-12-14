@@ -25,7 +25,7 @@ export default function Thesis(props) {
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
-  }, [formData.state.newsAndCatalysts]);
+  }, [formData.state]);
 
   const handleBiggerPictureChange = (event) => {
     const c = { ...formData.current };
@@ -69,6 +69,7 @@ export default function Thesis(props) {
                 rows={3}
                 onChange={handleBiggerPictureChange}
                 label="Summary"
+                value={formData.current.biggerPicture}
                 placeholder="market context &amp; conditions/bigger picture"
               />
             </Grid>

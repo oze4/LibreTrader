@@ -14,7 +14,7 @@ const Section = styled(Paper, (props) => ({ ...props }))`
   margin: 1rem 0;
 `;
 
-export default function TradePlanForm({ onSubmit }) {
+export default function TradePlanForm({ onSubmit = (formData) => ({ ...formData }) }) {
   const { state } = useContext(TradePlanContext);
   return (
     <TradePlanProvider>
@@ -30,10 +30,10 @@ export default function TradePlanForm({ onSubmit }) {
           <Zones />
         </Section>
       </Box>
-      <Grid item xs={12} container justifyContent="flex-end" margin="1rem">
+      <Grid item xs={12} container justifyContent="center" margin="0.5rem">
         <SubmitButton
           title="ADD TO TRADE PLAN"
-          onSubmit={(d) => alert(JSON.stringify(d, null, 2))}
+          onSubmit={(formDataState) => onSubmit(formDataState)}
         />
       </Grid>
     </TradePlanProvider>

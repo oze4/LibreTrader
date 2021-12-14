@@ -32,7 +32,7 @@ const tableData = {
 };
 */
 
-export default function SimpleTable({ data = [], columns = [] }) {
+export default function SimpleTable({ data = [], columns = [], TableProps = {} }) {
   const rows = [];
   data.forEach((dat) => {
     const row = [];
@@ -44,7 +44,7 @@ export default function SimpleTable({ data = [], columns = [] }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+      <Table {...TableProps}>
         <TableHead>
           <TableRow>
             {columns.map((col) => {

@@ -16,7 +16,7 @@ const defaultState = {
   },
   state: {
     biggerPicture: "",
-    date: Date.now(),
+    date: "", // Date.now(),
     symbol: "",
     // a zone has the following shape:
     //// { type: ("supply"|"demand"), timeFrame: String, start: String, end: String, images: [String] }
@@ -29,6 +29,7 @@ const defaultState = {
   setCurrent: (newCurrent) => {
     return newCurrent;
   },
+  clearFormData: () => {},
 };
 
 export const TradePlanContext = createContext(defaultState);
@@ -50,6 +51,31 @@ export function TradePlanProvider({ children }) {
         setPlanState({
           ...planState,
           current: { ...newCurrent },
+        });
+      },
+      clearFormData: () => {
+        setPlanState({
+          ...planState,
+          state: {
+            date: "",
+            symbol: "",
+            newsAndCatalysts: [],
+            biggerPicture: "",
+            zones: [],
+          },
+          current: {
+            date: "",
+            symbol: "",
+            newsAndCatalysts: "",
+            biggerPicture: "",
+            zone: {
+              type: "",
+              timeFrame: "",
+              start: "",
+              end: "",
+              images: [],
+            },
+          },
         });
       },
     };

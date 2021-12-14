@@ -86,7 +86,7 @@ export default function Zones(props) {
   return (
     <Fragment>
       <Grid container spacing={2}>
-        <Grid item xs={12} marginTop="1vh">
+        <Grid item xs={12}>
           <Typography variant="subtitle1">Imbalance</Typography>
           <Typography variant="subtitle2">add supply and demand zones below</Typography>
         </Grid>
@@ -153,17 +153,22 @@ export default function Zones(props) {
         </Grid>
         {/* display uploaded zone images */}
         <Grid item xs={12}>
-          <ImageList cols={12} sx={{ overflow: "scroll", maxHeight: "100px", textAlign: "center" }}>
+          <ImageList
+            cols={12}
+            sx={{ overflow: "scroll", maxHeight: "50px", minHeight: "50px", textAlign: "center" }}
+          >
             {formData.current.zone.images.map((file, index) => {
               return (
                 <ImageListItem key={`${index}-${file.name}`}>
                   <Link rel="noopener" target="_blank" href={file.blob}>
-                    <img height="100px" src={file.blob} />
+                    <img height="50px" width="50px" src={file.blob} />
                   </Link>
                   <ImageListItemBar
+                    sx={{}}
                     actionIcon={
                       <IconButton
-                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        size="small"
+                        sx={{ maxHeight: "2px", color: "rgba(255, 255, 255, 0.54)" }}
                         onClick={() => handleZoneImageRemove(index)}
                       >
                         <CloseIcon />
@@ -179,7 +184,7 @@ export default function Zones(props) {
       <Grid item xs={12} container>
         {formData.state.zones && formData.state.zones.length > 0 ? (
           <Fragment>
-            <Grid item xs={12} margin="1rem">
+            <Grid item xs={12}>
               <Typography variant="subheader2">Zones</Typography>
             </Grid>
             <SimpleTable
