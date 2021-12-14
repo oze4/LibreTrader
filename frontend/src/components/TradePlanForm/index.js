@@ -18,7 +18,6 @@ export default function TradePlanForm({ onSubmit = (formData) => ({ ...formData 
   const { state } = useContext(TradePlanContext);
   return (
     <TradePlanProvider>
-      <Typography variant="h3">Trade Planner</Typography>
       <Box sx={{ maxHeight: "75vh", overflow: "scroll" }}>
         <Section>
           <GeneralInfo />
