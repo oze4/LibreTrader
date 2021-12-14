@@ -1,20 +1,21 @@
 import React, { useContext, Fragment } from "react";
+import { Grid, Typography, TextField } from "@mui/material";
 import { TradePlanContext } from "./context";
 
 export default function GeneralInfo(props) {
   const formData = useContext(TradePlanContext);
 
   const handleSymbolChange = (event) => {
-    const c = { ...formData.current }
+    const c = { ...formData.current };
     c.symbol = event.target.value;
     formData.setCurrent(c);
-  }
+  };
 
   const handleDateChange = (event) => {
-    const c = { ...formData.current }
+    const c = { ...formData.current };
     c.date = event.target.value;
     formData.setCurrent(c);
-  }
+  };
 
   return (
     <Fragment>
@@ -23,15 +24,10 @@ export default function GeneralInfo(props) {
           <Typography variant="subtitle1">General</Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField fullWidth onChange={(e) => handleTextFieldChange(e, "date")} label="Date" />
+          <TextField fullWidth onChange={handleDateChange} label="Date" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            onChange={(e) => handleSymbolChange(e)}
-            label="Symbol"
-            placeholder="TSLA"
-          />
+          <TextField fullWidth onChange={handleSymbolChange} label="Symbol" placeholder="TSLA" />
         </Grid>
       </Grid>
     </Fragment>

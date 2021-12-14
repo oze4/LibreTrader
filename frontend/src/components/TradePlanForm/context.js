@@ -1,17 +1,18 @@
-import { createContext, useMemo, useState } from "react";
+import React, { createContext, useMemo, useState } from "react";
 
 const defaultState = {
   current: {
     date: "",
     symbol: "",
     newsCatalyst: "",
+    biggerPicture: "",
     zone: {
       type: "",
       timeFrame: "",
       start: "",
       end: "",
       images: [],
-    }
+    },
   },
   state: {
     biggerPicture: "",
@@ -26,8 +27,8 @@ const defaultState = {
     return newState;
   },
   setCurrent: (newCurrent) => {
-    return newCurrent
-  }
+    return newCurrent;
+  },
 };
 
 export const TradePlanContext = createContext(defaultState);
@@ -37,8 +38,8 @@ export function TradePlanProvider({ children }) {
 
   const finalState = useMemo(() => {
     return {
-      state: { ...state },
-      current: { ...JSON.stringify(current) },
+      state: { ...planState.state },
+      current: { ...planState.current },
       setState: (newState) => {
         setPlanState({
           ...planState,
@@ -48,11 +49,11 @@ export function TradePlanProvider({ children }) {
       setCurrent: (newCurrent) => {
         setPlanState({
           ...planState,
-          current: { ...newCurrent }
-        })
-      }
+          current: { ...newCurrent },
+        });
+      },
     };
-  }, [state]);
+  }, [planState]);
 
   return <TradePlanContext.Provider value={finalState}>{children}</TradePlanContext.Provider>;
 }

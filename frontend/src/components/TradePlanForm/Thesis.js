@@ -1,21 +1,57 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useRef, useEffect } from "react";
 import {
   Grid,
   Typography,
   TextField,
   IconButton,
   Tooltip,
+  List,
   ListItem,
   ListItemText,
   ListSubheader,
   Divider,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Delete as DeleteIcon,
-} from "@mui/icons-material";
+import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
+
+import { TradePlanContext } from "./context";
 
 export default function Thesis(props) {
+  const formData = useContext(TradePlanContext);
+  // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [formData.state.newsAndCatalysts]);
+
+  const handleBiggerPictureChange = (event) => {
+    const c = { ...formData.current };
+    c.biggerPicture = event.target.value;
+    formData.setCurrent(c);
+  };
+
+  const handleNewsOrCatalystChange = (event) => {
+    const c = { ...formData.current };
+    c.newsCatalyst = event.target.value;
+    formData.setCurrent(c);
+  };
+
+  const handleAddNewsOrCatalyst = () => {
+    const s = { ...formData.state };
+    s.newsAndCatalysts.push(formData.current.newsCatalyst);
+    formData.setState(s);
+    formData.setCurrent({ ...formData.current, newsCatalyst: "" });
+  };
+
+  const handleRemoveNews = (index) => {
+    const s = { ...formData.state };
+    s.newsAndCatalysts.splice(index, 1);
+    formData.setState(s);
+  };
+
   return (
     <Fragment>
       <Grid container spacing={2}>
@@ -31,7 +67,7 @@ export default function Thesis(props) {
                 fullWidth
                 multiline
                 rows={3}
-                onChange={(e) => handleTextFieldChange(e, "biggerPicture")}
+                onChange={handleBiggerPictureChange}
                 label="Summary"
                 placeholder="market context &amp; conditions/bigger picture"
               />
@@ -41,8 +77,8 @@ export default function Thesis(props) {
               <TextField
                 fullWidth
                 multiline
-                value={newsCatalyst}
-                onChange={(e) => setNewsCatalyst(e.target.value)}
+                value={formData.current.newsCatalyst}
+                onChange={handleNewsOrCatalystChange}
                 label="News or Catalyst"
                 placeholder="add news or catalyst, if any"
                 InputProps={{
@@ -61,14 +97,14 @@ export default function Thesis(props) {
             {/* display news and catalysts */}
             <Grid item xs={12}>
               <List
-                ref={newsAndCatalystsListRef}
+                ref={ref}
                 sx={{ maxHeight: "180px", overflow: "scroll" }}
                 subheader={
                   <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
                 }
               >
                 <Divider />
-                {state.newsAndCatalysts.map((news, index) => {
+                {formData.state.newsAndCatalysts.map((news, index) => {
                   return (
                     <Fragment key={"" + news.length + index}>
                       <Divider />
