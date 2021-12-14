@@ -10,8 +10,8 @@ export default class Cookies {
     const end = document.cookie.indexOf(";", start);
     const prefix = start + name.length + 1;
     const suffix = end == -1 ? document.cookie.length : "";
-    const rawcookie = document.cookie.substring(prefix, suffix);
-    return decodeURIComponent(rawcookie);
+    const cookieDough = document.cookie.substring(prefix, suffix);
+    return decodeURIComponent(cookieDough);
   }
 
   static set(name, value, hours = 0) {
