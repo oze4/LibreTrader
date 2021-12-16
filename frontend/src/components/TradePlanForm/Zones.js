@@ -23,7 +23,6 @@ import { SimpleTable, FileUploadButton } from "@/components";
 import { useTradePlanContext } from "./context";
 
 export default function Zones(props) {
-  // const formData = useContext(TradePlanContext);
   const { state, setState } = useTradePlanContext();
 
   const handleZoneImageChange = (event) => {
@@ -55,7 +54,7 @@ export default function Zones(props) {
     });
   };
 
-  const handleZoneTypeChange = (_event, value) => {
+  const handleZoneTypeChange = (value) => {
     setState({
       ...state,
       zone: {
@@ -134,7 +133,7 @@ export default function Zones(props) {
             color={state.zone.type === "supply" ? "error" : "success"}
             value={state.zone.type}
             exclusive
-            onChange={handleZoneTypeChange}
+            onChange={(_e, val) => handleZoneTypeChange(val)}
           >
             <ToggleButton value="supply">Supply</ToggleButton>
             <ToggleButton value="demand">Demand</ToggleButton>
