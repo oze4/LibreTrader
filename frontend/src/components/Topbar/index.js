@@ -25,10 +25,18 @@ const pages = [
   { name: "Planner", path: "/planner" },
 ];
 
+const findPage = (pagename, location) => {
+  const p = pages.find(page => page.name === location.pathname);
+  if (!p) {
+    return { name: "", path: "" };
+  }
+  return
+}
+
 export default function TopbarResponsive(props) {
   const locaton = useLocation();
   const [selectedPage, setSelectedPage] = useState(
-    pages.find((p) => p.path === location.pathname).name,
+    
   );
   const theme = useContext(ColorModeContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,6 +45,7 @@ export default function TopbarResponsive(props) {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -99,6 +108,7 @@ export default function TopbarResponsive(props) {
                   to={page.path}
                   key={page.name}
                   onClick={handleCloseNavMenu}
+                  disabled={page.name === "Home"}
                 >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
@@ -124,6 +134,7 @@ export default function TopbarResponsive(props) {
                 component={RouterLink}
                 to={page.path}
                 onClick={(e) => setSelectedPage(page.name)}
+                disabled={page.name === "Home"}
               >
                 <Typography>{page.name}</Typography>
               </Button>

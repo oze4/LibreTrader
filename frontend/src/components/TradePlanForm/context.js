@@ -11,6 +11,7 @@ const initialState = {
     start: "",
     end: "",
     images: [],
+    notes: "",
   },
   zones: [],
   newsAndCatalysts: [],
