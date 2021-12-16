@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   TableContainer,
   Table,
@@ -10,37 +9,25 @@ import {
   Paper,
 } from "@mui/material";
 
-/*
-const tableData = {
-  data: [
-    { 
-      timeframe: '1HR', 
-      start: "1", 
-      end: "5" 
-    },
-    { 
-      start: "90", 
-      timeframe: '5MIN', 
-      end: "95" 
-    }
-  ],
-  columns: [
-    { key: "timeframe", display: "Time Frame" }, 
-    { key: "start", display: "Zone Start" }, 
-    { key: "end", display: "Zone End" }
-  ],
-};
-*/
-
 export default function SimpleTable({ data = [], columns = [], TableProps = {} }) {
-  const rows = [];
-  data.forEach((dat) => {
-    const row = [];
-    columns.forEach((col) =>
-      row.push(<TableCell key={`${col.key}-${col.display}`}>{dat[col.key]}</TableCell>),
+  // const rows = [];
+  // data.forEach((dat) => {
+  //   const row = [];
+  //   columns.forEach((col) =>
+  //     row.push(<TableCell key={`${col.key}-${col.display}`}>{dat[col.key]}</TableCell>),
+  //   );
+  //   rows.push(row);
+  // });
+
+  const rows = data.reduce((acc, dat) => {
+    acc.push(
+      columns.reduce((row, col) => {
+        row.push(<TableCell key={`${col.key}-${col.display}`}>{dat[col.key]}</TableCell>);
+        return row;
+      }, []),
     );
-    rows.push(row);
-  });
+    return acc;
+  }, []);
 
   return (
     <TableContainer component={Paper}>

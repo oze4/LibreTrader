@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "@emotion/styled";
 
-import { TradePlanForm, SimpleTable } from "@/components";
+import { TradePlanForm, TradePlanCard } from "@/components";
 import {
   Paper,
   Box,
@@ -15,6 +15,7 @@ import {
   Tooltip,
   Badge,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 import { Close, FormatListBulleted, NotesOutlined } from "@mui/icons-material";
 
@@ -29,6 +30,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Planner() {
   const [tradePlans, setTradePlans] = useState([]);
+  const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "850"));
   // We want the drawer open by default. ONLY after a trade plan is added though
   // Even though this is true, it won't be open on load.
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,13 +38,16 @@ export default function Planner() {
   const handleTradePlanSubmit = (tradeplan) => {
     const tp = [...tradePlans];
     tp.push(tradeplan);
-    console.log(tp);
     setTradePlans(tp);
     // Only force open the drawer if it is the first item
     if (tp.length === 1) {
       setDrawerOpen(true);
     }
   };
+
+  const calculateTradePlanDrawerSize = useMemo(() => {
+    return isIPadOrSmaller ? "100vw" : "40vw";
+  }, [drawerOpen]);
 
   return (
     <Grid container>
@@ -69,10 +74,10 @@ export default function Planner() {
       </Grid>
       <Drawer
         sx={{
-          width: "40vw",
+          width: calculateTradePlanDrawerSize,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: "40vw",
+            width: calculateTradePlanDrawerSize,
             boxSizing: "border-box",
           },
         }}
@@ -84,11 +89,22 @@ export default function Planner() {
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <Close />
           </IconButton>
+          <Typography variant="subheader1">Trade Plans</Typography>
         </DrawerHeader>
         <Divider />
         <List>
-          {tradePlans.map((plan) => {
-            return <ListItem>{plan.symbol}</ListItem>;
+          {tradePlans.map((plan, index) => {
+            return (
+              <ListItem key={`${index}-${plan.date}-${plan.symbol}-${plan.biggerPicture.length}`}>
+                <Box sx={{ width: "100%" }}>
+                  <TradePlanCard
+                    symbol={plan.symbol}
+                    date={plan.date}
+                    biggerPicture={plan.biggerPicture}
+                  />
+                </Box>
+              </ListItem>
+            );
           })}
         </List>
       </Drawer>

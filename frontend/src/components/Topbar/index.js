@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   MenuItem,
   Tooltip,
   Button,
+  ToggleButton,
   Container,
   Menu,
   Typography,
@@ -11,41 +12,32 @@ import {
   Toolbar,
   Box,
   AppBar,
-  Link as MuiLink,
+  ToggleButtonGroup,
 } from "@mui/material";
 
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { ColorModeContext } from "@/theme";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
-import HideOnScroll from "./HideOnScroll";
-
 const pages = [
   { name: "Home", path: "/" },
   { name: "Planner", path: "/planner" },
 ];
 
-const findPage = (pagename, location) => {
-  const p = pages.find(page => page.name === location.pathname);
-  if (!p) {
-    return { name: "", path: "" };
-  }
-  return
-}
-
 export default function TopbarResponsive(props) {
-  const locaton = useLocation();
-  const [selectedPage, setSelectedPage] = useState(
-    
-  );
+  const location = useLocation();
   const theme = useContext(ColorModeContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const isSelectedPage = (page) => useMemo(() => {
+    return location.pathname === page;
+  }, [location]);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -108,7 +100,6 @@ export default function TopbarResponsive(props) {
                   to={page.path}
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  disabled={page.name === "Home"}
                 >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
@@ -126,19 +117,20 @@ export default function TopbarResponsive(props) {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                variant={selectedPage === page.name ? "outlined" : "filled"}
-                color="secondary"
-                key={page.name}
-                component={RouterLink}
-                to={page.path}
-                onClick={(e) => setSelectedPage(page.name)}
-                disabled={page.name === "Home"}
-              >
-                <Typography>{page.name}</Typography>
-              </Button>
-            ))}
+            <ToggleButtonGroup size="small" exclusive>
+              {pages.map((page) => (
+                <ToggleButton
+                  size="small"
+                  selected={isSelectedPage(page.path)}
+                  color={theme.mode === "dark" ? "primary" : "secondary"}
+                  key={page.name}
+                  component={RouterLink}
+                  to={page.path}
+                >
+                  <Typography>{page.name}</Typography>
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
