@@ -24,8 +24,8 @@ export default function GeneralInfo(props) {
     setState({
       ...state,
       date: new Date(Date.now()).toLocaleDateString(),
-    })
-  }
+    });
+  };
 
   return (
     <Fragment>
@@ -35,10 +35,10 @@ export default function GeneralInfo(props) {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            fullWidth 
+            fullWidth
             label="Date"
-            onChange={handleDateChange} 
-            value={state.date} 
+            onChange={handleDateChange}
+            value={state.date}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

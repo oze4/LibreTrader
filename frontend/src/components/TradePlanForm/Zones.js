@@ -16,7 +16,7 @@ import {
   Divider,
   List,
   ListSubheader,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -30,7 +30,7 @@ import { useTradePlanContext } from "./context";
 
 const ToggleButtonStyled = styled(ToggleButton, (props) => ({ ...props }))`
   color: ${({ theme }) => theme.palette.text.secondary};
-`
+`;
 
 export default function Zones(props) {
   const theme = useTheme();
@@ -153,7 +153,13 @@ export default function Zones(props) {
           <Grid item xs={12} sm={6} md={6}>
             <ToggleButtonGroup
               fullWidth
-              color={state.zone.type === "supply" ? "error" : state.zone.type === "demand" ? "success" : "warning"}
+              color={
+                state.zone.type === "supply"
+                  ? "error"
+                  : state.zone.type === "demand"
+                  ? "success"
+                  : "warning"
+              }
               value={state.zone.type}
               orientation="horizontal"
               exclusive
@@ -204,7 +210,7 @@ export default function Zones(props) {
               onChange={handleZoneImageChange}
               title="add image"
               TooltipProps={{
-                title: "screenshots or images related to this zone"
+                title: "screenshots or images related to this zone",
               }}
               ButtonProps={{
                 fullWidth: true,
@@ -290,7 +296,7 @@ export default function Zones(props) {
                     { key: "start", display: "Zone Start" },
                     { key: "end", display: "Zone End" },
                     { key: "notes", display: "Notes" },
-                    { key: "images", display: "Images Count" }
+                    { key: "images", display: "Images Count" },
                   ]}
                 />
               </Fragment>

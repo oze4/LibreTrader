@@ -30,9 +30,10 @@ export default function TopbarResponsive(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const isSelectedPage = (page) => useMemo(() => {
-    return location.pathname === page;
-  }, [location]);
+  const isSelectedPage = (page) =>
+    useMemo(() => {
+      return location.pathname === page;
+    }, [location]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
