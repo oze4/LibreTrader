@@ -4,18 +4,18 @@ export const tradePlanFormActions = {
   SET_STATE: "SET_STATE",
   // INCREMENT: "INCREMENT",
   // DECREMENT: "DECREMENT",
-}
+};
 
 export const tradePlanFormReducer = (state, action) => {
   switch (action.type) {
-      case "setState":
-          return { ...state, ...action.value };
-      // case "increment":
-      //     return { ...state, count: state.count + 1 };
-      // case "decrement":
-      //     return { ...state, count: state.count - 1 };
-      default:
-          return;
+    case "setState":
+      return { ...state, ...action.value };
+    // case "increment":
+    //     return { ...state, count: state.count + 1 };
+    // case "decrement":
+    //     return { ...state, count: state.count - 1 };
+    default:
+      return;
   }
 };
 

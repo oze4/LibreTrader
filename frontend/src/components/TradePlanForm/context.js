@@ -20,12 +20,15 @@ const context = createContext(initialState);
 
 const actions = {
   SET_STATE: "SET_STATE",
+  CLEAR_FORM: "CLEAR_FORM",
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case actions.SET_STATE:
       return { ...state, ...action.value };
+    case actions.CLEAR_FORM:
+      return { ...initialState };
     default:
       return;
   }
@@ -38,15 +41,19 @@ export function useTradePlanContext() {
     dispatch({ type: actions.SET_STATE, value: newState });
   };
 
-  return [
+  const clearForm = () => {
+    console.log("in clear form");
+    dispatch({ type: actions.CLEAR_FORM });
+  };
+
+  return {
     state,
     setState,
-  ];
+    clearForm,
+  };
 }
 
 export function TradePlanProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <TradePlanContext.Provider value={{ state, dispatch }}>{children}</TradePlanContext.Provider>
-  );
+  return <context.Provider value={{ state, dispatch }}>{children}</context.Provider>;
 }

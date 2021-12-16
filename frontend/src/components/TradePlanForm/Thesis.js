@@ -16,7 +16,7 @@ import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useTradePlanContext } from "./context";
 
 export default function Thesis(props) {
-  const [state, setState] = useTradePlanContext();
+  const { state, setState } = useTradePlanContext();
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
   const ref = useRef(null);
 
@@ -32,9 +32,6 @@ export default function Thesis(props) {
       ...state,
       biggerPicture: event.target.value,
     });
-    // const c = { ...formData.current };
-    // c.biggerPicture = event.target.value;
-    // formData.setCurrent(c);
   };
 
   const handleNewsOrCatalystChange = (event) => {
@@ -42,27 +39,26 @@ export default function Thesis(props) {
       ...state,
       newsCatalyst: event.target.value,
     });
-    // const c = { ...formData.current };
-    // c.newsCatalyst = event.target.value;
-    // formData.setCurrent(c);
   };
 
   const handleAddNewsOrCatalyst = () => {
     const newsCatalystToAdd = state.newsCatalyst;
+    const currentNewsAndCatalysts = [...state.newsAndCatalysts];
+    currentNewsAndCatalysts.push(newsCatalystToAdd);
     setState({
       ...state,
-      
-    })
-    // const s = { ...formData.state };
-    // s.newsAndCatalysts.push(formData.current.newsCatalyst);
-    // formData.setState(s);
-    // formData.setCurrent({ ...formData.current, newsCatalyst: "" });
+      newsCatalyst: "",
+      newsAndCatalysts: currentNewsAndCatalysts,
+    });
   };
 
   const handleRemoveNews = (index) => {
-    const s = { ...formData.state };
-    s.newsAndCatalysts.splice(index, 1);
-    formData.setState(s);
+    const currentNewsAndCatalysts = [...state.newsAndCatalysts];
+    currentNewsAndCatalysts.splice(index, 1);
+    setState({
+      ...state,
+      newsAndCatalysts: currentNewsAndCatalysts,
+    });
   };
 
   return (
@@ -82,7 +78,7 @@ export default function Thesis(props) {
                 rows={3}
                 onChange={handleBiggerPictureChange}
                 label="Summary"
-                value={formData.current.biggerPicture}
+                value={state.biggerPicture}
                 placeholder="market context &amp; conditions/bigger picture"
               />
             </Grid>
@@ -91,7 +87,7 @@ export default function Thesis(props) {
               <TextField
                 fullWidth
                 multiline
-                value={formData.current.newsCatalyst}
+                value={state.newsCatalyst}
                 onChange={handleNewsOrCatalystChange}
                 label="News or Catalyst"
                 placeholder="add news or catalyst, if any"
@@ -118,28 +114,30 @@ export default function Thesis(props) {
                 }
               >
                 <Divider />
-                {formData.state.newsAndCatalysts.map((news, index) => {
-                  return (
-                    <Fragment key={"" + news.length + index}>
-                      <Divider />
-                      <ListItem
-                        secondaryAction={
-                          <Tooltip arrow title="remove">
-                            <IconButton
-                              color="primary"
-                              edge="end"
-                              onClick={() => handleRemoveNews(index)}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </Tooltip>
-                        }
-                      >
-                        <ListItemText primary={news} />
-                      </ListItem>
-                    </Fragment>
-                  );
-                })}
+                {state.newsAndCatalysts &&
+                  state.newsAndCatalysts.length > 0 &&
+                  state.newsAndCatalysts.map((news, index) => {
+                    return (
+                      <Fragment key={"" + news.length + index}>
+                        <Divider />
+                        <ListItem
+                          secondaryAction={
+                            <Tooltip arrow title="remove">
+                              <IconButton
+                                color="primary"
+                                edge="end"
+                                onClick={() => handleRemoveNews(index)}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                          }
+                        >
+                          <ListItemText primary={news} />
+                        </ListItem>
+                      </Fragment>
+                    );
+                  })}
               </List>
             </Grid>
           </Grid>

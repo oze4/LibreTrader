@@ -1,19 +1,14 @@
 import React, { useContext } from "react";
 import { Button } from "@mui/material";
 
-import { TradePlanContext } from "./context";
+import { useTradePlanContext } from "./context";
 
 export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
-  const formData = useContext(TradePlanContext);
+  const { state, clearForm } = useTradePlanContext();
 
   const handleSubmit = (_event) => {
-    onSubmit({
-      ...formData.state,
-      symbol: formData.current.symbol,
-      date: formData.current.date,
-      biggerPicture: formData.current.biggerPicture,
-    });
-    formData.clearFormData();
+    onSubmit({ ...state });
+    clearForm();
   };
 
   return (

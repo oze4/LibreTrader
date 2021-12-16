@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { Grid, Paper, Button, Typography, Box } from "@mui/material";
+import React from "react";
+import { Grid, Paper, Box } from "@mui/material";
 import styled from "@emotion/styled";
 
-import { useTradePlanContext } from "./context";
+import { TradePlanProvider } from "./context";
 
 import GeneralInfo from "./GeneralInfo";
 import Thesis from "./Thesis";

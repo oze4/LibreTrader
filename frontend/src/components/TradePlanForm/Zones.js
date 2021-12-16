@@ -20,10 +20,11 @@ import {
 } from "@mui/icons-material";
 
 import { SimpleTable, FileUploadButton } from "@/components";
-import { TradePlanContext } from "./context";
+import { useTradePlanContext } from "./context";
 
 export default function Zones(props) {
-  const formData = useContext(TradePlanContext);
+  // const formData = useContext(TradePlanContext);
+  const { state, setState } = useTradePlanContext();
 
   const handleZoneImageChange = (event) => {
     const file = event.target.files[0];
@@ -31,56 +32,92 @@ export default function Zones(props) {
       name: file.name,
       blob: URL.createObjectURL(file),
     };
-    const c = { ...formData.current };
-    c.zone.images.push(image);
-    formData.setCurrent(c);
+    const zoneImages = [...state.zone.images];
+    zoneImages.push(image);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        images: zoneImages,
+      },
+    });
   };
 
   const handleZoneImageRemove = (index) => {
-    const c = { ...formData.current };
-    c.zone.images.splice(index, 1);
-    formData.setCurrent(c);
+    const zoneImages = [...state.zone.images];
+    zoneImages.splice(index, 1);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        images: zoneImages,
+      },
+    });
   };
 
   const handleZoneTypeChange = (_event, value) => {
-    const c = { ...formData.current };
-    c.zone.type = value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        type: value,
+      },
+    });
   };
 
   const handleTimeFrameChange = (event) => {
-    const c = { ...formData.current };
-    c.zone.timeFrame = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        timeFrame: event.target.value,
+      },
+    });
   };
 
   const handleZoneStartChange = (event) => {
-    const c = { ...formData.current };
-    c.zone.start = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        start: event.target.value,
+      },
+    });
   };
 
   const handleZoneEndChange = (event) => {
-    const c = { ...formData.current };
-    c.zone.end = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      zone: {
+        ...state.zone,
+        end: event.target.value,
+      },
+    });
   };
 
   const handleAddZone = () => {
-    const { type, timeFrame, start, end, images } = formData.current.zone;
-    const zone = { type, timeFrame, start, end, images };
-    const s = { ...formData.state };
-    s.zones.push(zone);
-    formData.setState(s);
-    // Clear form input so another zone can be added.
-    const emptyZone = { type: "", timeFrame: "", start: "", end: "", images: [] };
-    formData.setCurrent({ ...formData.current, zone: emptyZone });
+    const zones = [...state.zones];
+    zones.push(state.zone);
+    setState({
+      ...state,
+      zone: {
+        type: "",
+        timeFrame: "",
+        start: "",
+        end: "",
+        images: [],
+      },
+      zones: [...zones],
+    });
   };
 
   const handleRemoveZone = (index) => {
-    const s = { ...formData.state };
-    s.zones.splice(index, 1);
-    formData.setState(s);
+    const zones = [...state.zones];
+    zones.splice(index, 1);
+    setState({
+      ...state,
+      zones: zones,
+    });
   };
 
   return (
@@ -94,8 +131,8 @@ export default function Zones(props) {
         <Grid item xs={12} md={2} container>
           <ToggleButtonGroup
             fullWidth
-            color={formData.current.zone.type === "supply" ? "error" : "success"}
-            value={formData.current.zone.type}
+            color={state.zone.type === "supply" ? "error" : "success"}
+            value={state.zone.type}
             exclusive
             onChange={handleZoneTypeChange}
           >
@@ -106,7 +143,7 @@ export default function Zones(props) {
         <Grid item xs={12} md={2}>
           <TextField
             fullWidth
-            value={formData.current.zone.timeFrame}
+            value={state.zone.timeFrame}
             onChange={handleTimeFrameChange}
             label="Time Frame"
             placeholder="5min/1hr/etc.."
@@ -115,7 +152,7 @@ export default function Zones(props) {
         <Grid item xs={12} md={2}>
           <TextField
             fullWidth
-            value={formData.current.zone.start}
+            value={state.zone.start}
             onChange={handleZoneStartChange}
             label="Zone Start"
             placeholder="zone start price"
@@ -124,7 +161,7 @@ export default function Zones(props) {
         <Grid item xs={12} md={2}>
           <TextField
             fullWidth
-            value={formData.current.zone.end}
+            value={state.zone.end}
             onChange={handleZoneEndChange}
             label="Zone End"
             placeholder="zone end price"
@@ -157,38 +194,40 @@ export default function Zones(props) {
             cols={12}
             sx={{ overflow: "scroll", maxHeight: "50px", minHeight: "50px", textAlign: "center" }}
           >
-            {formData.current.zone.images.map((file, index) => {
-              return (
-                <ImageListItem key={`${index}-${file.name}`}>
-                  <Link rel="noopener" target="_blank" href={file.blob}>
-                    <img height="50px" width="50px" src={file.blob} />
-                  </Link>
-                  <ImageListItemBar
-                    sx={{}}
-                    actionIcon={
-                      <IconButton
-                        size="small"
-                        sx={{ maxHeight: "2px", color: "rgba(255, 255, 255, 0.54)" }}
-                        onClick={() => handleZoneImageRemove(index)}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
-              );
-            })}
+            {state.zone &&
+              state.zone.images.length > 0 &&
+              state.zone.images.map((file, index) => {
+                return (
+                  <ImageListItem key={`${index}-${file.name}`}>
+                    <Link rel="noopener" target="_blank" href={file.blob}>
+                      <img height="50px" width="50px" src={file.blob} />
+                    </Link>
+                    <ImageListItemBar
+                      sx={{}}
+                      actionIcon={
+                        <IconButton
+                          size="small"
+                          sx={{ maxHeight: "2px", color: "rgba(255, 255, 255, 0.54)" }}
+                          onClick={() => handleZoneImageRemove(index)}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      }
+                    />
+                  </ImageListItem>
+                );
+              })}
           </ImageList>
         </Grid>
       </Grid>
       <Grid item xs={12} container>
-        {formData.state.zones && formData.state.zones.length > 0 ? (
+        {state.zones && state.zones.length > 0 ? (
           <Fragment>
             <Grid item xs={12}>
               <Typography variant="subheader2">Zones</Typography>
             </Grid>
             <SimpleTable
-              data={formData.state.zones.map((z, zoneIndex) => ({
+              data={state.zones.map((z, zoneIndex) => ({
                 ...z,
                 // override example
                 type: (
@@ -196,7 +235,7 @@ export default function Zones(props) {
                     color={
                       z.type === "supply" ? "error" : z.type === "demand" ? "success" : "default"
                     }
-                    onDelete={(e) => handleRemoveZone(e, zoneIndex)}
+                    onDelete={() => handleRemoveZone(zoneIndex)}
                     label={z.type}
                   />
                 ),
