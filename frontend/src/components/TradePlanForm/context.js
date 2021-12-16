@@ -42,7 +42,6 @@ export function useTradePlanContext() {
   };
 
   const clearForm = () => {
-    console.log("in clear form");
     dispatch({ type: actions.CLEAR_FORM });
   };
 
