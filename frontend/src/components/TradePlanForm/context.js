@@ -1,85 +1,52 @@
-import React, { createContext, useMemo, useState } from "react";
+import React, { createContext, useMemo, useState, useContext, useReducer } from "react";
 
-const defaultState = {
-  current: {
-    date: "",
-    symbol: "",
-    newsCatalyst: "",
-    biggerPicture: "",
-    zone: {
-      type: "",
-      timeFrame: "",
-      start: "",
-      end: "",
-      images: [],
-    },
+const initialState = {
+  date: "",
+  symbol: "",
+  newsCatalyst: "",
+  biggerPicture: "",
+  zone: {
+    type: "",
+    timeFrame: "",
+    start: "",
+    end: "",
+    images: [],
   },
-  state: {
-    biggerPicture: "",
-    date: "", // Date.now(),
-    symbol: "",
-    // a zone has the following shape:
-    //// { type: ("supply"|"demand"), timeFrame: String, start: String, end: String, images: [String] }
-    zones: [],
-    newsAndCatalysts: [],
-  },
-  setState: (newState) => {
-    return newState;
-  },
-  setCurrent: (newCurrent) => {
-    return newCurrent;
-  },
-  clearFormData: () => {},
+  zones: [],
+  newsAndCatalysts: [],
 };
 
-export const TradePlanContext = createContext(defaultState);
+const context = createContext(initialState);
+
+const actions = {
+  SET_STATE: "SET_STATE",
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actions.SET_STATE:
+      return { ...state, ...action.value };
+    default:
+      return;
+  }
+};
+
+export function useTradePlanContext() {
+  const { state, dispatch } = useContext(context);
+
+  const setState = (newState) => {
+    dispatch({ type: actions.SET_STATE, value: newState });
+  };
+
+  return [
+    state,
+    setState,
+  ];
+}
 
 export function TradePlanProvider({ children }) {
-  const [planState, setPlanState] = useState(defaultState);
-
-  const finalState = useMemo(() => {
-    return {
-      state: { ...planState.state },
-      current: { ...planState.current },
-      setState: (newState) => {
-        setPlanState({
-          ...planState,
-          state: { ...newState },
-        });
-      },
-      setCurrent: (newCurrent) => {
-        setPlanState({
-          ...planState,
-          current: { ...newCurrent },
-        });
-      },
-      clearFormData: () => {
-        setPlanState({
-          ...planState,
-          state: {
-            date: "",
-            symbol: "",
-            newsAndCatalysts: [],
-            biggerPicture: "",
-            zones: [],
-          },
-          current: {
-            date: "",
-            symbol: "",
-            newsAndCatalysts: "",
-            biggerPicture: "",
-            zone: {
-              type: "",
-              timeFrame: "",
-              start: "",
-              end: "",
-              images: [],
-            },
-          },
-        });
-      },
-    };
-  }, [planState]);
-
-  return <TradePlanContext.Provider value={finalState}>{children}</TradePlanContext.Provider>;
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <TradePlanContext.Provider value={{ state, dispatch }}>{children}</TradePlanContext.Provider>
+  );
 }

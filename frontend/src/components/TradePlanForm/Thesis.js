@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
-import { TradePlanContext } from "./context";
+import { useTradePlanContext } from "./context";
 
 export default function Thesis(props) {
-  const formData = useContext(TradePlanContext);
+  const [state, setState] = useTradePlanContext();
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
   const ref = useRef(null);
 
@@ -25,25 +25,38 @@ export default function Thesis(props) {
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
-  }, [formData.state]);
+  }, [state]);
 
   const handleBiggerPictureChange = (event) => {
-    const c = { ...formData.current };
-    c.biggerPicture = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      biggerPicture: event.target.value,
+    });
+    // const c = { ...formData.current };
+    // c.biggerPicture = event.target.value;
+    // formData.setCurrent(c);
   };
 
   const handleNewsOrCatalystChange = (event) => {
-    const c = { ...formData.current };
-    c.newsCatalyst = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      newsCatalyst: event.target.value,
+    });
+    // const c = { ...formData.current };
+    // c.newsCatalyst = event.target.value;
+    // formData.setCurrent(c);
   };
 
   const handleAddNewsOrCatalyst = () => {
-    const s = { ...formData.state };
-    s.newsAndCatalysts.push(formData.current.newsCatalyst);
-    formData.setState(s);
-    formData.setCurrent({ ...formData.current, newsCatalyst: "" });
+    const newsCatalystToAdd = state.newsCatalyst;
+    setState({
+      ...state,
+      
+    })
+    // const s = { ...formData.state };
+    // s.newsAndCatalysts.push(formData.current.newsCatalyst);
+    // formData.setState(s);
+    // formData.setCurrent({ ...formData.current, newsCatalyst: "" });
   };
 
   const handleRemoveNews = (index) => {

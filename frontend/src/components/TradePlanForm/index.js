@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Grid, Paper, Button, Typography, Box } from "@mui/material";
 import styled from "@emotion/styled";
 
-import { TradePlanProvider, TradePlanContext } from "./context";
+import { useTradePlanContext } from "./context";
 
 import GeneralInfo from "./GeneralInfo";
 import Thesis from "./Thesis";
@@ -15,7 +15,6 @@ const Section = styled(Paper, (props) => ({ ...props }))`
 `;
 
 export default function TradePlanForm({ onSubmit = (formData) => ({ ...formData }) }) {
-  const { state } = useContext(TradePlanContext);
   return (
     <TradePlanProvider>
       <Box sx={{ maxHeight: "75vh", overflow: "scroll" }}>

@@ -1,20 +1,28 @@
 import React, { useContext, Fragment } from "react";
 import { Grid, Typography, TextField } from "@mui/material";
-import { TradePlanContext } from "./context";
+import { useTradePlanContext } from "./context";
 
 export default function GeneralInfo(props) {
-  const formData = useContext(TradePlanContext);
+  const [state, setState] = useTradePlanContext();
 
   const handleSymbolChange = (event) => {
-    const c = { ...formData.current };
-    c.symbol = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      symbol: event.target.value,
+    });
+    // const c = { ...formData.current };
+    // c.symbol = event.target.value;
+    // formData.setCurrent(c);
   };
 
   const handleDateChange = (event) => {
-    const c = { ...formData.current };
-    c.date = event.target.value;
-    formData.setCurrent(c);
+    setState({
+      ...state,
+      date: event.target.value,
+    })
+    // const c = { ...formData.current };
+    // c.date = event.target.value;
+    // formData.setCurrent(c);
   };
 
   return (
@@ -27,7 +35,7 @@ export default function GeneralInfo(props) {
           <TextField
             fullWidth
             onChange={handleDateChange}
-            value={formData.current.date}
+            value={state.date}
             label="Date"
           />
         </Grid>
@@ -35,7 +43,7 @@ export default function GeneralInfo(props) {
           <TextField
             fullWidth
             onChange={handleSymbolChange}
-            value={formData.current.symbol}
+            value={state.symbol}
             label="Symbol"
             placeholder="TSLA"
           />
