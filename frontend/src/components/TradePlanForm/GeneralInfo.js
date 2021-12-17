@@ -1,14 +1,22 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, useMemo, useEffect } from "react";
 import { Grid, Typography, TextField, InputAdornment, IconButton, Tooltip } from "@mui/material";
 import { Today as TodayIcon } from "@mui/icons-material";
 import { useTradePlanContext } from "./context";
 
 export default function GeneralInfo(props) {
-  const { state, setState, isError } = useTradePlanContext();
+  const { state, setState, isError, removeFieldError } = useTradePlanContext();
+
+  const getHelperText = (field) =>
+    useMemo(() => {
+      if (isError(field)) {
+        return state.errors[field];
+      }
+    }, [state.errors]);
 
   const handleSymbolChange = (event) => {
     setState({
       ...state,
+      errors: removeFieldError("symbol"),
       symbol: event.target.value,
     });
   };
@@ -16,6 +24,7 @@ export default function GeneralInfo(props) {
   const handleDateChange = (event) => {
     setState({
       ...state,
+      errors: removeFieldError("date"),
       date: event.target.value,
     });
   };
@@ -23,6 +32,7 @@ export default function GeneralInfo(props) {
   const handleSetDateToToday = () => {
     setState({
       ...state,
+      errors: removeFieldError("date"),
       date: new Date(Date.now()).toLocaleDateString(),
     });
   };
@@ -40,7 +50,7 @@ export default function GeneralInfo(props) {
             onChange={handleDateChange}
             value={state.date}
             error={isError("date")}
-            helperText={isError("date") && state.errors.date}
+            helperText={getHelperText("date")}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -60,7 +70,7 @@ export default function GeneralInfo(props) {
             onChange={handleSymbolChange}
             value={state.symbol}
             error={isError("symbol")}
-            helperText={isError("symbol") && state.errors.symbol}
+            helperText={getHelperText("symbol")}
             label="Symbol"
             placeholder="TSLA"
           />

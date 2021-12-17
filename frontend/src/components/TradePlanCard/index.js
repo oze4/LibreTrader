@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, CardActions, Typography, Button } from "@mui/material";
+import { Card, CardContent, CardActions, Typography, Button, Stack } from "@mui/material";
 
 export default function TradePlanCard({
   date = "n/a",
@@ -16,7 +16,12 @@ export default function TradePlanCard({
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5">{symbol}</Typography>
+        <Stack direction="row" spacing={1}>
+          <Typography color="primary" variant="h5">
+            {symbol}
+          </Typography>
+          <Typography variant="h6">{date}</Typography>
+        </Stack>
         <Typography variant="body2">{biggerPicture}</Typography>
       </CardContent>
       <CardActions>

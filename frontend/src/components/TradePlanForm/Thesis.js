@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect } from "react";
+import React, { Fragment, useRef, useEffect, useMemo } from "react";
 import {
   Grid,
   Typography,
@@ -16,7 +16,7 @@ import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useTradePlanContext } from "./context";
 
 export default function Thesis(props) {
-  const { state, setState } = useTradePlanContext();
+  const { state, setState, isError, removeFieldError } = useTradePlanContext();
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
   const ref = useRef(null);
 
@@ -27,9 +27,17 @@ export default function Thesis(props) {
     }
   }, [state]);
 
+  const getHelperText = (field) =>
+    useMemo(() => {
+      if (isError(field)) {
+        return state.errors[field];
+      }
+    }, [state.errors]);
+
   const handleBiggerPictureChange = (event) => {
     setState({
       ...state,
+      errors: removeFieldError("biggerPicture"),
       biggerPicture: event.target.value,
     });
   };
@@ -79,6 +87,8 @@ export default function Thesis(props) {
                 onChange={handleBiggerPictureChange}
                 label="Summary"
                 value={state.biggerPicture}
+                error={isError("biggerPicture")}
+                helperText={getHelperText("biggerPicture")}
                 placeholder="market context &amp; conditions/bigger picture"
               />
             </Grid>

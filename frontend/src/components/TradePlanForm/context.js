@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 const initialState = {
   date: "",
@@ -22,18 +22,19 @@ const context = createContext(initialState);
 
 const actions = {
   SET_STATE: "SET_STATE",
-  SET_ERRORS: "SET_ERRORS",
   CLEAR_FORM: "CLEAR_FORM",
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actions.SET_STATE:
-      return { ...state, ...action.value };
-    case actions.SET_ERRORS:
-        return { ...state, errors: { ...action.value } };
-    case actions.CLEAR_FORM:
+    case actions.SET_STATE: {
+      const newState = { ...state, ...action.value };
+      console.log({ from: "SET_STATE", oldState: state, newState });
+      return newState;
+    }
+    case actions.CLEAR_FORM: {
       return { ...initialState };
+    }
     default:
       return;
   }
@@ -43,16 +44,20 @@ export function useTradePlanContext() {
   const { state, dispatch } = useContext(context);
 
   const setState = (newState) => {
-    dispatch({ type: actions.SET_STATE, value: newState });
+    return dispatch({ type: actions.SET_STATE, value: newState });
   };
-
-  const setErrors = ({ ...errors }) => {
-    dispatch({ type: actions.SET_ERRORS, value: errors });
-  }
 
   const isError = (propName) => {
     return state.errors[propName] && state.errors[propName] !== "";
-  }
+  };
+
+  const removeFieldError = (field) => {
+    const errs = { ...state.errors };
+    if (isError(field)) {
+      delete errs[field];
+    }
+    return errs;
+  };
 
   const clearForm = () => {
     dispatch({ type: actions.CLEAR_FORM });
@@ -61,8 +66,8 @@ export function useTradePlanContext() {
   return {
     state,
     setState,
-    setErrors,
     isError,
+    removeFieldError,
     clearForm,
   };
 }

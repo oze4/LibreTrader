@@ -116,18 +116,20 @@ export default function TopbarResponsive(props) {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <ToggleButtonGroup size="small" exclusive>
-              {pages && pages.length > 0 && pages.map((page) => (
-                <ToggleButton
-                  size="small"
-                  value={page.name}
-                  selected={isSelectedPage(page.path)}
-                  key={page.name}
-                  component={RouterLink}
-                  to={page.path}
-                >
-                  <Typography>{page.name}</Typography>
-                </ToggleButton>
-              ))}
+              {pages &&
+                pages.length > 0 &&
+                pages.map((page) => (
+                  <ToggleButton
+                    size="small"
+                    value={page.name}
+                    selected={isSelectedPage(page.path)}
+                    key={page.name}
+                    component={RouterLink}
+                    to={page.path}
+                  >
+                    <Typography>{page.name}</Typography>
+                  </ToggleButton>
+                ))}
             </ToggleButtonGroup>
           </Box>
 

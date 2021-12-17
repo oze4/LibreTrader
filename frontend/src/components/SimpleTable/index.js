@@ -9,20 +9,15 @@ import {
   Paper,
 } from "@mui/material";
 
-export default function SimpleTable({ data = [], columns = [], TableProps = {} }) {
-  // const rows = [];
-  // data.forEach((dat) => {
-  //   const row = [];
-  //   columns.forEach((col) =>
-  //     row.push(<TableCell key={`${col.key}-${col.display}`}>{dat[col.key]}</TableCell>),
-  //   );
-  //   rows.push(row);
-  // });
-
+export default function SimpleTable({ data = [], columns = [], TableProps = {}, CellProps = {} }) {
   const rows = data.reduce((acc, dat) => {
     acc.push(
       columns.reduce((row, col) => {
-        row.push(<TableCell key={`${col.key}-${col.display}`}>{dat[col.key]}</TableCell>);
+        row.push(
+          <TableCell {...CellProps} key={`${col.key}-${col.display}`}>
+            {dat[col.key]}
+          </TableCell>,
+        );
         return row;
       }, []),
     );

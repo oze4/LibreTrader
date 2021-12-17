@@ -272,10 +272,17 @@ export default function Zones(props) {
             {state.zones && state.zones.length > 0 ? (
               <Fragment>
                 <SimpleTable
+                  CellProps={{
+                    sx: {
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      maxWidth: "160px",
+                    },
+                  }}
                   data={state.zones.map((z, zoneIndex) => ({
                     ...z,
-                    images: z.images.length || 0,
-                    notes: <Typography sx={{ overflow: "hidden" }}>{z.notes}</Typography>,
+                    images: z.images.length,
                     type: (
                       <Chip
                         color={
