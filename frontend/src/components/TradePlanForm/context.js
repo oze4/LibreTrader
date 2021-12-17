@@ -15,12 +15,14 @@ const initialState = {
   },
   zones: [],
   newsAndCatalysts: [],
+  errors: {},
 };
 
 const context = createContext(initialState);
 
 const actions = {
   SET_STATE: "SET_STATE",
+  SET_ERRORS: "SET_ERRORS",
   CLEAR_FORM: "CLEAR_FORM",
 };
 
@@ -28,6 +30,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actions.SET_STATE:
       return { ...state, ...action.value };
+    case actions.SET_ERRORS:
+        return { ...state, errors: { ...action.value } };
     case actions.CLEAR_FORM:
       return { ...initialState };
     default:
@@ -42,6 +46,14 @@ export function useTradePlanContext() {
     dispatch({ type: actions.SET_STATE, value: newState });
   };
 
+  const setErrors = ({ ...errors }) => {
+    dispatch({ type: actions.SET_ERRORS, value: errors });
+  }
+
+  const isError = (propName) => {
+    return state.errors[propName] && state.errors[propName] !== "";
+  }
+
   const clearForm = () => {
     dispatch({ type: actions.CLEAR_FORM });
   };
@@ -49,6 +61,8 @@ export function useTradePlanContext() {
   return {
     state,
     setState,
+    setErrors,
+    isError,
     clearForm,
   };
 }

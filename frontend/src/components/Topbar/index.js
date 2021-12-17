@@ -30,10 +30,7 @@ export default function TopbarResponsive(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const isSelectedPage = (page) =>
-    useMemo(() => {
-      return location.pathname === page;
-    }, [location]);
+  const isSelectedPage = (pageName) => useMemo(() => location.pathname === pageName, [location]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -119,11 +116,11 @@ export default function TopbarResponsive(props) {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <ToggleButtonGroup size="small" exclusive>
-              {pages.map((page) => (
+              {pages && pages.length > 0 && pages.map((page) => (
                 <ToggleButton
                   size="small"
+                  value={page.name}
                   selected={isSelectedPage(page.path)}
-                  color={theme.mode === "dark" ? "primary" : "secondary"}
                   key={page.name}
                   component={RouterLink}
                   to={page.path}
