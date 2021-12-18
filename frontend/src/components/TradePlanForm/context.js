@@ -4,7 +4,7 @@ const initialState = {
   date: "",
   symbol: "",
   newsCatalyst: "",
-  biggerPicture: "",
+  summary: "",
   zone: {
     type: "",
     timeFrame: "",

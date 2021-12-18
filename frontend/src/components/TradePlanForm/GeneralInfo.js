@@ -37,43 +37,69 @@ export default function GeneralInfo(props) {
     });
   };
 
+  const handleSummaryChange = (event) => {
+    setState({
+      ...state,
+      errors: removeFieldError("summary"),
+      summary: event.target.value,
+    });
+  };
+
   return (
     <Fragment>
       <Grid item xs={12} container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="subtitle1">General</Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            label="Date"
-            onChange={handleDateChange}
-            value={state.date}
-            error={isError("date")}
-            helperText={getHelperText("date")}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Tooltip title="today">
-                    <IconButton color="primary" onClick={handleSetDateToToday}>
-                      <TodayIcon />
-                    </IconButton>
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
-          />
+        <Grid item xs={12} sm={6} container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Date"
+              onChange={handleDateChange}
+              value={state.date}
+              error={isError("date")}
+              helperText={getHelperText("date")}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title="today">
+                      <IconButton color="primary" onClick={handleSetDateToToday}>
+                        <TodayIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              onChange={handleSymbolChange}
+              value={state.symbol}
+              error={isError("symbol")}
+              helperText={getHelperText("symbol")}
+              label="Symbol"
+              placeholder="TSLA"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            onChange={handleSymbolChange}
-            value={state.symbol}
-            error={isError("symbol")}
-            helperText={getHelperText("symbol")}
-            label="Symbol"
-            placeholder="TSLA"
-          />
+        <Grid item xs={12} sm={6} container spacing={2}>
+          {/* bigger picture */}
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              onChange={handleSummaryChange}
+              label="Summary"
+              value={state.summary}
+              error={isError("summary")}
+              helperText={getHelperText("summary")}
+              placeholder="summary of thesis &amp; market conditions"
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Fragment>

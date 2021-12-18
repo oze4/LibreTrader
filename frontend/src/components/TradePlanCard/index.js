@@ -1,12 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardActions, Typography, Button, Stack } from "@mui/material";
 
-export default function TradePlanCard({
-  date = "n/a",
-  symbol = "n/a",
-  biggerPicture = "n/a",
-  ...props
-}) {
+export default function TradePlanCard({ date = "n/a", symbol = "n/a", summary = "n/a", ...props }) {
   const { onEdit = (event) => {} } = props;
 
   const handleOnClick = (event) => {
@@ -22,7 +17,7 @@ export default function TradePlanCard({
           </Typography>
           <Typography variant="h6">{date}</Typography>
         </Stack>
-        <Typography variant="body2">{biggerPicture}</Typography>
+        <Typography variant="body2">{summary}</Typography>
       </CardContent>
       <CardActions>
         <Button onClick={handleOnClick}>Edit</Button>

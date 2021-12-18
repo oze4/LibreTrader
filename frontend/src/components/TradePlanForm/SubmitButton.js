@@ -9,7 +9,7 @@ export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
   const handleSubmit = () => {
     // remove props "zone" and "newsCatalyst" from the object we emit in the "onSubmit" event.
     const { zone, newsCatalyst, ...data } = state;
-    const requiredFields = ["symbol", "biggerPicture", "date"];
+    const requiredFields = ["symbol", "summary", "date"];
     const formErrors = requiredFields.reduce(
       (errs, field) => {
         if (!data[field] || data[field] === "") errs[field] = `REQUIRED FIELD`;

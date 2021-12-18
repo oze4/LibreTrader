@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { TradePlanProvider } from "./context";
 
 import GeneralInfo from "./GeneralInfo";
-import Thesis from "./Thesis";
+import NewsAndCatalysts from "./NewsAndCatalysts";
 import Zones from "./Zones";
 import SubmitButton from "./SubmitButton";
 
@@ -22,7 +22,7 @@ export default function TradePlanForm({ onSubmit = (formData) => ({ ...formData 
           <GeneralInfo />
         </Section>
         <Section>
-          <Thesis />
+          <NewsAndCatalysts />
         </Section>
         <Section>
           <Zones />

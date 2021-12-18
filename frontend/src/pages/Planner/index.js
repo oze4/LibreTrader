@@ -95,13 +95,9 @@ export default function Planner() {
         <List>
           {tradePlans.map((plan, index) => {
             return (
-              <ListItem key={`${index}-${plan.date}-${plan.symbol}-${plan.biggerPicture.length}`}>
+              <ListItem key={`${index}-${plan.date}-${plan.symbol}-${plan.summary.length}`}>
                 <Box sx={{ width: "100%" }}>
-                  <TradePlanCard
-                    symbol={plan.symbol}
-                    date={plan.date}
-                    biggerPicture={plan.biggerPicture}
-                  />
+                  <TradePlanCard symbol={plan.symbol} date={plan.date} summary={plan.summary} />
                 </Box>
               </ListItem>
             );
