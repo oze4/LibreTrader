@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 import { TradePlanForm, TradePlanCard } from "@/components";
 import {
-  Paper,
+  Container,
   Box,
   Grid,
   Drawer,
@@ -50,7 +50,7 @@ export default function Planner() {
   }, [drawerOpen]);
 
   return (
-    <Grid container>
+    <Container fluid="true" sx={{ marginTop: "5rem" }}>
       <Grid item xs={12}>
         <Stack direction="row">
           <Typography variant="h3">Trade Planner</Typography>
@@ -104,6 +104,6 @@ export default function Planner() {
           })}
         </List>
       </Drawer>
-    </Grid>
+    </Container>
   );
 }

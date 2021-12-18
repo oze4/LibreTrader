@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   MenuItem,
@@ -27,10 +27,10 @@ const pages = [
 export default function TopbarResponsive(props) {
   const location = useLocation();
   const theme = useContext(ColorModeContext);
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const isSelectedPage = (pageName) => useMemo(() => location.pathname === pageName, [location]);
+  const isSelectedPage = (page) => useMemo(() => location.pathname === page.path, [location]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,8 +61,7 @@ export default function TopbarResponsive(props) {
             LibreTrader
           </Typography>
 
-          {/* HIDDEN UNLESS ON SMALL SCREEN 
-             THIS IS THE MOBILE MENU/RESPONSIVE MENU */}
+          {/* ONLY SHOWN ON SMALL SCREENS */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -104,7 +103,6 @@ export default function TopbarResponsive(props) {
               ))}
             </Menu>
           </Box>
-
           <Typography
             variant="h6"
             noWrap
@@ -113,7 +111,26 @@ export default function TopbarResponsive(props) {
           >
             LibreTrader
           </Typography>
+          {/* end ONLY SHOWN ON SMALL SCREENS */}
 
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page) => {
+              return (
+                <Button
+                  size="small"
+                  color="info"
+                  sx={{ margin: "0 0.3em" }}
+                  variant={isSelectedPage(page) ? "contained" : "inherit"}
+                  key={page.name}
+                  component={RouterLink}
+                  to={page.path}
+                >
+                  {page.name}
+                </Button>
+              );
+            })}
+          </Box>
+          {/*   
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <ToggleButtonGroup size="small" exclusive>
               {pages &&
@@ -132,7 +149,7 @@ export default function TopbarResponsive(props) {
                 ))}
             </ToggleButtonGroup>
           </Box>
-
+          */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={`switch to ${theme.mode === "dark" ? "light" : "dark"} mode`}>
               <IconButton size="large" onClick={theme.toggle} color="inherit">

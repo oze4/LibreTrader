@@ -17,6 +17,10 @@ export const lightMode = {
       default: "#fff",
       paper: "#fff",
     },
+    text: {
+      primary: "#212121",
+      secondary: "#424242",
+    },
   },
   typography: {
     fontFamily: "Roboto Condensed",

@@ -29,7 +29,6 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actions.SET_STATE: {
       const newState = { ...state, ...action.value };
-      console.log({ from: "SET_STATE", oldState: state, newState });
       return newState;
     }
     case actions.CLEAR_FORM: {

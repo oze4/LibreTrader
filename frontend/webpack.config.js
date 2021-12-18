@@ -37,7 +37,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./public/index.ejs",
       filename: "./index.html",
-      title: "Libre Trader",
+      title: "LibreTrader",
     }),
   ],
   devServer: {

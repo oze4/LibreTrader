@@ -37,7 +37,6 @@ export default function NewsAndCatalysts(props) {
   };
 
   const handleNewsOrCatalystChange = (event) => {
-    console.log(event);
     setState({
       ...state,
       newsCatalyst: event.target.value,
