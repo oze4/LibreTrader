@@ -77,6 +77,16 @@ export const lightMode = {
       size: "small",
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "info",
+          borderRadius: "30px",
+        },
+      },
+    },
+  }
 };
 
 export const darkMode = {
