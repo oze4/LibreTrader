@@ -39,7 +39,8 @@ module.exports = {
       events: {
         onEnd: {
           copy: [
-            { // Copy CNAME from root of project into /docs folder for GitHub Pages
+            {
+              // Copy CNAME from root of project into /docs folder for GitHub Pages
               source: path.resolve(__dirname, "./CNAME"),
               destination: path.resolve(__dirname, "../docs/CNAME"),
             },

@@ -86,7 +86,7 @@ export const lightMode = {
         },
       },
     },
-  }
+  },
 };
 
 export const darkMode = {
