@@ -6,7 +6,8 @@
   "homepage": "https://libretrader.com",
   "scripts": {
     "git:push": "git push origin && git push origin --tags",
-    "precommit": "npm run format --prefix frontend && npm run generate:changelog --prefix frontend"
+    "precommit": "npm run format --prefix frontend && npm run generate:changelog --prefix frontend",
+    "postbuild": "cp docs/index.html docs/404.html"
   },
   "repository": {
     "type": "git",
