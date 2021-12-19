@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate:changelog": "npm run remove:changelog && ./node_modules/.bin/changelog --file CHANGELOG.md && git add CHANGELOG.md",
-    "remove:changelog": "rm -rf CHANGELOG.md",
+    "generate:changelog": "./node_modules/.bin/changelog --file CHANGELOG.md && git add CHANGELOG.md",
     "git:push": "git push origin && git push origin --tags",
     "start": "webpack-dev-server --open --mode=development",
     "start:prod": "webpack-dev-server --open --mode=production",
-    "build": "webpack --mode=production",
+    "build": "npm run generate:changelog && webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "format": "./node_modules/.bin/prettier --write '**/*.js'"
   },
