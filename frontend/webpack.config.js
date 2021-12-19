@@ -46,7 +46,7 @@ module.exports = {
               destination: path.resolve(__dirname, "../docs/CNAME"),
             },
             {
-              // Copy 404 from root of project into /docs folder for GitHub Pages 
+              // Copy 404 from root of project into /docs folder for GitHub Pages
               // otherwise refresh will cause 404
               source: path.resolve(__dirname, "./public/404.html"),
               destination: path.resolve(__dirname, "../docs/404.html"),

@@ -58,12 +58,10 @@ export default function Planner() {
           <Tooltip title={`${drawerOpen ? "hide" : "show"} trade plan`}>
             <IconButton
               edge="end"
-              sx={{ margin: "1em 1em 0 0" }}
+              sx={{ boxShadow: 1, margin: "1em 1em 0 0" }}
               disableRipple
               color={tradePlans.length > 0 ? "success" : "inherit"}
-              onClick={() => {
-                setDrawerOpen(!drawerOpen);
-              }}
+              onClick={() => setDrawerOpen(!drawerOpen)}
             >
               <Badge badgeContent={`${tradePlans.length}`}>
                 {drawerOpen ? (

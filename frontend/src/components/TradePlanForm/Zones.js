@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import {
   Button,
   Chip,
@@ -32,9 +32,39 @@ const ToggleButtonStyled = styled(ToggleButton, (props) => ({ ...props }))`
   color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
+const RequiredFieldHelperText = ({ text = "REQUIRED" }) => (
+  <Typography
+    sx={{
+      fontSize: "0.75rem",
+      color: "rgb(211, 47, 47)",
+      margin: "3px 14px 0 14px",
+      lineHeight: 1.66,
+    }}
+    component="p"
+  >
+    {text}
+  </Typography>
+);
+
 export default function Zones(props) {
-  const theme = useTheme();
   const { state, setState } = useTradePlanContext();
+  const [zoneFormErrors, setZoneFormErrors] = useState([]); // array of strings, where each string is the field name
+
+  const isZoneFieldError = (fieldName) => zoneFormErrors.includes(fieldName);
+
+  const isEmptyField = (fieldName) => !state.zone[fieldName] || state.zone[fieldName] === "";
+
+  const removeZoneFieldError = (fieldName) => {
+    const zfe = [...zoneFormErrors];
+    zfe.splice(zfe.indexOf(fieldName), 1);
+    setZoneFormErrors(zfe);
+  };
+
+  const removeZoneFieldErrorIfExists = (fieldName) => {
+    if (isZoneFieldError(fieldName)) {
+      removeZoneFieldError(fieldName);
+    }
+  };
 
   const handleZoneImageChange = (event) => {
     const file = event.target.files[0];
@@ -44,78 +74,55 @@ export default function Zones(props) {
     };
     const zoneImages = [...state.zone.images];
     zoneImages.push(image);
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        images: zoneImages,
-      },
-    });
+    setState({ ...state, zone: { ...state.zone, images: zoneImages } });
   };
 
   const handleZoneImageRemove = (index) => {
     const zoneImages = [...state.zone.images];
     zoneImages.splice(index, 1);
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        images: zoneImages,
-      },
-    });
+    setState({ ...state, zone: { ...state.zone, images: zoneImages } });
   };
 
   const handleZoneTypeChange = (value) => {
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        type: value,
-      },
-    });
+    removeZoneFieldErrorIfExists("type");
+    setState({ ...state, zone: { ...state.zone, type: value } });
   };
 
   const handleTimeFrameChange = (event) => {
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        timeFrame: event.target.value,
-      },
-    });
+    removeZoneFieldErrorIfExists("timeFrame");
+    setState({ ...state, zone: { ...state.zone, timeFrame: event.target.value } });
   };
 
   const handleZoneStartChange = (event) => {
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        start: event.target.value,
-      },
-    });
+    removeZoneFieldErrorIfExists("start");
+    setState({ ...state, zone: { ...state.zone, start: event.target.value } });
   };
 
   const handleZoneEndChange = (event) => {
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        end: event.target.value,
-      },
-    });
+    removeZoneFieldErrorIfExists("end");
+    setState({ ...state, zone: { ...state.zone, end: event.target.value } });
   };
 
   const handleZoneNotesChange = (event) => {
-    setState({
-      ...state,
-      zone: {
-        ...state.zone,
-        notes: event.target.value,
-      },
-    });
+    setState({ ...state, zone: { ...state.zone, notes: event.target.value } });
   };
 
   const handleAddZone = () => {
+    const requiredFields = ["type", "timeFrame", "start", "end"];
+    const foundZoneFormErrors = requiredFields.reduce((errs, field) => {
+      console.log({ field });
+      if (isEmptyField(field)) {
+        errs.push(field);
+      }
+      return errs;
+    }, []);
+
+    // do nothing if there are field errors
+    if (foundZoneFormErrors.length > 0) {
+      setZoneFormErrors(foundZoneFormErrors);
+      return;
+    }
+
     const zones = [...state.zones];
     zones.push(state.zone);
     setState({
@@ -141,25 +148,42 @@ export default function Zones(props) {
     });
   };
 
+  const calculateZoneTypeColor = useMemo(() => {
+    console.log(state.zone.type);
+    let c = "info";
+    switch (state.zone.type) {
+      case "supply": {
+        c = "error";
+        break;
+      }
+      case "demand": {
+        c = "success";
+        break;
+      }
+      default:
+        break;
+    }
+    console.log(c);
+    return c;
+  }, [state.zone.type]);
+
   return (
     <Fragment>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="subtitle1">Imbalance</Typography>
+            <Typography variant="subtitle1">Imbalance Zones</Typography>
             <Typography variant="subtitle2">add supply and demand zones below</Typography>
           </Grid>
           {/* add supply or demand zone */}
           <Grid item xs={12} sm={6} md={6}>
             <ToggleButtonGroup
               fullWidth
-              color={
-                state.zone.type === "supply"
-                  ? "error"
-                  : state.zone.type === "demand"
-                  ? "success"
-                  : "warning"
-              }
+              sx={{
+                boxShadow: 1,
+                ...(isZoneFieldError("type") ? { border: "1px solid red" } : {}),
+              }}
+              color={calculateZoneTypeColor}
               value={state.zone.type}
               orientation="horizontal"
               exclusive
@@ -168,9 +192,12 @@ export default function Zones(props) {
               <ToggleButtonStyled value="supply">Supply</ToggleButtonStyled>
               <ToggleButtonStyled value="demand">Demand</ToggleButtonStyled>
             </ToggleButtonGroup>
+            {isZoneFieldError("type") && <RequiredFieldHelperText text="REQUIRED FIELD" />}
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <TextField
+              error={isZoneFieldError("timeFrame")}
+              helperText={isZoneFieldError("timeFrame") && "REQUIRED FIELD"}
               fullWidth
               value={state.zone.timeFrame}
               onChange={handleTimeFrameChange}
@@ -180,6 +207,8 @@ export default function Zones(props) {
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <TextField
+              error={isZoneFieldError("start")}
+              helperText={isZoneFieldError("start") && "REQUIRED FIELD"}
               fullWidth
               value={state.zone.start}
               onChange={handleZoneStartChange}
@@ -189,6 +218,8 @@ export default function Zones(props) {
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <TextField
+              error={isZoneFieldError("end")}
+              helperText={isZoneFieldError("end") && "REQUIRED FIELD"}
               fullWidth
               value={state.zone.end}
               onChange={handleZoneEndChange}
@@ -298,12 +329,12 @@ export default function Zones(props) {
                     ),
                   }))}
                   columns={[
-                    { key: "type", display: "Zone Type" },
-                    { key: "timeFrame", display: "Time Frame" },
-                    { key: "start", display: "Zone Start" },
-                    { key: "end", display: "Zone End" },
+                    { key: "type", display: "Type" },
+                    { key: "timeFrame", display: "TimeFrame" },
+                    { key: "start", display: "Start" },
+                    { key: "end", display: "End" },
                     { key: "notes", display: "Notes" },
-                    { key: "images", display: "Images Count" },
+                    { key: "images", display: "#Images" },
                   ]}
                 />
               </Fragment>

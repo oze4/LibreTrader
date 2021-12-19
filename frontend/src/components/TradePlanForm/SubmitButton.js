@@ -1,9 +1,21 @@
-import React, { useContext } from "react";
-import { Button } from "@mui/material";
+import React from "react";
+import { Fab, useMediaQuery, Tooltip } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 import { useTradePlanContext } from "./context";
 
+const StyledFab = styled(Fab, (props) => ({ ...props }))`
+  position: fixed;
+  z-index: 99999999;
+  /*
+  bottom: 3em;
+  right: 6em;
+  */
+`;
+
 export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
+  const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "811"));
   const { state, clearForm, setState } = useTradePlanContext();
 
   const handleSubmit = () => {
@@ -29,15 +41,13 @@ export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
     clearForm();
   };
 
+  const sx = isIPadOrSmaller ? { bottom: "16px", right: "16px" } : { bottom: "4em", right: "20em" };
+
   return (
-    <Button
-      {...ButtonProps}
-      variant="contained"
-      size="large"
-      sx={{ padding: "1.5rem" }}
-      onClick={handleSubmit}
-    >
-      {title}
-    </Button>
+    <Tooltip title="add to trade plan">
+      <StyledFab size="large" onClick={handleSubmit} sx={sx} color="primary">
+        <AddIcon />
+      </StyledFab>
+    </Tooltip>
   );
 }

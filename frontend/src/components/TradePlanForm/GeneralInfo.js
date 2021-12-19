@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useEffect } from "react";
+import React, { Fragment, useMemo } from "react";
 import { Grid, Typography, TextField, InputAdornment, IconButton, Tooltip } from "@mui/material";
 import { Today as TodayIcon } from "@mui/icons-material";
 import { useTradePlanContext } from "./context";
@@ -14,35 +14,20 @@ export default function GeneralInfo(props) {
     }, [state.errors]);
 
   const handleSymbolChange = (event) => {
-    setState({
-      ...state,
-      errors: removeFieldError("symbol"),
-      symbol: event.target.value,
-    });
+    setState({ ...state, errors: removeFieldError("symbol"), symbol: event.target.value });
   };
 
   const handleDateChange = (event) => {
-    setState({
-      ...state,
-      errors: removeFieldError("date"),
-      date: event.target.value,
-    });
+    setState({ ...state, errors: removeFieldError("date"), date: event.target.value });
   };
 
   const handleSetDateToToday = () => {
-    setState({
-      ...state,
-      errors: removeFieldError("date"),
-      date: new Date(Date.now()).toLocaleDateString(),
-    });
+    const date = new Date(Date.now()).toLocaleDateString();
+    setState({ ...state, errors: removeFieldError("date"), date });
   };
 
   const handleSummaryChange = (event) => {
-    setState({
-      ...state,
-      errors: removeFieldError("summary"),
-      summary: event.target.value,
-    });
+    setState({ ...state, errors: removeFieldError("summary"), summary: event.target.value });
   };
 
   return (
@@ -64,7 +49,11 @@ export default function GeneralInfo(props) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Tooltip title="today">
-                      <IconButton color="primary" onClick={handleSetDateToToday}>
+                      <IconButton
+                        sx={{ boxShadow: 1 }}
+                        color="primary"
+                        onClick={handleSetDateToToday}
+                      >
                         <TodayIcon />
                       </IconButton>
                     </Tooltip>

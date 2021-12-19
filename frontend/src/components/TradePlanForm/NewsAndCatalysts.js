@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect } from "react";
+import React, { Fragment, useRef, useEffect, useState } from "react";
 import {
   Grid,
   Typography,
@@ -16,12 +16,14 @@ import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useTradePlanContext } from "./context";
 
 export default function NewsAndCatalysts(props) {
-  const { state, setState, isError, removeFieldError } = useTradePlanContext();
+  const { state, setState } = useTradePlanContext();
+  const [formError, setFormError] = useState(false);
   // This is to keep scroll at the bottom of the element when new news/catalyst is entered.
-  const ref = useRef(null);
+  const addedNewsCatalystRef = useRef(null);
+  const newsCatalystInputRef = useRef(null);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = addedNewsCatalystRef.current;
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
@@ -37,6 +39,9 @@ export default function NewsAndCatalysts(props) {
   };
 
   const handleNewsOrCatalystChange = (event) => {
+    if (formError) {
+      setFormError(false);
+    }
     setState({
       ...state,
       newsCatalyst: event.target.value,
@@ -45,6 +50,11 @@ export default function NewsAndCatalysts(props) {
 
   const handleAddNewsOrCatalyst = () => {
     const newsCatalystToAdd = state.newsCatalyst;
+    // do nothing if we have nothing to add
+    if (!newsCatalystToAdd || newsCatalystToAdd === "") {
+      setFormError(true);
+      return;
+    }
     const currentNewsAndCatalysts = [...state.newsAndCatalysts];
     currentNewsAndCatalysts.push(newsCatalystToAdd);
     setState({
@@ -52,6 +62,10 @@ export default function NewsAndCatalysts(props) {
       newsCatalyst: "",
       newsAndCatalysts: currentNewsAndCatalysts,
     });
+    // Focus on input after adding
+    if (newsCatalystInputRef.current) {
+      newsCatalystInputRef.current.focus();
+    }
   };
 
   const handleRemoveNews = (index) => {
@@ -72,15 +86,22 @@ export default function NewsAndCatalysts(props) {
         <Grid item xs={12}>
           <TextField
             fullWidth
+            error={formError}
+            helperText={formError && "REQUIRED FIELD"}
             value={state.newsCatalyst}
             onChange={handleNewsOrCatalystChange}
             onKeyUp={handleNewsOrCatalystKeyUp}
             label="News or Catalyst"
             placeholder="add news or catalyst, if any"
+            inputRef={newsCatalystInputRef}
             InputProps={{
               endAdornment: (
                 <Tooltip title="add news/catalyst">
-                  <IconButton color="primary" onClick={handleAddNewsOrCatalyst}>
+                  <IconButton
+                    sx={{ boxShadow: 1 }}
+                    color="primary"
+                    onClick={handleAddNewsOrCatalyst}
+                  >
                     <AddIcon />
                   </IconButton>
                 </Tooltip>
@@ -92,7 +113,7 @@ export default function NewsAndCatalysts(props) {
       <Grid item xs={12} md={6}>
         <Grid item xs={12}>
           <List
-            ref={ref}
+            ref={addedNewsCatalystRef}
             sx={{ minHeight: "160px", maxHeight: "160px", overflow: "scroll" }}
             subheader={
               <ListSubheader sx={{ textAlign: "center" }}>News &amp; Catalysts</ListSubheader>
