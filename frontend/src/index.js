@@ -10,7 +10,7 @@ import { ColorModeProvider } from "@/theme";
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ColorModeProvider>
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <CssBaseline />
         <App />
       </BrowserRouter>
