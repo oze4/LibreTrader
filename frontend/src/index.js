@@ -10,7 +10,7 @@ import { ColorModeProvider } from "@/theme";
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ColorModeProvider>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename="libretrader.com">
         <CssBaseline />
         <App />
       </BrowserRouter>
