@@ -8,6 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "../docs"),
+    publicPath: "/",
     filename: "libre-trader.js",
     clean: true,
   },
