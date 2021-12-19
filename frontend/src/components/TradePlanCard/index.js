@@ -20,7 +20,9 @@ export default function TradePlanCard({ date = "n/a", symbol = "n/a", summary = 
         <Typography variant="body2">{summary}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleOnClick}>Edit</Button>
+        <Button variant="contained" onClick={handleOnClick}>
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );

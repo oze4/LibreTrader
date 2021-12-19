@@ -162,6 +162,14 @@ export const darkMode = {
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "info",
+          borderRadius: "30px",
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {

@@ -118,7 +118,6 @@ export default function TopbarResponsive(props) {
               return (
                 <Button
                   size="small"
-                  color="info"
                   sx={{ margin: "0 0.3em" }}
                   variant={isSelectedPage(page) ? "contained" : "inherit"}
                   key={page.name}
@@ -130,26 +129,6 @@ export default function TopbarResponsive(props) {
               );
             })}
           </Box>
-          {/*   
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <ToggleButtonGroup size="small" exclusive>
-              {pages &&
-                pages.length > 0 &&
-                pages.map((page) => (
-                  <ToggleButton
-                    size="small"
-                    value={page.name}
-                    selected={isSelectedPage(page.path)}
-                    key={page.name}
-                    component={RouterLink}
-                    to={page.path}
-                  >
-                    <Typography>{page.name}</Typography>
-                  </ToggleButton>
-                ))}
-            </ToggleButtonGroup>
-          </Box>
-          */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={`switch to ${theme.mode === "dark" ? "light" : "dark"} mode`}>
               <IconButton size="large" onClick={theme.toggle} color="inherit">

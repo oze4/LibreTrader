@@ -30,7 +30,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Planner() {
   const [tradePlans, setTradePlans] = useState([]);
-  const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "850"));
+  const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "811"));
   // We want the drawer open by default. ONLY after a trade plan is added though
   // Even though this is true, it won't be open on load.
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -51,11 +51,15 @@ export default function Planner() {
 
   return (
     <Container fluid="true" sx={{ marginTop: "5rem" }}>
-      <Grid item xs={12}>
-        <Stack direction="row">
+      <Grid item xs={12} container spacing={2}>
+        <Grid item xs={10} sm={8}>
           <Typography variant="h3">Trade Planner</Typography>
+        </Grid>
+        <Grid item xs={2} sm={4} container spacing={2} justifyContent="flex-end">
           <Tooltip title={`${drawerOpen ? "hide" : "show"} trade plan`}>
             <IconButton
+              edge="end"
+              sx={{ margin: "1em 1em 0 0" }}
               disableRipple
               color={tradePlans.length > 0 ? "success" : "inherit"}
               onClick={() => {
@@ -63,11 +67,15 @@ export default function Planner() {
               }}
             >
               <Badge badgeContent={`${tradePlans.length}`}>
-                {drawerOpen ? <FormatListBulleted /> : <NotesOutlined />}
+                {drawerOpen ? (
+                  <FormatListBulleted fontSize="large" />
+                ) : (
+                  <NotesOutlined fontSize="large" />
+                )}
               </Badge>
             </IconButton>
           </Tooltip>
-        </Stack>
+        </Grid>
       </Grid>
       <Grid item xs={12}>
         <TradePlanForm onSubmit={handleTradePlanSubmit} />
