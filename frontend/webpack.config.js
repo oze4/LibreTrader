@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const FileManagerPlugin = require("filemanager-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -7,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "../docs"),
-    filename: "libre-trader-fe-bundle.js",
+    filename: "app.js",
     clean: true,
   },
   performance: {
@@ -34,6 +35,18 @@ module.exports = {
     ],
   },
   plugins: [
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          copy: [
+            { // Copy CNAME from root of project into /docs folder for GitHub Pages
+              source: path.resolve(__dirname, "./CNAME"),
+              destination: path.resolve(__dirname, "../docs/CNAME"),
+            },
+          ],
+        },
+      },
+    }),
     new HtmlWebPackPlugin({
       template: "./public/index.ejs",
       filename: "./index.html",
