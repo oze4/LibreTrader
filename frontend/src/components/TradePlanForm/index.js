@@ -17,7 +17,7 @@ const Section = styled(Paper, (props) => ({ ...props }))`
 export default function TradePlanForm({ onSubmit = (formData) => ({ ...formData }) }) {
   return (
     <TradePlanProvider>
-      <Box sx={{ maxHeight: "75vh", overflow: "scroll" }}>
+      <Box sx={{ maxHeight: "65vh", overflow: "scroll" }}>
         <Section>
           <GeneralInfo />
         </Section>

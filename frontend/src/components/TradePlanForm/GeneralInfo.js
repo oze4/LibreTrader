@@ -51,7 +51,7 @@ export default function GeneralInfo(props) {
         <Grid item xs={12}>
           <Typography variant="subtitle1">General</Typography>
         </Grid>
-        <Grid item xs={12} sm={6} container spacing={2}>
+        <Grid item xs={12} md={6} container spacing={2}>
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -85,7 +85,7 @@ export default function GeneralInfo(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} container spacing={2}>
+        <Grid item xs={12} md={6} container spacing={2}>
           {/* bigger picture */}
           <Grid item xs={12}>
             <TextField
