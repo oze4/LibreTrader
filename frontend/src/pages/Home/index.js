@@ -5,6 +5,16 @@ import { Typography, Button, Grid, Container, useMediaQuery } from "@mui/materia
 export default function Home() {
   const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "811"));
 
+  const variants = isIPadOrSmaller ? {
+    title: "h3",
+    subheader: "h5",
+    message: "h6"
+  } : {
+    title: "h1",
+    subheader: "h3",
+    message: "h5"
+  }
+
   return (
     <Container fixed sx={{ height: "100vh", width: "100vw" }}>
       <Grid
@@ -17,9 +27,11 @@ export default function Home() {
         textAlign="center"
       >
         <Grid item xs={12}>
-          <Typography variant={isIPadOrSmaller ? "h3" : "h1"}>LibreTrader</Typography>
-          <Typography variant={isIPadOrSmaller ? "h5" : "h3"}>Open Source Trading Journal</Typography>
-          <Typography variant={isIPadOrSmaller ? "h6" : "h5"}>
+          <Typography variant={variants.title}>LibreTrader</Typography>
+          <Typography variant={variants.subheader}>
+            Open Source Trading Journal
+          </Typography>
+          <Typography variant={variants.message}>
             <i>...more coming soon!</i>
           </Typography>
         </Grid>
