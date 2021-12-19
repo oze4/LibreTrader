@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "../docs"),
-    filename: "app.js",
+    filename: "libre-trader.js",
     clean: true,
   },
   performance: {
