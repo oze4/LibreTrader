@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 
@@ -10,10 +10,10 @@ import { ColorModeProvider } from "@/theme";
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ColorModeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <CssBaseline />
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </ColorModeProvider>
   </StyledEngineProvider>,
   document.querySelector("#root"),
