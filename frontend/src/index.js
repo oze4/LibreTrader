@@ -10,10 +10,10 @@ import { ColorModeProvider } from "@/theme";
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ColorModeProvider>
-      <HashRouter basename="/">
+      <BrowserRouter basename="/">
         <CssBaseline />
         <App />
-      </HashRouter>
+      </BrowserRouter>
     </ColorModeProvider>
   </StyledEngineProvider>,
   document.querySelector("#root"),
