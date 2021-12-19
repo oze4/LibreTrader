@@ -1,5 +1,6 @@
 {
   "name": "libre-trader-frontend",
+  "homepage": "https://libretrader.com/",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +14,7 @@
     "format": "./node_modules/.bin/prettier --write '**/*.js'"
   },
   "keywords": [],
-  "author": "",
+  "author": "mattoestreich.com",
   "license": "ISC",
   "dependencies": {
     "react": "^17.0.2",
