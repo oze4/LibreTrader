@@ -18,7 +18,7 @@ export default function Home() {
       >
         <Grid item xs={12}>
           <Typography variant={isIPadOrSmaller ? "h3" : "h1"}>LibreTrader</Typography>
-          <Typography variant={isIPadOrSmaller ? "h5" : "h3"}></Typography>
+          <Typography variant={isIPadOrSmaller ? "h5" : "h3"}>Open Source Trading Journal</Typography>
           <Typography variant={isIPadOrSmaller ? "h6" : "h5"}>
             <i>...more coming soon!</i>
           </Typography>
