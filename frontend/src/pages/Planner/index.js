@@ -32,7 +32,6 @@ export default function Planner() {
   const [tradePlans, setTradePlans] = useState([]);
   const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "811"));
   // We want the drawer open by default. ONLY after a trade plan is added though
-  // Even though this is true, it won't be open on load.
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleTradePlanSubmit = (tradeplan) => {
