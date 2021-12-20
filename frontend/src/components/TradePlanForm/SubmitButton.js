@@ -7,7 +7,7 @@ import { useTradePlanContext } from "./context";
 
 const StyledFab = styled(Fab, (props) => ({ ...props }))`
   position: fixed;
-  z-index: 99999999;
+  z-index: 9000;
   /*
   bottom: 3em;
   right: 6em;
@@ -15,7 +15,7 @@ const StyledFab = styled(Fab, (props) => ({ ...props }))`
 `;
 
 export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
-  const isIPadOrSmaller = useMediaQuery((theme) => theme.breakpoints.between("0", "811"));
+  const isMediumSmallScreen = useMediaQuery((theme) => theme.breakpoints.between("0", "1230"));
   const { state, clearForm, setState } = useTradePlanContext();
 
   const handleSubmit = () => {
@@ -41,7 +41,9 @@ export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
     clearForm();
   };
 
-  const sx = isIPadOrSmaller ? { bottom: "16px", right: "16px" } : { bottom: "4em", right: "20em" };
+  const sx = isMediumSmallScreen
+    ? { bottom: "16px", right: "16px" }
+    : { bottom: "4em", right: "20em" };
 
   return (
     <Tooltip title="add to trade plan">

@@ -1,7 +1,4 @@
 import React, { useState, useMemo } from "react";
-import styled from "@emotion/styled";
-
-import { TradePlanForm, TradePlanCard } from "@/components";
 import {
   Container,
   Box,
@@ -14,19 +11,15 @@ import {
   Typography,
   Tooltip,
   Badge,
-  Stack,
   useMediaQuery,
+  Button,
+  ListSubheader,
+  AppBar,
+  Toolbar,
 } from "@mui/material";
-import { Close, FormatListBulleted, NotesOutlined } from "@mui/icons-material";
+import { Close as CloseIcon, FormatListBulleted, NotesOutlined } from "@mui/icons-material";
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
-}));
+import { TradePlanForm, TradePlanCard } from "@/components";
 
 export default function Planner() {
   const [tradePlans, setTradePlans] = useState([]);
@@ -58,9 +51,9 @@ export default function Planner() {
           <Tooltip title={`${drawerOpen ? "hide" : "show"} trade plan`}>
             <IconButton
               edge="end"
-              sx={{ boxShadow: 1, margin: "1em 1em 0 0" }}
+              sx={{ boxShadow: 1, margin: "1em 1em 0 0", color: tradePlans.length > 0 ? "green" : "" }}
               disableRipple
-              color={tradePlans.length > 0 ? "success" : "inherit"}
+              color="primary"
               onClick={() => setDrawerOpen(!drawerOpen)}
             >
               <Badge badgeContent={`${tradePlans.length}`}>
@@ -82,6 +75,7 @@ export default function Planner() {
           width: calculateTradePlanDrawerSize,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
+            zIndex: 9001,
             width: calculateTradePlanDrawerSize,
             boxSizing: "border-box",
           },
@@ -90,23 +84,42 @@ export default function Planner() {
         open={drawerOpen}
         anchor="right"
       >
-        <DrawerHeader sx={{ marginTop: "200px" }}>
-          <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-            <Close />
-          </IconButton>
-          <Typography variant="subheader1">Trade Plans</Typography>
-        </DrawerHeader>
-        <Divider />
         <List>
+          <ListSubheader>
+            <Typography variant="h5">Trade Plan</Typography>
+          </ListSubheader>
+          <Divider />
           {tradePlans.map((plan, index) => {
             return (
               <ListItem key={`${index}-${plan.date}-${plan.symbol}-${plan.summary.length}`}>
                 <Box sx={{ width: "100%" }}>
                   <TradePlanCard symbol={plan.symbol} date={plan.date} summary={plan.summary} />
                 </Box>
+                <Divider />
               </ListItem>
             );
           })}
+          <AppBar
+            position="fixed"
+            color="primary"
+            sx={{
+              padding: "2em",
+              // use `calculateTradePlanDrawerSize` for the appbar footer as well
+              width: calculateTradePlanDrawerSize,
+              top: "auto",
+              bottom: 0,
+            }}
+          >
+            <Toolbar>
+              <Button
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                variant="contained"
+                startIcon={<CloseIcon />}
+              >
+                Close
+              </Button>
+            </Toolbar>
+          </AppBar>
         </List>
       </Drawer>
     </Container>
