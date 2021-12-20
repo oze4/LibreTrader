@@ -68,18 +68,13 @@ export default function Zones(props) {
 
   const handleZoneImageChange = (event) => {
     const file = event.target.files[0];
-    const image = {
-      name: file.name,
-      blob: URL.createObjectURL(file),
-    };
-    const zoneImages = [...state.zone.images];
-    zoneImages.push(image);
+    const image = { name: file.name, blob: URL.createObjectURL(file) };
+    const zoneImages = [...state.zone.images].push(image);
     setState({ ...state, zone: { ...state.zone, images: zoneImages } });
   };
 
   const handleZoneImageRemove = (index) => {
-    const zoneImages = [...state.zone.images];
-    zoneImages.splice(index, 1);
+    const zoneImages = [...state.zone.images].splice(index, 1);
     setState({ ...state, zone: { ...state.zone, images: zoneImages } });
   };
 
@@ -110,7 +105,6 @@ export default function Zones(props) {
   const handleAddZone = () => {
     const requiredFields = ["type", "timeFrame", "start", "end"];
     const foundZoneFormErrors = requiredFields.reduce((errs, field) => {
-      console.log({ field });
       if (isEmptyField(field)) {
         errs.push(field);
       }
@@ -123,48 +117,28 @@ export default function Zones(props) {
       return;
     }
 
-    const zones = [...state.zones];
-    zones.push(state.zone);
+    const zones = [...state.zones].push(state.zone);
     setState({
       ...state,
-      zone: {
-        type: "",
-        timeFrame: "",
-        start: "",
-        end: "",
-        images: [],
-        notes: "",
-      },
+      zone: { type: "", timeFrame: "", start: "", end: "", images: [], notes: "" },
       zones: [...zones],
     });
   };
 
   const handleRemoveZone = (index) => {
-    const zones = [...state.zones];
-    zones.splice(index, 1);
-    setState({
-      ...state,
-      zones: zones,
-    });
+    const zones = [...state.zones].splice(index, 1);
+    setState({ ...state, zones: zones });
   };
 
   const calculateZoneTypeColor = useMemo(() => {
-    console.log(state.zone.type);
-    let c = "info";
     switch (state.zone.type) {
-      case "supply": {
-        c = "error";
-        break;
-      }
-      case "demand": {
-        c = "success";
-        break;
-      }
+      case "supply":
+        return "error";
+      case "demand":
+        return "success";
       default:
-        break;
+        return "info";
     }
-    console.log(c);
-    return c;
   }, [state.zone.type]);
 
   return (
@@ -175,7 +149,6 @@ export default function Zones(props) {
             <Typography variant="subtitle1">Imbalance Zones</Typography>
             <Typography variant="subtitle2">add supply and demand zones below</Typography>
           </Grid>
-          {/* add supply or demand zone */}
           <Grid item xs={12} sm={6} md={6}>
             <ToggleButtonGroup
               fullWidth
