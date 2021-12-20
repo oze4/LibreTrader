@@ -15,7 +15,7 @@ const StyledFab = styled(Fab, (props) => ({ ...props }))`
 `;
 
 export default function SubmitButton({ onSubmit, title, ButtonProps = {} }) {
-  const isMediumSmallScreen = useMediaQuery((theme) => theme.breakpoints.between("0", "1230"));
+  const isMediumSmallScreen = useMediaQuery((theme) => theme.breakpoints.between("0", "1840"));
   const { state, clearForm, setState } = useTradePlanContext();
 
   const handleSubmit = () => {
