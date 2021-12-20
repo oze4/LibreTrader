@@ -27,7 +27,7 @@ export default function NewsAndCatalysts(props) {
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
-  }, [state]);
+  }, [state.newsAndCatalysts]);
 
   const handleNewsOrCatalystKeyUp = (event) => {
     // Allow for the user to add news/catalyst to list
@@ -40,12 +40,10 @@ export default function NewsAndCatalysts(props) {
 
   const handleNewsOrCatalystChange = (event) => {
     if (formError) {
+      // If error, remove it once user begins typing
       setFormError(false);
     }
-    setState({
-      ...state,
-      newsCatalyst: event.target.value,
-    });
+    setState({ ...state, newsCatalyst: event.target.value });
   };
 
   const handleAddNewsOrCatalyst = () => {
@@ -55,12 +53,10 @@ export default function NewsAndCatalysts(props) {
       setFormError(true);
       return;
     }
-    const currentNewsAndCatalysts = [...state.newsAndCatalysts];
-    currentNewsAndCatalysts.push(newsCatalystToAdd);
     setState({
       ...state,
       newsCatalyst: "",
-      newsAndCatalysts: currentNewsAndCatalysts,
+      newsAndCatalysts: [...state.newsAndCatalysts, newsCatalystToAdd],
     });
     // Focus on input after adding
     if (newsCatalystInputRef.current) {
@@ -69,12 +65,8 @@ export default function NewsAndCatalysts(props) {
   };
 
   const handleRemoveNews = (index) => {
-    const currentNewsAndCatalysts = [...state.newsAndCatalysts];
-    currentNewsAndCatalysts.splice(index, 1);
-    setState({
-      ...state,
-      newsAndCatalysts: currentNewsAndCatalysts,
-    });
+    state.newsAndCatalysts.splice(index, 1);
+    setState({ ...state, newsAndCatalysts: [...state.newsAndCatalysts] });
   };
 
   return (

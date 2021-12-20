@@ -69,13 +69,13 @@ export default function Zones(props) {
   const handleZoneImageChange = (event) => {
     const file = event.target.files[0];
     const image = { name: file.name, blob: URL.createObjectURL(file) };
-    const zoneImages = [...state.zone.images].push(image);
-    setState({ ...state, zone: { ...state.zone, images: zoneImages } });
+    state.zone.images.push(image);
+    setState({ ...state, zone: { ...state.zone, images: [...state.zone.images] } });
   };
 
   const handleZoneImageRemove = (index) => {
-    const zoneImages = [...state.zone.images].splice(index, 1);
-    setState({ ...state, zone: { ...state.zone, images: zoneImages } });
+    state.zone.images.splice(index, 1);
+    setState({ ...state, zone: { ...state.zone, images: [...state.zone.images] } });
   };
 
   const handleZoneTypeChange = (value) => {
@@ -110,14 +110,13 @@ export default function Zones(props) {
       }
       return errs;
     }, []);
-
     // do nothing if there are field errors
     if (foundZoneFormErrors.length > 0) {
       setZoneFormErrors(foundZoneFormErrors);
       return;
     }
-
-    const zones = [...state.zones].push(state.zone);
+    const zones = [...state.zones];
+    zones.push(state.zone);
     setState({
       ...state,
       zone: { type: "", timeFrame: "", start: "", end: "", images: [], notes: "" },
@@ -126,7 +125,8 @@ export default function Zones(props) {
   };
 
   const handleRemoveZone = (index) => {
-    const zones = [...state.zones].splice(index, 1);
+    const zones = [...state.zones];
+    zones.splice(index, 1);
     setState({ ...state, zones: zones });
   };
 
